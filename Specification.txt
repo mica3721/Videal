@@ -1,0 +1,36 @@
+Project Title: Video Classified uploader / search engine
+Engineers: Eunmo Yang, Do Kwon
+
+Framework: Tab based application, UI Framework is UITabBar
+
+Back end: Create multiple accounts on the basis of category, upload download videos from matching accounts
+
+Scrape all the Youtube videos in this category 
+
+Tab1 : Search Videos
+
+-Text search
+-price limit -> text
+
+
+Tab1b : Advanced Search 
+-Distance from location
+-Change location of search
+
+
+Tab2 : Sharing videos
+
+parameters: 
+
+1) Location 			- optional boolean
+2) Item being sold (broad category) - required
+3) Specific Item (brand / subcategory)  -optional
+4) Price Range				-required
+3) Deadline on offer			-optional
+
+=> Change to unique string / Tag to Youtube video
+
+Tab 3 : What's Hot
+
+Generate videos on the basis of View counts => generate playlist 
+
