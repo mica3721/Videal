@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B16D0111552777B00F0E0E7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0101552777B00F0E0E7 /* SearchViewController.m */; };
+		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
+		1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0171552781400F0E0E7 /* HotViewController.m */; };
+		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
+		1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D02B155290FE00F0E0E7 /* VideoViewController.m */; };
+		1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA71550960600335348 /* UIKit.framework */; };
+		1B5BFDAA1550960600335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
+		1B5BFDAC1550960600335348 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDAB1550960600335348 /* CoreGraphics.framework */; };
+		1B5BFDB21550960600335348 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDB01550960600335348 /* InfoPlist.strings */; };
+		1B5BFDB41550960600335348 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDB31550960600335348 /* main.m */; };
+		1B5BFDB81550960600335348 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDB71550960600335348 /* AppDelegate.m */; };
+		1B5BFDBD1550960700335348 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDBC1550960700335348 /* first.png */; };
+		1B5BFDBF1550960700335348 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDBE1550960700335348 /* first@2x.png */; };
+		1B5BFDC41550960700335348 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDC31550960700335348 /* second.png */; };
+		1B5BFDC61550960700335348 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDC51550960700335348 /* second@2x.png */; };
+		1B5BFDC91550960700335348 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDC71550960700335348 /* FirstViewController.xib */; };
+		1B5BFDCC1550960700335348 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDCA1550960700335348 /* SecondViewController.xib */; };
+		1B5BFDD41550960700335348 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDD31550960700335348 /* SenTestingKit.framework */; };
+		1B5BFDD51550960700335348 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA71550960600335348 /* UIKit.framework */; };
+		1B5BFDD61550960700335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
+		1B5BFDDE1550960700335348 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDDC1550960700335348 /* InfoPlist.strings */; };
+		1B5BFDE11550960700335348 /* VidealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDE01550960700335348 /* VidealTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B5BFDD71550960700335348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B5BFD9A1550960500335348 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B5BFDA21550960600335348;
+			remoteInfo = Videal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1B16D00F1552777B00F0E0E7 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		1B16D0101552777B00F0E0E7 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		1B16D014155277E100F0E0E7 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		1B16D0161552781300F0E0E7 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
+		1B16D0171552781400F0E0E7 /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
+		1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1B16D02A155290CA00F0E0E7 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		1B16D02B155290FE00F0E0E7 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		1B5BFDA31550960600335348 /* Videal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Videal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B5BFDA71550960600335348 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1B5BFDA91550960600335348 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1B5BFDAB1550960600335348 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1B5BFDAF1550960600335348 /* Videal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Videal-Info.plist"; sourceTree = "<group>"; };
+		1B5BFDB11550960600335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B5BFDB31550960600335348 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1B5BFDB51550960600335348 /* Videal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Videal-Prefix.pch"; sourceTree = "<group>"; };
+		1B5BFDB61550960600335348 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1B5BFDB71550960600335348 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1B5BFDBC1550960700335348 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		1B5BFDBE1550960700335348 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		1B5BFDC31550960700335348 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		1B5BFDC51550960700335348 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		1B5BFDC81550960700335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
+		1B5BFDCB1550960700335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		1B5BFDD21550960700335348 /* VidealTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VidealTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B5BFDD31550960700335348 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		1B5BFDDB1550960700335348 /* VidealTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VidealTests-Info.plist"; sourceTree = "<group>"; };
+		1B5BFDDD1550960700335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B5BFDDF1550960700335348 /* VidealTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VidealTests.h; sourceTree = "<group>"; };
+		1B5BFDE01550960700335348 /* VidealTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VidealTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B5BFDA01550960600335348 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */,
+				1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */,
+				1B5BFDAA1550960600335348 /* Foundation.framework in Frameworks */,
+				1B5BFDAC1550960600335348 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B5BFDCE1550960700335348 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B5BFDD41550960700335348 /* SenTestingKit.framework in Frameworks */,
+				1B5BFDD51550960700335348 /* UIKit.framework in Frameworks */,
+				1B5BFDD61550960700335348 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B5BFD981550960500335348 = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDAD1550960600335348 /* Videal */,
+				1B5BFDD91550960700335348 /* VidealTests */,
+				1B5BFDA61550960600335348 /* Frameworks */,
+				1B5BFDA41550960600335348 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1B5BFDA41550960600335348 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDA31550960600335348 /* Videal.app */,
+				1B5BFDD21550960700335348 /* VidealTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B5BFDA61550960600335348 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */,
+				1B5BFDA71550960600335348 /* UIKit.framework */,
+				1B5BFDA91550960600335348 /* Foundation.framework */,
+				1B5BFDAB1550960600335348 /* CoreGraphics.framework */,
+				1B5BFDD31550960700335348 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1B5BFDAD1550960600335348 /* Videal */ = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDB61550960600335348 /* AppDelegate.h */,
+				1B5BFDB71550960600335348 /* AppDelegate.m */,
+				1B16D00F1552777B00F0E0E7 /* SearchViewController.h */,
+				1B16D0101552777B00F0E0E7 /* SearchViewController.m */,
+				1B16D013155277E100F0E0E7 /* PostViewController.h */,
+				1B16D014155277E100F0E0E7 /* PostViewController.m */,
+				1B16D0161552781300F0E0E7 /* HotViewController.h */,
+				1B16D0171552781400F0E0E7 /* HotViewController.m */,
+				1B5BFDC31550960700335348 /* second.png */,
+				1B5BFDBC1550960700335348 /* first.png */,
+				1B5BFDBE1550960700335348 /* first@2x.png */,
+				1B5BFDC51550960700335348 /* second@2x.png */,
+				1B16D02A155290CA00F0E0E7 /* VideoViewController.h */,
+				1B16D02B155290FE00F0E0E7 /* VideoViewController.m */,
+				1B5BFDC71550960700335348 /* FirstViewController.xib */,
+				1B5BFDCA1550960700335348 /* SecondViewController.xib */,
+				1B5BFDAE1550960600335348 /* Supporting Files */,
+			);
+			path = Videal;
+			sourceTree = "<group>";
+		};
+		1B5BFDAE1550960600335348 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDAF1550960600335348 /* Videal-Info.plist */,
+				1B5BFDB01550960600335348 /* InfoPlist.strings */,
+				1B5BFDB31550960600335348 /* main.m */,
+				1B5BFDB51550960600335348 /* Videal-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1B5BFDD91550960700335348 /* VidealTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDDF1550960700335348 /* VidealTests.h */,
+				1B5BFDE01550960700335348 /* VidealTests.m */,
+				1B5BFDDA1550960700335348 /* Supporting Files */,
+			);
+			path = VidealTests;
+			sourceTree = "<group>";
+		};
+		1B5BFDDA1550960700335348 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B5BFDDB1550960700335348 /* VidealTests-Info.plist */,
+				1B5BFDDC1550960700335348 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B5BFDA21550960600335348 /* Videal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B5BFDE41550960700335348 /* Build configuration list for PBXNativeTarget "Videal" */;
+			buildPhases = (
+				1B5BFD9F1550960600335348 /* Sources */,
+				1B5BFDA01550960600335348 /* Frameworks */,
+				1B5BFDA11550960600335348 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Videal;
+			productName = Videal;
+			productReference = 1B5BFDA31550960600335348 /* Videal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B5BFDD11550960700335348 /* VidealTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B5BFDE71550960700335348 /* Build configuration list for PBXNativeTarget "VidealTests" */;
+			buildPhases = (
+				1B5BFDCD1550960700335348 /* Sources */,
+				1B5BFDCE1550960700335348 /* Frameworks */,
+				1B5BFDCF1550960700335348 /* Resources */,
+				1B5BFDD01550960700335348 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B5BFDD81550960700335348 /* PBXTargetDependency */,
+			);
+			name = VidealTests;
+			productName = VidealTests;
+			productReference = 1B5BFDD21550960700335348 /* VidealTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B5BFD9A1550960500335348 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Stanford University";
+			};
+			buildConfigurationList = 1B5BFD9D1550960500335348 /* Build configuration list for PBXProject "Videal" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1B5BFD981550960500335348;
+			productRefGroup = 1B5BFDA41550960600335348 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B5BFDA21550960600335348 /* Videal */,
+				1B5BFDD11550960700335348 /* VidealTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B5BFDA11550960600335348 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B5BFDB21550960600335348 /* InfoPlist.strings in Resources */,
+				1B5BFDBD1550960700335348 /* first.png in Resources */,
+				1B5BFDBF1550960700335348 /* first@2x.png in Resources */,
+				1B5BFDC41550960700335348 /* second.png in Resources */,
+				1B5BFDC61550960700335348 /* second@2x.png in Resources */,
+				1B5BFDC91550960700335348 /* FirstViewController.xib in Resources */,
+				1B5BFDCC1550960700335348 /* SecondViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B5BFDCF1550960700335348 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B5BFDDE1550960700335348 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B5BFDD01550960700335348 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B5BFD9F1550960600335348 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B5BFDB41550960600335348 /* main.m in Sources */,
+				1B5BFDB81550960600335348 /* AppDelegate.m in Sources */,
+				1B16D0111552777B00F0E0E7 /* SearchViewController.m in Sources */,
+				1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */,
+				1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */,
+				1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B5BFDCD1550960700335348 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B5BFDE11550960700335348 /* VidealTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B5BFDD81550960700335348 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B5BFDA21550960600335348 /* Videal */;
+			targetProxy = 1B5BFDD71550960700335348 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1B5BFDB01550960600335348 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B5BFDB11550960600335348 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1B5BFDC71550960700335348 /* FirstViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B5BFDC81550960700335348 /* en */,
+			);
+			name = FirstViewController.xib;
+			sourceTree = "<group>";
+		};
+		1B5BFDCA1550960700335348 /* SecondViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B5BFDCB1550960700335348 /* en */,
+			);
+			name = SecondViewController.xib;
+			sourceTree = "<group>";
+		};
+		1B5BFDDC1550960700335348 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B5BFDDD1550960700335348 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1B5BFDE21550960700335348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1B5BFDE31550960700335348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B5BFDE51550960700335348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				INFOPLIST_FILE = "Videal/Videal-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1B5BFDE61550960700335348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				INFOPLIST_FILE = "Videal/Videal-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1B5BFDE81550960700335348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Videal.app/Videal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				INFOPLIST_FILE = "VidealTests/VidealTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		1B5BFDE91550960700335348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Videal.app/Videal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				INFOPLIST_FILE = "VidealTests/VidealTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B5BFD9D1550960500335348 /* Build configuration list for PBXProject "Videal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B5BFDE21550960700335348 /* Debug */,
+				1B5BFDE31550960700335348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B5BFDE41550960700335348 /* Build configuration list for PBXNativeTarget "Videal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B5BFDE51550960700335348 /* Debug */,
+				1B5BFDE61550960700335348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B5BFDE71550960700335348 /* Build configuration list for PBXNativeTarget "VidealTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B5BFDE81550960700335348 /* Debug */,
+				1B5BFDE91550960700335348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1B5BFD9A1550960500335348 /* Project object */;
+}
