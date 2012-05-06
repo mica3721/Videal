@@ -49,14 +49,28 @@
 // as a delegate we are being told a picture was taken
 - (void)imagePickerController:(UIImagePickerController *)_picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    NSURL *videoLink = [info objectForKey:UIImagePickerControllerMediaURL];
+    NSURL *videoLink = [[info objectForKey:UIImagePickerControllerMediaURL] copy];
+    UISaveVideoAtPathToSavedPhotosAlbum((NSString *)videoLink, nil, nil, nil);
+    [self dismissModalViewControllerAnimated:YES];
     
-    // We will do something with the video in a minute
-    //NSLog(videoLink);
+    PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
+    [self presentModalViewController:details animated:YES];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (void) captureScreen {
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect rect = [keyWindow bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CALayer *sth = keyWindow.layer;
+    [sth renderInContext:context];   
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(img, self, nil, nil);
+}
 
 -(void) CallVideoLibrary: (id) sender {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -68,9 +82,16 @@
     picker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeMovie]; 
     //picker.videoQuality = UIImagePickerControllerQualityTypeHigh; 
     picker.delegate = self;
+    
     [self presentModalViewController:picker animated:YES];
 }
 
+
+-(void) capt {
+    sleep(10);
+    [self captureScreen];
+    [captureThread cancel];
+}
 
 -(void) CallVideoCamera:(id) sender {
     
@@ -78,6 +99,7 @@
         NSLog(@"The device does not have a camera.");
         return; // Change this with a warning message later
     }
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     NSArray *sourceTypes = [UIImagePickerController availableMediaTypesForSourceType:picker.sourceType]; 
     if(![sourceTypes containsObject:(NSString *)kUTTypeMovie]) {
         NSLog(@"The device does not support video.");
@@ -87,7 +109,10 @@
     picker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeMovie]; 
     picker.videoQuality = UIImagePickerControllerQualityTypeHigh; 
     picker.delegate = self;
+    
     [self presentModalViewController:picker animated:YES];	 
+    captureThread = [[NSThread alloc] initWithTarget:self selector:@selector(capt) object:nil];
+    [captureThread start];
     
 }
 
@@ -97,7 +122,6 @@
 {
     [super viewDidLoad];
     picker = [[UIImagePickerController alloc] init];
-    
     
     UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];

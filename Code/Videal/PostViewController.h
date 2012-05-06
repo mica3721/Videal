@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "PostDetailViewController.h"
 
 @interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-    
     UIImagePickerController *picker;
+    NSThread *captureThread;     // Temporary get rid of later
 }
 
 @end

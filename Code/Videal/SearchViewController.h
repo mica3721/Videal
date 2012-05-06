@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchViewController : UIViewController<UISearchBarDelegate, UITableViewDelegate> {
+@interface SearchViewController : UIViewController<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource> {
     UISearchBar *searchBar;
     UITableView *categories;
+    NSArray *options;
 }
 
 @end

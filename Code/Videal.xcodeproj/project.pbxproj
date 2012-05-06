@@ -12,6 +12,8 @@
 		1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0171552781400F0E0E7 /* HotViewController.m */; };
 		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
 		1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D02B155290FE00F0E0E7 /* VideoViewController.m */; };
+		1B16D0461556EF3500F0E0E7 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0451556EF3500F0E0E7 /* PostDetailViewController.m */; };
+		1B16D0491556F56200F0E0E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D0481556F56200F0E0E7 /* QuartzCore.framework */; };
 		1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA71550960600335348 /* UIKit.framework */; };
 		1B5BFDAA1550960600335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
 		1B5BFDAC1550960600335348 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDAB1550960600335348 /* CoreGraphics.framework */; };
@@ -51,6 +53,9 @@
 		1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1B16D02A155290CA00F0E0E7 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		1B16D02B155290FE00F0E0E7 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		1B16D0441556EF3500F0E0E7 /* PostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailViewController.h; sourceTree = "<group>"; };
+		1B16D0451556EF3500F0E0E7 /* PostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailViewController.m; sourceTree = "<group>"; };
+		1B16D0481556F56200F0E0E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1B5BFDA31550960600335348 /* Videal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Videal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5BFDA71550960600335348 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1B5BFDA91550960600335348 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B16D0491556F56200F0E0E7 /* QuartzCore.framework in Frameworks */,
 				1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */,
 				1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */,
 				1B5BFDAA1550960600335348 /* Foundation.framework in Frameworks */,
@@ -122,6 +128,7 @@
 		1B5BFDA61550960600335348 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B16D0481556F56200F0E0E7 /* QuartzCore.framework */,
 				1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */,
 				1B5BFDA71550960600335348 /* UIKit.framework */,
 				1B5BFDA91550960600335348 /* Foundation.framework */,
@@ -140,6 +147,8 @@
 				1B16D0101552777B00F0E0E7 /* SearchViewController.m */,
 				1B16D013155277E100F0E0E7 /* PostViewController.h */,
 				1B16D014155277E100F0E0E7 /* PostViewController.m */,
+				1B16D0441556EF3500F0E0E7 /* PostDetailViewController.h */,
+				1B16D0451556EF3500F0E0E7 /* PostDetailViewController.m */,
 				1B16D0161552781300F0E0E7 /* HotViewController.h */,
 				1B16D0171552781400F0E0E7 /* HotViewController.m */,
 				1B5BFDC31550960700335348 /* second.png */,
@@ -303,6 +312,7 @@
 				1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */,
 				1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */,
 				1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */,
+				1B16D0461556EF3500F0E0E7 /* PostDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
