@@ -116,6 +116,14 @@
     
 }
 
+-(void) Youtube {
+    
+    
+    YouTubeClient *client = [[YouTubeClient alloc] init];
+    [client sendQuery:@""];
+    
+}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -136,6 +144,13 @@
     [filmBtn setTitle:@"Take a Video" forState:UIControlStateNormal];
     [filmBtn setUserInteractionEnabled:YES];
     [self.view addSubview:filmBtn];
+    
+    UIButton *testBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [testBtn setFrame:CGRectMake(50, 250, 200, 60)];
+    [testBtn addTarget:self action:@selector(Youtube) forControlEvents:UIControlEventTouchUpInside];
+    [testBtn setTitle:@"Youtube" forState:UIControlStateNormal];
+    [testBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:testBtn];
 }
 
 

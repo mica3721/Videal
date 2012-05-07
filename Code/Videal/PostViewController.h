@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "PostDetailViewController.h"
+#import "YouTubeClient.h"
 
 @interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     UIImagePickerController *picker;

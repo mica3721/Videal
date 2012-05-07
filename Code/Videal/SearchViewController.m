@@ -94,7 +94,7 @@
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
 	}
-    cell.textLabel.font = [UIFont fontWithName:@"Futura" size:14];
+    cell.textLabel.font = [UIFont fontWithName:@"Futura" size:20];
     cell.textLabel.text = [options objectAtIndex:indexPath.row];
     
 	
