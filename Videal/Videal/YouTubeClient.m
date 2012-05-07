@@ -19,20 +19,29 @@
 }
 
 
+- (void) uploadVideo {
+    
+    
+    
+}
+
 - (void) sendQuery: (NSString *)query {
-    NSString *base = @"http://accounts.google.com/o/oauth2/auth?";
-    NSString *client_id = @"client_id=57312008374.apps.googleusercontent.com&";
-    NSString *redirect_uri = @"redirect_uri=http://localhost/oauth2callback&";
     
-    NSString *scope = @"scope=http://gdata.youtube.com&"; 
-    NSString *response_type = @"response_type=json&";
-    NSString *access_type = @"access_type=offline";
-    NSString *solution = [[[[[base stringByAppendingString:client_id] stringByAppendingString:redirect_uri] stringByAppendingString:response_type] stringByAppendingString:scope] stringByAppendingString:access_type];
+    //NSString *solution = @"https://accounts.google.com/o/oauth2/token&code=4/UMkd8g2LaQdgYl2Ab8npHZb-mTlH&client_id=57312008374.apps.googleusercontent.com&client_secret=5HDLSxm0ciiFZ14etx-2q1hs&redirect_uri=http://localhost/oauth2callback&grant_type=authorization_code";
+    NSString *solution = @"https://accounts.google.com/o/oauth2/token";
     
     
+    //https://accounts.google.com/o/oauth2/auth?client_id=57312008374.apps.googleusercontent.com&redirect_uri=http://localhost&response_type=code&scope=https://gdata.youtube.com&access_type=offline
     
     NSURL *URL = [NSURL URLWithString:solution];
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: URL];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setValue:@"accounts.google.com" forHTTPHeaderField:@"Host"];
+    
+    
+    NSString *sth = @"&code=4/aVJ5iOz2QHrODjNn_y1DJO9J2xET&client_id=57312008374.apps.googleusercontent.com&client_secret=5HDLSxm0ciiFZ14etx-2q1hs&redirect_uri=http://localhost&grant_type=authorization_code";
+    [request setHTTPBody:[sth dataUsingEncoding:NSUTF8StringEncoding]];
 	NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     [connection start];
 }

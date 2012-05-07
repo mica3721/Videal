@@ -8,10 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "JSON.h"
+
+
+
 @interface YouTubeClient : NSObject {
     NSMutableData *responseData;
+    NSString *authkey;
+    
 }
 
+
+-(id) init;
 -(void) sendQuery:(NSString*) query;
+-(void) uploadVideo; 
+
 
 @end
+
