@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JSON.h"
 
-
+#define kNotificationGotLoginPage @"2130jhfdjhdsljhl"
 
 @interface YouTubeClient : NSObject {
     NSMutableData *responseData;

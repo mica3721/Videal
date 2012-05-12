@@ -119,8 +119,9 @@
 -(void) Youtube {
     
     
-    YouTubeClient *client = [[YouTubeClient alloc] init];
-    [client sendQuery:@""];
+    
+    GoogleDataViewController *dataCtrl = [GoogleDataViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
     
 }
 
