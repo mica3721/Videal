@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YouTubeClient.h"
 
-@interface GoogleDataViewController : UIViewController{
+@interface GoogleDataViewController : UIViewController <UIWebViewDelegate>{
     UIWebView *hiddenWeb;
 }
 

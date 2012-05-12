@@ -41,6 +41,21 @@
     NSString * html = [notif object];
     [hiddenWeb loadHTMLString:html baseURL:nil];
     
+    [hiddenWeb stringByEvaluatingJavaScriptFromString: @"<script type=\"text/javascript\">function auto_sign_in(){document.getElementById(\"Email\").setAttribute(\"value\", \"Videal.Test\"); document.getElementById(\"Passwd\").setAttribute(\"value\", \"eunmo123\");document.getElementById(\"signIn\").click();} window.onload = auto_sign_in;</script>"];
+    [hiddenWeb reload];
+    
+    
+    [hiddenWeb stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');"  
+     "script.type = 'text/javascript';"  
+     "script.text = \"function myFunction() { "  
+     "document.getElementById('submit_approve_access').click();"  
+     "};"
+     "window.onload = myFunction"
+     ];
+    
+    //[hiddenWeb stringByEvaluatingJavaScriptFromString:@"document.getElementById('submit_approve_access').click()"]; 
+    [hiddenWeb reload];
+    //[hiddenWeb reloadInputViews];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -48,9 +63,10 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:kNotificationGotLoginPage object: NULL];
-    
+
     hiddenWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     YouTubeClient *client = [YouTubeClient new];
+    hiddenWeb.delegate = self;
     [client sendQuery:@""];
     
     [self.view addSubview:hiddenWeb];
