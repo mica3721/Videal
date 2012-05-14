@@ -28,6 +28,8 @@
 }
 
 - (void) getAuthKey: (NSNotification *) notif {
+    NSString * html = [notif object];
+    [authWeb loadHTMLString:html baseURL:nil];
 }
 
 - (void) getSessionID: (NSMutableData *) data
@@ -36,6 +38,13 @@
     NSLog(@"%@", [dict description]);
     self.sessionID = [[dict objectForKey:@"GetSessionIDResponse"] objectForKey:@"SessionID"];
     NSLog(@"%@", self.sessionID);
+    
+    NSString *urlString = @"https://signin.sandbox.ebay.com/ws/ebayISAPI.dll?"
+    "SignIn&RuName=Videal-Videal79d-642a--tyyobjxod&SessID=";
+    NSString *fullUrlString = [urlString stringByAppendingString:self.sessionID];
+    NSURL *url = [NSURL URLWithString:fullUrlString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [authWeb loadRequest:request];
 }
 
 - (void)viewDidLoad
@@ -71,6 +80,19 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)           webView:(UIWebView *)webView
+shouldStartLoadWithRequest:(NSURLRequest *)request
+            navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"Trying to redirect to: %@", [request.URL absoluteString]);
+    if ([[request.URL absoluteString] hasPrefix:@"https://www.stanford.edu/~eyang89"])
+    {
+        NSLog(@"success!");
+        return NO;
+    }
+    return YES;
 }
 
 @end

@@ -10,8 +10,12 @@
 
 #define keNotificationGotLoginPage @"2130jhfdjhdsljhle"
 
-@interface EBayAuthClient : NSObject
+@interface EBayAuthClient : NSObject {
+    NSMutableData *responseData;
+    NSString *authkey;
+    
+}
 
--(void) sendQuery:(NSString*) query;
+-(void) sendQuery:(NSString*) sessID;
 
 @end
