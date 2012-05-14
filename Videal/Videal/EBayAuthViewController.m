@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *authToken;
+@property (nonatomic, strong) NSString *eBayURL;
+@property (nonatomic, strong) NSString *ruName;
 
 @end
 
@@ -19,12 +21,16 @@
 
 @synthesize sessionID = _sessionID;
 @synthesize authToken = _authToken;
+@synthesize eBayURL = _eBayURL;
+@synthesize ruName = _ruName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.eBayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
+        self.ruName = @"Videal-Videal79d-642a--tyyobjxod";
     }
     return self;
 }
@@ -41,9 +47,8 @@
     self.sessionID = [[dict objectForKey:@"GetSessionIDResponse"] objectForKey:@"SessionID"];
     NSLog(@"%@", self.sessionID);
     
-    NSString *urlString = [NSString stringWithFormat:@"https://signin.sandbox.ebay.com/ws/ebayISAPI.dll?"
-    "SignIn&RuName=Videal-Videal79d-642a--tyyobjxod&SessID=%@", self.sessionID];
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://signin.sandbox.ebay.com/ws/ebayISAPI.dll?"
+                                       "SignIn&RuName=%@&SessID=%@", self.ruName, self.sessionID]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [authWeb loadRequest:request];
 }
@@ -56,13 +61,12 @@
     
     authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
-    NSString *ebayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
-    NSString *body = @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
     "<GetSessionIDRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
-    "<RuName>Videal-Videal79d-642a--tyyobjxod</RuName>"
-    "</GetSessionIDRequest>";
+    "<RuName>%@</RuName>"
+    "</GetSessionIDRequest>", self.ruName];
     
-    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebayURL andBody:body callName:@"GetSessionID"];
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"GetSessionID"];
     [HttpPostHelper setCert:request];
     NSLog(@"%@", body);
     
@@ -84,13 +88,12 @@
 - (void) fetchToken
 {
     NSLog(@"fetchToken");
-    NSString *ebayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
     "<FetchTokenRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
     "<SessionID>%@</SessionID>"
     "</FetchTokenRequest>", self.sessionID];
     
-    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebayURL andBody:body callName:@"FetchToken"];
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"FetchToken"];
     [HttpPostHelper setCert:request];
     NSLog(@"%@", body);
     
