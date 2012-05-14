@@ -67,6 +67,7 @@
     
     [HttpPostHelper doPost:request from:self withSelector: @selector(getSessionID:)];
     authWeb.delegate = self;
+    authWeb.scalesPageToFit = YES;
     
     [self.view addSubview:authWeb];
 }
