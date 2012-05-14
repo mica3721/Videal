@@ -58,10 +58,28 @@
     //[hiddenWeb reloadInputViews];
 }
 
+- (void) getAuthToken: (NSMutableData *) data
+{
+    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"Google Client Login");
+    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
+    NSString *googleID = @"Videal.Test";
+    NSString *googlePW = @"eunmo123";
+    NSString *googleSource = @"Videal_Test";
+    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
+    NSLog(@"%@", body);
+    
+    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+    
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:kNotificationGotLoginPage object: NULL];
 
     hiddenWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -70,6 +88,7 @@
     [client sendQuery:@""];
     
     [self.view addSubview:hiddenWeb];
+     */
 }
 
 

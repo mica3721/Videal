@@ -17,6 +17,10 @@
 + (NSMutableURLRequest *) createeBayRequestWithURL: (NSString *) url
                                            andBody: (NSString *) body
                                           callName: (NSString *) callName;
+
++ (NSMutableURLRequest *) createGoogleAuthRequestWithURL: (NSString *) url
+                                                 andBody: (NSString *) body;
+
 + (void) setCert: (NSMutableURLRequest *) request;
 
 @end

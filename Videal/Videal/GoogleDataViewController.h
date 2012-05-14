@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "YouTubeClient.h"
+#import "HttpPostHelper.h"
+
 
 @interface GoogleDataViewController : UIViewController <UIWebViewDelegate>{
     UIWebView *hiddenWeb;

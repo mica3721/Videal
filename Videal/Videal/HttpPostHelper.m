@@ -33,6 +33,19 @@
     [request setValue:@"474662bd-0f40-40cc-8c82-a10095702c52" forHTTPHeaderField:@"X-EBAY-API-CERT-NAME"];
 }
 
++ (NSMutableURLRequest *) createGoogleAuthRequestWithURL: (NSString *) url
+                                                 andBody: (NSString *) body
+{
+    NSData *data = [body dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:data];
+    [request setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    
+    return request;
+}
+
 + (NSMutableURLRequest *) createeBayRequestWithURL: (NSString *) url
                                            andBody: (NSString *) body
                                           callName: (NSString *) callName
