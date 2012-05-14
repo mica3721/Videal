@@ -40,6 +40,11 @@
     [authWeb loadHTMLString:html baseURL:nil];
 }
 
+/*
+ * Called when http POST request to ebay for sessionID returns.
+ * Extracts xml data to get the sessionID
+ * And opens up a login window to get user's authentification.
+ */
 - (void) getSessionID: (NSMutableData *) data
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
@@ -53,30 +58,48 @@
     [authWeb loadRequest:request];
 }
 
-- (void)viewDidLoad
+/*
+ * Formulates a http POST request to ebay for sessionID.
+ */
+- (void) sessionIDRequest
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:keNotificationGotLoginPage object: NULL];
-    
-    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    
+    NSlog(@"sessionIDRequest");
     NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-    "<GetSessionIDRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
-    "<RuName>%@</RuName>"
-    "</GetSessionIDRequest>", self.ruName];
+                      "<GetSessionIDRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<RuName>%@</RuName>"
+                      "</GetSessionIDRequest>", self.ruName];
     
     NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"GetSessionID"];
     [HttpPostHelper setCert:request];
     NSLog(@"%@", body);
     
     [HttpPostHelper doPost:request from:self withSelector: @selector(getSessionID:)];
+}
+
+/*
+ * Requests for sessionID
+ * And creates a UIWebView to display the login page for user authroization.
+ */
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:keNotificationGotLoginPage object: NULL];
+    
+    [self sessionIDRequest];
+    
+    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
-    
     [self.view addSubview:authWeb];
 }
 
+/*
+ * Called when http POST request to ebay for authToken returns.
+ * Extracts xml data to get the authToken.
+ *
+ * TODO: And opens up a category selector.
+ */
 - (void) getAuthToken: (NSMutableData *) data
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
@@ -85,9 +108,12 @@
     NSLog(@"%@", self.authToken);
 }
 
-- (void) fetchToken
+/*
+ * Formulates a http POST request to ebay for authToken.
+ */
+- (void) fetchTokenRequest
 {
-    NSLog(@"fetchToken");
+    NSLog(@"fetchTokenRequest");
     NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
     "<FetchTokenRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
     "<SessionID>%@</SessionID>"
@@ -111,6 +137,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+/*
+ * Detects redirections in order to see if the user granted access.
+ * The access grant page is currently set to https://www.stanford.edu/~eyang89
+ * but this page is never shown to the user.
+ */
 - (BOOL)           webView:(UIWebView *)webView
 shouldStartLoadWithRequest:(NSURLRequest *)request
             navigationType:(UIWebViewNavigationType)navigationType
@@ -119,7 +150,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     if ([[request.URL absoluteString] hasPrefix:@"https://www.stanford.edu/~eyang89"])
     {
         NSLog(@"success!");
-        [self fetchToken];
+        [self fetchTokenRequest];
         return NO;
     }
     return YES;
