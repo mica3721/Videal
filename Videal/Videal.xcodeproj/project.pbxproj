@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A744EF915606EC400D90528 /* EBayAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EF815606EC300D90528 /* EBayAuthViewController.m */; };
+		0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EFF15607A9900D90528 /* EBayAuthClient.m */; };
+		0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F021560B44200D90528 /* HttpPostHelper.m */; };
+		0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F0B1560EB1D00D90528 /* XMLReader.m */; };
 		1B16D0111552777B00F0E0E7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0101552777B00F0E0E7 /* SearchViewController.m */; };
 		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
 		1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0171552781400F0E0E7 /* HotViewController.m */; };
@@ -52,6 +56,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A744EF715606EC300D90528 /* EBayAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBayAuthViewController.h; sourceTree = "<group>"; };
+		0A744EF815606EC300D90528 /* EBayAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBayAuthViewController.m; sourceTree = "<group>"; };
+		0A744EFE15607A9900D90528 /* EBayAuthClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBayAuthClient.h; sourceTree = "<group>"; };
+		0A744EFF15607A9900D90528 /* EBayAuthClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBayAuthClient.m; sourceTree = "<group>"; };
+		0A744F011560B44200D90528 /* HttpPostHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpPostHelper.h; sourceTree = "<group>"; };
+		0A744F021560B44200D90528 /* HttpPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpPostHelper.m; sourceTree = "<group>"; };
+		0A744F0A1560EB1D00D90528 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		0A744F0B1560EB1D00D90528 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		1B16D00F1552777B00F0E0E7 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		1B16D0101552777B00F0E0E7 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
@@ -200,6 +212,14 @@
 				1B16D04F1557581F00F0E0E7 /* YouTubeClient.m */,
 				1BB40559155F24F100D3F238 /* GoogleDataViewController.h */,
 				1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */,
+				0A744EFE15607A9900D90528 /* EBayAuthClient.h */,
+				0A744EFF15607A9900D90528 /* EBayAuthClient.m */,
+				0A744F0A1560EB1D00D90528 /* XMLReader.h */,
+				0A744F0B1560EB1D00D90528 /* XMLReader.m */,
+				0A744F011560B44200D90528 /* HttpPostHelper.h */,
+				0A744F021560B44200D90528 /* HttpPostHelper.m */,
+				0A744EF715606EC300D90528 /* EBayAuthViewController.h */,
+				0A744EF815606EC300D90528 /* EBayAuthViewController.m */,
 				1B16D02A155290CA00F0E0E7 /* VideoViewController.h */,
 				1B16D02B155290FE00F0E0E7 /* VideoViewController.m */,
 				1B5BFDC71550960700335348 /* FirstViewController.xib */,
@@ -371,6 +391,10 @@
 				1B16D06A15575E5500F0E0E7 /* SBJsonParser.m in Sources */,
 				1B16D06B15575E5500F0E0E7 /* SBJsonWriter.m in Sources */,
 				1BB4055B155F24F200D3F238 /* GoogleDataViewController.m in Sources */,
+				0A744EF915606EC400D90528 /* EBayAuthViewController.m in Sources */,
+				0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */,
+				0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */,
+				0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

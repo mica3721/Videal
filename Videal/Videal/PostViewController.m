@@ -117,12 +117,13 @@
 }
 
 -(void) Youtube {
-    
-    
-    
     GoogleDataViewController *dataCtrl = [GoogleDataViewController new];
     [self presentModalViewController:dataCtrl animated:YES];
-    
+}
+
+-(void) EBay {
+    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
 }
 
 
