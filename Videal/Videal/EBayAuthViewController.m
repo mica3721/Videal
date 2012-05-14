@@ -11,12 +11,14 @@
 @interface EBayAuthViewController ()
 
 @property (nonatomic, strong) NSString *sessionID;
+@property (nonatomic, strong) NSString *authToken;
 
 @end
 
 @implementation EBayAuthViewController
 
 @synthesize sessionID = _sessionID;
+@synthesize authToken = _authToken;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,10 +41,9 @@
     self.sessionID = [[dict objectForKey:@"GetSessionIDResponse"] objectForKey:@"SessionID"];
     NSLog(@"%@", self.sessionID);
     
-    NSString *urlString = @"https://signin.sandbox.ebay.com/ws/ebayISAPI.dll?"
-    "SignIn&RuName=Videal-Videal79d-642a--tyyobjxod&SessID=";
-    NSString *fullUrlString = [urlString stringByAppendingString:self.sessionID];
-    NSURL *url = [NSURL URLWithString:fullUrlString];
+    NSString *urlString = [NSString stringWithFormat:@"https://signin.sandbox.ebay.com/ws/ebayISAPI.dll?"
+    "SignIn&RuName=Videal-Videal79d-642a--tyyobjxod&SessID=%@", self.sessionID];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [authWeb loadRequest:request];
 }
@@ -72,6 +73,30 @@
     [self.view addSubview:authWeb];
 }
 
+- (void) getAuthToken: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    self.authToken = [[dict objectForKey:@"FetchTokenResponse"] objectForKey:@"eBayAuthToken"];
+    NSLog(@"%@", self.authToken);
+}
+
+- (void) fetchToken
+{
+    NSLog(@"fetchToken");
+    NSString *ebayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+    "<FetchTokenRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+    "<SessionID>%@</SessionID>"
+    "</FetchTokenRequest>", self.sessionID];
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebayURL andBody:body callName:@"FetchToken"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -91,6 +116,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     if ([[request.URL absoluteString] hasPrefix:@"https://www.stanford.edu/~eyang89"])
     {
         NSLog(@"success!");
+        [self fetchToken];
         return NO;
     }
     return YES;
