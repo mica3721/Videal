@@ -24,11 +24,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *viewController1 = [[SearchViewController alloc] initWithNibName:nil bundle:nil];
-    UIViewController *viewController2 = [[PostViewController alloc] initWithNibName:nil bundle:nil];
-    UIViewController *viewController3 = [[HotViewController alloc] initWithNibName:nil bundle:nil];
+  
+    UIViewController *viewController1 = [[PostViewController alloc] initWithNibName:nil bundle:nil];
+    UIViewController *viewController2 = [[HotViewController alloc] initWithNibName:nil bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

@@ -46,6 +46,67 @@
     return request;
 }
 
++ (NSMutableURLRequest*) uploadVideoToYouTube: (NSURL *) videoLink
+                                  withAuthKey: (NSString *) authKey
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"/feeds/api/users/default/uploads HTTP/1.1"]];
+     NSError *error = NULL;
+    
+    NSString *temp = [NSString stringWithFormat:@"%@~", videoLink];
+    [NSString stringWithFormat:@""];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*/()~"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:temp
+                                                    options:0
+                                                      range:NSMakeRange(0, [temp length])];
+    NSString *filename =@"";
+    if (match) {
+        NSRange range = [match rangeAtIndex:1];
+        
+        filename = [temp substringWithRange:range];
+    }
+
+    
+    
+    //NSData *video = [NSData dataWithContentsOfURL:videoLink];
+    
+    NSString *body = @"--f93dcbA3"
+    "Content-Type: application/atom+xml; charset=UTF-8"
+    "<?xml version=\"1.0\"?>"
+    "<entry xmlns=\"http://www.w3.org/2005/Atom\""
+        "xmlns:media=\"http://search.yahoo.com/mrss/\""
+        "xmlns:yt=\"http://gdata.youtube.com/schemas/2007\">"
+    "<media:group>"
+    "<media:title type=\"plain\">Videal Video for: </media:title>"
+    "<media:description type=\"plain\">"
+    "</media:group>"
+    "</entry>"
+    "--f93dcbA3"
+    "Content-Type: video/mp4"
+    "Content-Transfer-Encoding: binary";
+    NSMutableData *data = [[NSMutableData alloc] initWithContentsOfURL:videoLink];
+    body = [body stringByAppendingFormat:[NSString stringWithContentsOfURL:videoLink encoding:NSUTF8StringEncoding error:nil]];
+    NSString *footer = @"--f93dcbA3--";
+    body = [body stringByAppendingFormat:[NSString stringWithFormat:@"%@", footer]];
+    
+    
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:data];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", authKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"2" forHTTPHeaderField:@"GData-Version"];
+    [request setValue:@"key=AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q" forHTTPHeaderField:@"X-GData-Key"];
+    [request setValue:filename forHTTPHeaderField:@"Slug"];
+    [request setValue:@"multipart/related; boundary=\"f93dcbA3\"" forHTTPHeaderField:@"Content-type"];
+    [request setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-length"];
+    [request setValue:@"close" forHTTPHeaderField:@"Connection"];
+    
+    [request setValue:@"uploads.gdata.youtube.com" forHTTPHeaderField:@"Host"];
+    return request;
+}
+
 + (NSMutableURLRequest *) createeBayRequestWithURL: (NSString *) url
                                            andBody: (NSString *) body
                                           callName: (NSString *) callName

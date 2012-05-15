@@ -37,4 +37,7 @@
  */
 + (void) setCert: (NSMutableURLRequest *) request;
 
++ (NSMutableURLRequest*) uploadVideoToYouTube: (NSURL *) videoLink
+                                  withAuthKey: (NSString *) authKey;
+
 @end

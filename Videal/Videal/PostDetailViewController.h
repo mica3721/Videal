@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HttpPostHelper.h"
 @interface PostDetailViewController : UIViewController{
     
     NSURL *videoLink; 
-    
+    NSString *authKey;
+    NSThread *uploadThread;
 }
 
 -(id) initWithVideoLink: (NSURL*) link;

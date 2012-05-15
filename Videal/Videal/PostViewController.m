@@ -49,14 +49,13 @@
 // as a delegate we are being told a picture was taken
 - (void)imagePickerController:(UIImagePickerController *)_picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    NSURL *videoLink = [[info objectForKey:UIImagePickerControllerMediaURL] copy];
+    videoLink = [[info objectForKey:UIImagePickerControllerMediaURL] copy];
     UISaveVideoAtPathToSavedPhotosAlbum((NSString *)videoLink, nil, nil, nil);
     [self dismissModalViewControllerAnimated:YES];
     
     PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
     [self presentModalViewController:details animated:YES];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -115,10 +114,42 @@
     [captureThread start];
     
 }
+/*
+- (void) getAuthToken: (NSMutableData *) data
+{
+    NSString *authResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"%@", authResponse);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*Auth=()"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:authResponse
+                                                    options:0
+                                                      range:NSMakeRange(0, [authResponse length])];
+    
+    if (match) {
+        NSRange range = [match rangeAtIndex:1];
+        
+        authResponse = [authResponse substringFromIndex:range.location];
+        NSLog(@"%@",authResponse);
+        
+        PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLinkAndAuthKey:videoLink andAuth:authResponse];
+        [self presentModalViewController:details animated:YES];
+    }
+}*/
 
 -(void) Youtube {
-    GoogleDataViewController *dataCtrl = [GoogleDataViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
+    NSLog(@"Google Client Login");
+    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
+    NSString *googleID = @"Videal.Test";
+    NSString *googlePW = @"eunmo123";
+    NSString *googleSource = @"Videal_Test";
+    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
+    NSLog(@"%@", body);
+    
+    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
 }
 
 -(void) EBay {

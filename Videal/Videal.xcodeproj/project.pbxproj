@@ -11,7 +11,6 @@
 		0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EFF15607A9900D90528 /* EBayAuthClient.m */; };
 		0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F021560B44200D90528 /* HttpPostHelper.m */; };
 		0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F0B1560EB1D00D90528 /* XMLReader.m */; };
-		1B16D0111552777B00F0E0E7 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0101552777B00F0E0E7 /* SearchViewController.m */; };
 		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
 		1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0171552781400F0E0E7 /* HotViewController.m */; };
 		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
@@ -42,7 +41,6 @@
 		1B5BFDD61550960700335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
 		1B5BFDDE1550960700335348 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDDC1550960700335348 /* InfoPlist.strings */; };
 		1B5BFDE11550960700335348 /* VidealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDE01550960700335348 /* VidealTests.m */; };
-		1BB4055B155F24F200D3F238 /* GoogleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */; };
 		1BB40561155F81A900D3F238 /* fff in Resources */ = {isa = PBXBuildFile; fileRef = 1BB40560155F81A900D3F238 /* fff */; };
 /* End PBXBuildFile section */
 
@@ -65,8 +63,6 @@
 		0A744F021560B44200D90528 /* HttpPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpPostHelper.m; sourceTree = "<group>"; };
 		0A744F0A1560EB1D00D90528 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		0A744F0B1560EB1D00D90528 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
-		1B16D00F1552777B00F0E0E7 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		1B16D0101552777B00F0E0E7 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		1B16D014155277E100F0E0E7 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		1B16D0161552781300F0E0E7 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
@@ -114,8 +110,6 @@
 		1B5BFDDD1550960700335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B5BFDDF1550960700335348 /* VidealTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VidealTests.h; sourceTree = "<group>"; };
 		1B5BFDE01550960700335348 /* VidealTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VidealTests.m; sourceTree = "<group>"; };
-		1BB40559155F24F100D3F238 /* GoogleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleDataViewController.h; sourceTree = "<group>"; };
-		1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleDataViewController.m; sourceTree = "<group>"; };
 		1BB40560155F81A900D3F238 /* fff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,8 +196,6 @@
 			children = (
 				1B5BFDB61550960600335348 /* AppDelegate.h */,
 				1B5BFDB71550960600335348 /* AppDelegate.m */,
-				1B16D00F1552777B00F0E0E7 /* SearchViewController.h */,
-				1B16D0101552777B00F0E0E7 /* SearchViewController.m */,
 				1B16D013155277E100F0E0E7 /* PostViewController.h */,
 				1B16D014155277E100F0E0E7 /* PostViewController.m */,
 				1B16D0441556EF3500F0E0E7 /* PostDetailViewController.h */,
@@ -212,8 +204,6 @@
 				1B16D0171552781400F0E0E7 /* HotViewController.m */,
 				1B16D04E1557581E00F0E0E7 /* YouTubeClient.h */,
 				1B16D04F1557581F00F0E0E7 /* YouTubeClient.m */,
-				1BB40559155F24F100D3F238 /* GoogleDataViewController.h */,
-				1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */,
 				0A744EFE15607A9900D90528 /* EBayAuthClient.h */,
 				0A744EFF15607A9900D90528 /* EBayAuthClient.m */,
 				0A744F0A1560EB1D00D90528 /* XMLReader.h */,
@@ -382,7 +372,6 @@
 			files = (
 				1B5BFDB41550960600335348 /* main.m in Sources */,
 				1B5BFDB81550960600335348 /* AppDelegate.m in Sources */,
-				1B16D0111552777B00F0E0E7 /* SearchViewController.m in Sources */,
 				1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */,
 				1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */,
 				1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */,
@@ -394,7 +383,6 @@
 				1B16D06915575E5500F0E0E7 /* SBJsonBase.m in Sources */,
 				1B16D06A15575E5500F0E0E7 /* SBJsonParser.m in Sources */,
 				1B16D06B15575E5500F0E0E7 /* SBJsonWriter.m in Sources */,
-				1BB4055B155F24F200D3F238 /* GoogleDataViewController.m in Sources */,
 				0A744EF915606EC400D90528 /* EBayAuthViewController.m in Sources */,
 				0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */,
 				0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */,

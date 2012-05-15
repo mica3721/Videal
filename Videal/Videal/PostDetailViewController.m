@@ -20,11 +20,12 @@
 }
 
 
--(id) initWithVideoLink: (NSURL*) link {
+-(id) initWithVideoLink: (NSURL*) link{
     self = [super init];
     if(self) {
         
         videoLink = link;
+       
         
     }
     return self;
@@ -48,13 +49,56 @@
 }
 */
 
-/*
+-(void) doneUploadingVideo:  (NSMutableData *) data {
+    
+    
+    // Do something here
+}
+
+- (void) getAuthToken: (NSMutableData *) data
+{
+    NSString *authResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"%@", authResponse);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*Auth=()"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:authResponse
+                                                    options:0
+                                                      range:NSMakeRange(0, [authResponse length])];
+    
+    if (match) {
+        NSRange range = [match rangeAtIndex:1];
+        
+        authResponse = [authResponse substringFromIndex:range.location];
+        NSLog(@"%@",authResponse);
+        
+        authKey = authResponse;
+    }
+    
+    NSMutableURLRequest *request = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(doneUploadingVideo:)];
+}
+
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"Google Client Login");
+    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
+    NSString *googleID = @"Videal.Test";
+    NSString *googlePW = @"eunmo123";
+    NSString *googleSource = @"Videal_Test";
+    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
+    NSLog(@"%@", body);
+    
+    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+    
 }
-*/
+
 
 - (void)viewDidUnload
 {
