@@ -11,6 +11,7 @@
 
 @interface GoogleDataViewController : UIViewController <UIWebViewDelegate>{
     UIWebView *hiddenWeb;
+    BOOL used;
 }
 
 @end

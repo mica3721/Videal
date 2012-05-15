@@ -39,6 +39,7 @@
 		1B5BFDDE1550960700335348 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDDC1550960700335348 /* InfoPlist.strings */; };
 		1B5BFDE11550960700335348 /* VidealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDE01550960700335348 /* VidealTests.m */; };
 		1BB4055B155F24F200D3F238 /* GoogleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */; };
+		1BB40561155F81A900D3F238 /* fff in Resources */ = {isa = PBXBuildFile; fileRef = 1BB40560155F81A900D3F238 /* fff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		1B5BFDE01550960700335348 /* VidealTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VidealTests.m; sourceTree = "<group>"; };
 		1BB40559155F24F100D3F238 /* GoogleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleDataViewController.h; sourceTree = "<group>"; };
 		1BB4055A155F24F200D3F238 /* GoogleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleDataViewController.m; sourceTree = "<group>"; };
+		1BB40560155F81A900D3F238 /* fff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 		1B5BFDAE1550960600335348 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1BB40560155F81A900D3F238 /* fff */,
 				1B16D05815575E5500F0E0E7 /* JSON */,
 				1B5BFDBC1550960700335348 /* first.png */,
 				1B5BFDBE1550960700335348 /* first@2x.png */,
@@ -322,6 +325,7 @@
 				1B5BFDC61550960700335348 /* second@2x.png in Resources */,
 				1B5BFDC91550960700335348 /* FirstViewController.xib in Resources */,
 				1B5BFDCC1550960700335348 /* SecondViewController.xib in Resources */,
+				1BB40561155F81A900D3F238 /* fff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
