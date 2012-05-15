@@ -117,12 +117,13 @@
 }
 
 -(void) Youtube {
-    
-    
-    
     GoogleDataViewController *dataCtrl = [GoogleDataViewController new];
     [self presentModalViewController:dataCtrl animated:YES];
-    
+}
+
+-(void) EBay {
+    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
 }
 
 
@@ -140,18 +141,25 @@
     [self.view addSubview:pickBtn];
     
     UIButton *filmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [filmBtn setFrame:CGRectMake(50, 150, 200, 60)];
+    [filmBtn setFrame:CGRectMake(50, 130, 200, 60)];
     [filmBtn addTarget:self action:@selector(CallVideoCamera:) forControlEvents:UIControlEventTouchUpInside];
     [filmBtn setTitle:@"Take a Video" forState:UIControlStateNormal];
     [filmBtn setUserInteractionEnabled:YES];
     [self.view addSubview:filmBtn];
     
     UIButton *testBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [testBtn setFrame:CGRectMake(50, 250, 200, 60)];
+    [testBtn setFrame:CGRectMake(50, 230, 200, 60)];
     [testBtn addTarget:self action:@selector(Youtube) forControlEvents:UIControlEventTouchUpInside];
     [testBtn setTitle:@"Youtube" forState:UIControlStateNormal];
     [testBtn setUserInteractionEnabled:YES];
     [self.view addSubview:testBtn];
+    
+    UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [eBayBtn setFrame:CGRectMake(50, 330, 200, 60)];
+    [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
+    [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
+    [eBayBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:eBayBtn];
 }
 
 
