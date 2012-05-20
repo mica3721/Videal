@@ -11,10 +11,11 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate> {
     
     UINavigationController *navController;
+    NSMutableArray *deals;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (strong, nonatomic) NSMutableArray * deals; 
 
 @end

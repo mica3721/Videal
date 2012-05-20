@@ -12,10 +12,13 @@
 #import "EBayAuthViewController.h"
 
 
-@interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+
+@interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate> {
     UIImagePickerController *picker;
-    NSThread *captureThread;     // Temporary get rid of later
+    //NSThread *captureThread;     // Temporary get rid of later
     NSURL *videoLink;
+    UITableView *postedDeals;
+    
 }
 
 @end

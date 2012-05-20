@@ -8,7 +8,7 @@
 
 #import "PostViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
-
+#import "AppDelegate.h"
 @implementation PostViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,7 +58,7 @@
     
 }
 
-
+/*
 - (void) captureScreen {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     CGRect rect = [keyWindow bounds];
@@ -69,9 +69,9 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     UIImageWriteToSavedPhotosAlbum(img, self, nil, nil);
-}
+}*/
 
--(void) CallVideoLibrary: (id) sender {
+-(void) CallVideoLibrary {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         NSLog(@"The device does not have a camera.");
         return; // Change this with a warning message later
@@ -85,14 +85,14 @@
     [self presentModalViewController:picker animated:YES];
 }
 
-
+/*
 -(void) capt {
     sleep(10);
     [self captureScreen];
     [captureThread cancel];
-}
+}*/
 
--(void) CallVideoCamera:(id) sender {
+-(void) CallVideoCamera{
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         NSLog(@"The device does not have a camera.");
@@ -110,12 +110,12 @@
     picker.delegate = self;
     
     [self presentModalViewController:picker animated:YES];	 
-    captureThread = [[NSThread alloc] initWithTarget:self selector:@selector(capt) object:nil];
-    [captureThread start];
+    /*captureThread = [[NSThread alloc] initWithTarget:self selector:@selector(capt) object:nil];
+    [captureThread start];*/
     
 }
-/*
-- (void) getAuthToken: (NSMutableData *) data
+
+/*- (void) getAuthToken: (NSMutableData *) data
 {
     NSString *authResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
@@ -134,10 +134,10 @@
         authResponse = [authResponse substringFromIndex:range.location];
         NSLog(@"%@",authResponse);
         
-        PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLinkAndAuthKey:videoLink andAuth:authResponse];
+        PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
         [self presentModalViewController:details animated:YES];
     }
-}*/
+}
 
 -(void) Youtube {
     NSLog(@"Google Client Login");
@@ -156,15 +156,25 @@
     EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
     [self presentModalViewController:dataCtrl animated:YES];
 }
-
+*/
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    picker = [[UIImagePickerController alloc] init];
     
-    UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    [label setBackgroundColor:[UIColor darkGrayColor]];
+    [label setText:@"Your Deals"];
+    [label setTextColor:[UIColor whiteColor]];
+    [label setTextAlignment:UITextAlignmentCenter];
+    [self.view addSubview:label];
+    [self.view setBackgroundColor:[UIColor darkGrayColor]];
+    
+    
+    picker = [[UIImagePickerController alloc] init];
+    /*UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
     [pickBtn addTarget:self action:@selector(CallVideoLibrary:) forControlEvents:UIControlEventTouchUpInside];
     [pickBtn setTitle:@"Pick a Video" forState:UIControlStateNormal];
@@ -190,9 +200,85 @@
     [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
     [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
     [eBayBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:eBayBtn];
+    [self.view addSubview:eBayBtn];*/
+    
+    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
+    postedDeals.delegate = self;
+    postedDeals.dataSource = self; 
+    [self.view addSubview:postedDeals];
+    
+    UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
+    postButton.frame = CGRectMake(116, 380, 88, 70);
+    [postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
+    [postButton setUserInteractionEnabled:YES];
+    //[postButton setTitle:@"Post Video Deals" forState: UIControlStateNormal];
+    [postButton setBackgroundColor:[UIColor darkGrayColor]];
+    [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
+    [self.view addSubview:postButton];
+    
+    
+}
+#pragma mark UIActionSheetDelegate methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Actionsheet recieved %d as buttonIndex", buttonIndex);
+    if (buttonIndex == 0) {
+        [self CallVideoLibrary];
+    } else if (buttonIndex == 1){
+        [self CallVideoCamera];
+    }
+    
 }
 
+
+-(void) showPostOptions {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select a Video Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: @"Choose From Library", @"Take a Video", nil];
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+	
+	return 120;
+}
+
+
+- (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
+	// Do Something here
+    return;
+}
+
+// Customize the number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1; 
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return [[appDel deals] count];
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	
+	static NSString *CellIdentifier = @"Cell";
+	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.text = [[appDel deals] objectAtIndex:indexPath.row];
+	}
+	
+	return cell;
+
+}
 
 
 - (void)viewDidUnload

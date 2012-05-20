@@ -14,23 +14,37 @@
 
 #import "HotViewController.h"
 
+#import "DealSaver.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
 
+@synthesize deals; 
+
+- (void) refreshOngoingDeals {
+    // add to the deals array
+    
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-  
+    
+    deals = [[DealSaver new] LoadDeals];
+    // Make an EBay api call to add to deals here
+    [self refreshOngoingDeals];
+    
     UIViewController *viewController1 = [[PostViewController alloc] initWithNibName:nil bundle:nil];
-    UIViewController *viewController2 = [[HotViewController alloc] initWithNibName:nil bundle:nil];
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
-    self.window.rootViewController = self.tabBarController;
+    //UIViewController *viewController2 = [[HotViewController alloc] initWithNibName:nil bundle:nil];
+    //self.tabBarController = [[UITabBarController alloc] init];
+    //self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
+
+    
+    self.window.rootViewController = viewController1;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -48,6 +62,7 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    [[DealSaver new] SaveDeals:deals];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -71,6 +86,7 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    [[DealSaver new] SaveDeals:deals];
 }
 
 /*

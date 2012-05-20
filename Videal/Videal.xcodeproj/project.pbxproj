@@ -12,7 +12,6 @@
 		0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F021560B44200D90528 /* HttpPostHelper.m */; };
 		0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F0B1560EB1D00D90528 /* XMLReader.m */; };
 		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
-		1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0171552781400F0E0E7 /* HotViewController.m */; };
 		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
 		1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D02B155290FE00F0E0E7 /* VideoViewController.m */; };
 		1B16D0461556EF3500F0E0E7 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D0451556EF3500F0E0E7 /* PostDetailViewController.m */; };
@@ -24,6 +23,9 @@
 		1B16D06915575E5500F0E0E7 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06115575E5500F0E0E7 /* SBJsonBase.m */; };
 		1B16D06A15575E5500F0E0E7 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06315575E5500F0E0E7 /* SBJsonParser.m */; };
 		1B16D06B15575E5500F0E0E7 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06515575E5500F0E0E7 /* SBJsonWriter.m */; };
+		1B2ECBAD156869DD0056A942 /* DealSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2ECBAC156869DD0056A942 /* DealSaver.m */; };
+		1B2ECBB4156882A20056A942 /* sth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B2ECBB3156882A20056A942 /* sth.jpg */; };
+		1B2ECBB6156886170056A942 /* camera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B2ECBB5156886170056A942 /* camera.jpg */; };
 		1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA71550960600335348 /* UIKit.framework */; };
 		1B5BFDAA1550960600335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
 		1B5BFDAC1550960600335348 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDAB1550960600335348 /* CoreGraphics.framework */; };
@@ -41,7 +43,6 @@
 		1B5BFDD61550960700335348 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5BFDA91550960600335348 /* Foundation.framework */; };
 		1B5BFDDE1550960700335348 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B5BFDDC1550960700335348 /* InfoPlist.strings */; };
 		1B5BFDE11550960700335348 /* VidealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDE01550960700335348 /* VidealTests.m */; };
-		1BB40561155F81A900D3F238 /* fff in Resources */ = {isa = PBXBuildFile; fileRef = 1BB40560155F81A900D3F238 /* fff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +66,6 @@
 		0A744F0B1560EB1D00D90528 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		1B16D014155277E100F0E0E7 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
-		1B16D0161552781300F0E0E7 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
-		1B16D0171552781400F0E0E7 /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
 		1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1B16D02A155290CA00F0E0E7 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		1B16D02B155290FE00F0E0E7 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
@@ -88,6 +87,10 @@
 		1B16D06315575E5500F0E0E7 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		1B16D06415575E5500F0E0E7 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		1B16D06515575E5500F0E0E7 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		1B2ECBAB156869DD0056A942 /* DealSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealSaver.h; sourceTree = "<group>"; };
+		1B2ECBAC156869DD0056A942 /* DealSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealSaver.m; sourceTree = "<group>"; };
+		1B2ECBB3156882A20056A942 /* sth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sth.jpg; sourceTree = "<group>"; };
+		1B2ECBB5156886170056A942 /* camera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpg; sourceTree = "<group>"; };
 		1B5BFDA31550960600335348 /* Videal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Videal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5BFDA71550960600335348 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1B5BFDA91550960600335348 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,7 +113,6 @@
 		1B5BFDDD1550960700335348 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B5BFDDF1550960700335348 /* VidealTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VidealTests.h; sourceTree = "<group>"; };
 		1B5BFDE01550960700335348 /* VidealTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VidealTests.m; sourceTree = "<group>"; };
-		1BB40560155F81A900D3F238 /* fff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,12 +198,12 @@
 			children = (
 				1B5BFDB61550960600335348 /* AppDelegate.h */,
 				1B5BFDB71550960600335348 /* AppDelegate.m */,
+				1B2ECBAB156869DD0056A942 /* DealSaver.h */,
+				1B2ECBAC156869DD0056A942 /* DealSaver.m */,
 				1B16D013155277E100F0E0E7 /* PostViewController.h */,
 				1B16D014155277E100F0E0E7 /* PostViewController.m */,
 				1B16D0441556EF3500F0E0E7 /* PostDetailViewController.h */,
 				1B16D0451556EF3500F0E0E7 /* PostDetailViewController.m */,
-				1B16D0161552781300F0E0E7 /* HotViewController.h */,
-				1B16D0171552781400F0E0E7 /* HotViewController.m */,
 				1B16D04E1557581E00F0E0E7 /* YouTubeClient.h */,
 				1B16D04F1557581F00F0E0E7 /* YouTubeClient.m */,
 				0A744EFE15607A9900D90528 /* EBayAuthClient.h */,
@@ -224,7 +226,8 @@
 		1B5BFDAE1550960600335348 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1BB40560155F81A900D3F238 /* fff */,
+				1B2ECBB3156882A20056A942 /* sth.jpg */,
+				1B2ECBB5156886170056A942 /* camera.jpg */,
 				1B16D05815575E5500F0E0E7 /* JSON */,
 				1B5BFDBC1550960700335348 /* first.png */,
 				1B5BFDBE1550960700335348 /* first@2x.png */,
@@ -335,7 +338,8 @@
 				1B5BFDC61550960700335348 /* second@2x.png in Resources */,
 				1B5BFDC91550960700335348 /* FirstViewController.xib in Resources */,
 				1B5BFDCC1550960700335348 /* SecondViewController.xib in Resources */,
-				1BB40561155F81A900D3F238 /* fff in Resources */,
+				1B2ECBB4156882A20056A942 /* sth.jpg in Resources */,
+				1B2ECBB6156886170056A942 /* camera.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +377,6 @@
 				1B5BFDB41550960600335348 /* main.m in Sources */,
 				1B5BFDB81550960600335348 /* AppDelegate.m in Sources */,
 				1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */,
-				1B16D0181552781400F0E0E7 /* HotViewController.m in Sources */,
 				1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */,
 				1B16D0461556EF3500F0E0E7 /* PostDetailViewController.m in Sources */,
 				1B16D0501557581F00F0E0E7 /* YouTubeClient.m in Sources */,
@@ -387,6 +390,7 @@
 				0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */,
 				0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */,
 				0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */,
+				1B2ECBAD156869DD0056A942 /* DealSaver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

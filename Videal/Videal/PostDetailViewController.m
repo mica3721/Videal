@@ -50,9 +50,17 @@
 */
 
 -(void) doneUploadingVideo:  (NSMutableData *) data {
+    [uploadThread cancel];
+    NSLog(@"%@", data);
+    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
+}
+
+
+-(void) upload {
+    NSMutableURLRequest *request = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(doneUploadingVideo:)];
     
-    
-    // Do something here
 }
 
 - (void) getAuthToken: (NSMutableData *) data
@@ -75,10 +83,12 @@
         NSLog(@"%@",authResponse);
         
         authKey = authResponse;
+        uploadThread = [[NSThread alloc] initWithTarget:self selector:@selector(upload) object:nil];
+        [uploadThread start];
+    } else{
+        NSLog(@"Authkey retrieval failed.");
     }
     
-    NSMutableURLRequest *request = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
-    [HttpPostHelper doPost:request from:self withSelector: @selector(doneUploadingVideo:)];
 }
 
 
@@ -96,6 +106,15 @@
     
     NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
     [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+    
+    UITextField *priceInput = [[UITextField alloc] initWithFrame:CGRectMake(40, 50, 240, 60)];
+    [priceInput setDelegate:self];
+    [priceInput setPlaceholder:@"What's your price?"];
+    [self.view addSubview:priceInput];
+    
+    
+    
+    
     
 }
 
