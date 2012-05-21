@@ -95,6 +95,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    
+    /* More comments or some shit */
     [super viewDidLoad];
     NSLog(@"Google Client Login");
     NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
