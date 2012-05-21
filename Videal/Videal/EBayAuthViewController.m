@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *authToken;
 @property (nonatomic, strong) NSString *eBayURL;
 @property (nonatomic, strong) NSString *ruName;
+@property (nonatomic, strong) NSString *fee;
 
 @end
 
@@ -23,6 +24,7 @@
 @synthesize authToken = _authToken;
 @synthesize eBayURL = _eBayURL;
 @synthesize ruName = _ruName;
+@synthesize fee = _fee;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +33,7 @@
         // Custom initialization
         self.eBayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
         self.ruName = @"Videal-Videal79d-642a--tyyobjxod";
+        self.authToken = @"AgAAAA**AQAAAA**aAAAAA**AAK6Tw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhCJiApQidj6x9nY+seQ**H88BAA**AAMAAA**tLYLmBUTikeNlwwPhFoN1AO8lUkIJVoUNDtX5STrMjsUNfjR7qAqJ9fD/N16ZMiC6xBI7MUFElt6Ci7DLCUIieRrniTHIj6XjM/6nvxUJ7fMdXRhXe1/5qhyvPaVkCa1umWYSn45JQ7oIdFoD5I7dSF9bDEkOzZFtmS5drDUEBVH5qZgYzbbjcdfdRF4XgvoXD1/dTor0FiuRojfCB2QD/2Mo9IUD1eS5dcGNiKhAZp/3Qq9o1xnaaXvkUDYEhMHQIpkJ0MAzZb+0NcZZkbf3C3muLiG8+lLMgYGDvFx4lvDh3xh17dUvBVgmNBJ/DwLgaBNgz1QpzWnmVcszZ/ha3nzHn5Lm9VM6CtOEFTOMUpGUEpawFlU8cLmZZHfIPEv+0KBhfbK9h38o9O3pgNDrZ4d5KMNSd+kX7dTkW3jqjmlIQzGug8gxvqpKImVUvR5kwHhDa5d9xR9gAvEBR6s/cXSsVC25/EUqxmlN/TWgYgudRbChLkVAvmoONVnMpHuW0Sc37lzWin/5SwLHkw4KA/zebADfNBDticXonq88XRr1C4CBkdlSQVWa4FAGCXLvIZMo5j8W5voxC5oLZKoMI6ac+xt/8EmE7EpBDpX72Zt3E/QiCb7VHJdgN8OV8FRIfdQG1yA/lzex9NZUQC2fXmdv/7GSPeoGiKpEWkBw6iEv4EfO0vHp0UI1Vlh5uHFcmiMlk4kak0eWsGLrByMxLGysHt5c6UMRhsyQQOoY8DLYXZP0/lKZU2so+ylzjh4";
     }
     return self;
 }
@@ -59,6 +62,108 @@
 }
 
 /*
+ * Called after getting Authkey.
+ * Retrieves return policy from the eBay website.
+ */
+- (void) getReturnPolicy: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+}
+
+- (void) getFees: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    NSMutableArray *arr = [[[dict objectForKey:@"VerifyAddItemResponse"] objectForKey:@"Fees"] objectForKey:@"Fee"];
+}
+
+/*
+ * Formulates a http POST request to ebay to see if our item will be valid for listing.
+ */
+- (void) VerifyAddItemRequest
+{
+    NSLog(@"GeteBayDetailsRequest");
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<VerifyAddItemRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                        "<ErrorLanguage>en_US</ErrorLanguage>"
+                        "<WarningLevel>High</WarningLevel>"
+                        "<Item>"
+                            "<Title>Harry Potter and the Philosopher's Stone</Title>"
+                            "<Description>This is the first book in the Harry Potter series. In excellent condition!</Description>"
+                            "<PrimaryCategory>"
+                                "<CategoryID>377</CategoryID>"
+                            "</PrimaryCategory>"
+                            "<StartPrice>1.00</StartPrice>"
+                            "<CategoryMappingAllowed>true</CategoryMappingAllowed>"
+                            "<ConditionID>1000</ConditionID>"
+                            "<Country>US</Country>"
+                            "<Currency>USD</Currency>"
+                            "<DispatchTimeMax>3</DispatchTimeMax>"
+                            "<ListingDuration>Days_7</ListingDuration>"
+                            "<ListingType>Chinese</ListingType>"
+                            "<PaymentMethods>PayPal</PaymentMethods>"
+                            "<PayPalEmailAddress>magicalbookseller@yahoo.com</PayPalEmailAddress>"
+                            "<PictureDetails>"
+                                "<PictureURL>http://i.ebayimg.sandbox.ebay.com/00/s/MTAwMFg2NjA=/$(KGrHqZHJFEE-ko8eGBiBPs1CEKTZQ~~60_1.JPG?set_id=8800005007</PictureURL>"
+                            "</PictureDetails>"
+                            "<PostalCode>95125</PostalCode>"
+                            "<Quantity>1</Quantity>"
+                            "<ReturnPolicy>"
+                                "<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>"
+                                "<RefundOption>MoneyBack</RefundOption>"
+                                "<ReturnsWithinOption>Days_30</ReturnsWithinOption>"
+                                "<Description>If you are not satisfied, return the item for refund.</Description>"
+                                "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>"
+                            "</ReturnPolicy>"
+                            "<ShippingDetails>"
+                                "<ShippingType>Flat</ShippingType>"
+                                "<ShippingServiceOptions>"
+                                    "<ShippingServicePriority>1</ShippingServicePriority>"
+                                    "<ShippingService>USPSMedia</ShippingService>"
+                                    "<ShippingServiceCost>2.50</ShippingServiceCost>"
+                                "</ShippingServiceOptions>"
+                            "</ShippingDetails>"
+                            "<Site>US</Site>"
+                            "<UUID>8344f8f3207b4e21b387fb7d41ca45d1</UUID>"
+                        "</Item>"
+                        "<RequesterCredentials>"
+                            "<eBayAuthToken>%@</eBayAuthToken>"
+                        "</RequesterCredentials>"
+                        "<WarningLevel>High</WarningLevel>"
+                      "</VerifyAddItemRequest>", self.authToken];
+                      
+                      
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"VerifyAddItem"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+                      
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getFees:)];
+}
+
+/*
+ * Formulates a http POST request to ebay for return policy.
+ */
+- (void) returnPolicyRequest
+{
+    NSLog(@"GeteBayDetailsRequest");
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<GeteBayDetailsRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                        "<DetailName>ReturnPolicyDetails</DetailName>"
+                        "<RequesterCredentials>"
+                            "<eBayAuthToken>%@</eBayAuthToken>"
+                        "</RequesterCredentials>"
+                        "<WarningLevel>High</WarningLevel>"
+                      "</GeteBayDetailsRequest>", self.authToken];
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"GeteBayDetails"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getReturnPolicy:)];
+}
+
+/*
  * Formulates a http POST request to ebay for sessionID.
  */
 - (void) sessionIDRequest
@@ -66,7 +171,7 @@
     NSLog(@"sessionIDRequest");
     NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                       "<GetSessionIDRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
-                      "<RuName>%@</RuName>"
+                        "<RuName>%@</RuName>"
                       "</GetSessionIDRequest>", self.ruName];
     
     NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"GetSessionID"];
@@ -86,12 +191,15 @@
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:keNotificationGotLoginPage object: NULL];
     
+    [self VerifyAddItemRequest];
+    /*
     [self sessionIDRequest];
     
     authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
     [self.view addSubview:authWeb];
+     */
 }
 
 /*
