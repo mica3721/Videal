@@ -151,19 +151,19 @@
     NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
     [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
 }
+ */
 
 -(void) EBay {
     EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
     [self presentModalViewController:dataCtrl animated:YES];
 }
-*/
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
+    /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
     [label setBackgroundColor:[UIColor darkGrayColor]];
     [label setText:@"Your Deals"];
@@ -171,7 +171,7 @@
     [label setTextAlignment:UITextAlignmentCenter];
     [self.view addSubview:label];
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
-    
+    */
     
     picker = [[UIImagePickerController alloc] init];
     /*UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -193,14 +193,14 @@
     [testBtn addTarget:self action:@selector(Youtube) forControlEvents:UIControlEventTouchUpInside];
     [testBtn setTitle:@"Youtube" forState:UIControlStateNormal];
     [testBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:testBtn];
+    [self.view addSubview:testBtn];*/
     
     UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [eBayBtn setFrame:CGRectMake(50, 330, 200, 60)];
+    [eBayBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
     [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
     [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
     [eBayBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:eBayBtn];*/
+    [self.view addSubview:eBayBtn];
     
     postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
     postedDeals.delegate = self;

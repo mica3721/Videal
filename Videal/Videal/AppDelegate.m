@@ -12,8 +12,6 @@
 
 #import "PostViewController.h"
 
-#import "HotViewController.h"
-
 #import "DealSaver.h"
 
 @implementation AppDelegate
