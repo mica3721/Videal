@@ -79,6 +79,29 @@
 }
 
 /*
+ * Validates test user
+ */
+- (void) ValidateTestUser
+{
+    NSLog(@"ValidateTestUserRegistrationRequest");
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<ValidateTestUserRegistrationRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<FeedbackScore>500</FeedbackScore>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</ValidateTestUserRegistrationRequest>", self.authToken];
+    
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"ValidateTestUserRegistration"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getReturnPolicy:)];
+}
+
+/*
  * Formulates a http POST request to ebay to see if our item will be valid for listing.
  */
 - (void) VerifyAddItemRequest
@@ -141,6 +164,70 @@
     [HttpPostHelper doPost:request from:self withSelector: @selector(getFees:)];
 }
 
+
+/*
+ * Formulates a http POST request to ebay to see if our item will be valid for listing.
+ */
+- (void) AddItemRequest
+{
+    NSLog(@"GeteBayDetailsRequest");
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<AddItemRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<ErrorLanguage>en_US</ErrorLanguage>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "<Item>"
+                      "<Title>Harry Potter and the Philosopher's Stone</Title>"
+                      "<Description>This is the first book in the Harry Potter series. In excellent condition!</Description>"
+                      "<PrimaryCategory>"
+                      "<CategoryID>377</CategoryID>"
+                      "</PrimaryCategory>"
+                      "<StartPrice>1.00</StartPrice>"
+                      "<CategoryMappingAllowed>true</CategoryMappingAllowed>"
+                      "<ConditionID>1000</ConditionID>"
+                      "<Country>US</Country>"
+                      "<Currency>USD</Currency>"
+                      "<DispatchTimeMax>3</DispatchTimeMax>"
+                      "<ListingDuration>Days_7</ListingDuration>"
+                      "<ListingType>Chinese</ListingType>"
+                      "<PaymentMethods>PayPal</PaymentMethods>"
+                      "<PayPalEmailAddress>magicalbookseller@yahoo.com</PayPalEmailAddress>"
+                      "<PictureDetails>"
+                      "<PictureURL>http://i.ebayimg.sandbox.ebay.com/00/s/MTAwMFg2NjA=/$(KGrHqZHJFEE-ko8eGBiBPs1CEKTZQ~~60_1.JPG?set_id=8800005007</PictureURL>"
+                      "</PictureDetails>"
+                      "<PostalCode>95125</PostalCode>"
+                      "<Quantity>1</Quantity>"
+                      "<ReturnPolicy>"
+                      "<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>"
+                      "<RefundOption>MoneyBack</RefundOption>"
+                      "<ReturnsWithinOption>Days_30</ReturnsWithinOption>"
+                      "<Description>If you are not satisfied, return the item for refund.</Description>"
+                      "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>"
+                      "</ReturnPolicy>"
+                      "<ShippingDetails>"
+                      "<ShippingType>Flat</ShippingType>"
+                      "<ShippingServiceOptions>"
+                      "<ShippingServicePriority>1</ShippingServicePriority>"
+                      "<ShippingService>USPSMedia</ShippingService>"
+                      "<ShippingServiceCost>2.50</ShippingServiceCost>"
+                      "</ShippingServiceOptions>"
+                      "</ShippingDetails>"
+                      "<Site>US</Site>"
+                      "<UUID>8344f8f3207b4e21b387fb7d41ca45d1</UUID>"
+                      "</Item>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</AddItemRequest>", self.authToken];
+    
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"AddItem"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getFees:)];
+}
+
 /*
  * Formulates a http POST request to ebay for return policy.
  */
@@ -191,7 +278,9 @@
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(getAuthKey:) name:keNotificationGotLoginPage object: NULL];
     
-    [self VerifyAddItemRequest];
+    //[self ValidateTestUser];
+    //[self VerifyAddItemRequest];
+    [self AddItemRequest];
     /*
     [self sessionIDRequest];
     
