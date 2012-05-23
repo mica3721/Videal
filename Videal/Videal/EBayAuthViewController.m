@@ -102,6 +102,13 @@
     [HttpPostHelper doPost:request from:self withSelector: @selector(getReturnPolicy:)];
 }
 
+- (void) VerifyAddItemResponse: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    
+}
+
 /*
  * Formulates a http POST request to ebay to see if our item will be valid for listing.
  */
@@ -149,7 +156,6 @@
                                 "</ShippingServiceOptions>"
                             "</ShippingDetails>"
                             "<Site>US</Site>"
-                            "<UUID>8344f8f3207b4e21b387fb7d41ca45d1</UUID>"
                         "</Item>"
                         "<RequesterCredentials>"
                             "<eBayAuthToken>%@</eBayAuthToken>"
@@ -162,7 +168,7 @@
     [HttpPostHelper setCert:request];
     NSLog(@"%@", body);
                       
-    [HttpPostHelper doPost:request from:self withSelector: @selector(getFees:)];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(VerifyAddItemResponse:)];
 }
 
 
@@ -319,7 +325,7 @@
     [del->deals addObject:self.authToken]; 
     NSLog(@"%@", self.authToken);
     
-    [self doneWithAuth];
+    [self VerifyAddItemRequest];
 }
 
 /*

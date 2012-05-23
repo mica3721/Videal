@@ -9,6 +9,8 @@
 #import "PostViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AppDelegate.h"
+#import "ItemDetailViewController.h"
+
 @implementation PostViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -153,9 +155,14 @@
 }
  */
 
--(void) EBay {
+-(void) eBay {
     EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
     [self presentModalViewController:dataCtrl animated:YES];
+}
+
+- (void) postDetailView {
+    ItemDetailViewController *detailCtrl = [ItemDetailViewController new];
+    [self presentModalViewController:detailCtrl animated:YES];
 }
 
 // Do all cleanup here.
@@ -212,20 +219,27 @@
     [self.view addSubview:testBtn];*/
     
     UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [eBayBtn setFrame:CGRectMake(0, 0, 160, 40)];
-    [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
+    [eBayBtn setFrame:CGRectMake(0, 0, 100, 40)];
+    [eBayBtn addTarget:self action:@selector(eBay) forControlEvents:UIControlEventTouchUpInside];
     [eBayBtn setTitle:@"Sign in to eBay" forState:UIControlStateNormal];
     [eBayBtn setUserInteractionEnabled:YES];
     [self.view addSubview:eBayBtn];
     
     UIButton *logOutBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [logOutBtn setFrame:CGRectMake(160, 0, 160, 40)];
+    [logOutBtn setFrame:CGRectMake(110, 0, 100, 40)];
     [logOutBtn addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
     [logOutBtn setTitle:@"Log out" forState:UIControlStateNormal];
-    //AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    AppDelegate *del = [[UIApplication sharedApplication] delegate];
     //[logOutBtn setTitle:[del->deals objectAtIndex:DEALS_EBAY_AUTHKEY_INDEX] forState:UIControlStateNormal];
-    [logOutBtn setUserInteractionEnabled:YES];
+    [logOutBtn setUserInteractionEnabled:!(del->authKeyExists)];
     [self.view addSubview:logOutBtn];
+    
+    UIButton *postDetailTestBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [postDetailTestBtn setFrame:CGRectMake(220, 0, 100, 40)];
+    [postDetailTestBtn addTarget:self action:@selector(postDetailView) forControlEvents:UIControlEventTouchUpInside];
+    [postDetailTestBtn setTitle:@"Test Detail" forState:UIControlStateNormal];
+    [postDetailTestBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:postDetailTestBtn];
     
     postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
     postedDeals.delegate = self;
