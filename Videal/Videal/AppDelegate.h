@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define DEALS_EBAY_AUTHKEY_INDEX 0
+#define DEALS_EBAY_HASCARD_INDEX 1
+#define DEALS_EBAY_ITEMS_INDEX 2
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate> {
     
     UINavigationController *navController;

@@ -268,6 +268,12 @@
     [HttpPostHelper doPost:request from:self withSelector: @selector(getSessionID:)];
 }
 
+- (void) ddoneWithAuth
+{
+    NSNotification *notif = [NSNotification notificationWithName:kNotificationGotAuthKey object:NULL];
+    [[NSNotificationCenter defaultCenter] postNotification:notif];
+}
+
 /*
  * Requests for sessionID
  * And creates a UIWebView to display the login page for user authroization.
@@ -280,15 +286,21 @@
     
     //[self ValidateTestUser];
     //[self VerifyAddItemRequest];
-    [self AddItemRequest];
-    /*
+    //[self AddItemRequest];
+    
     [self sessionIDRequest];
     
-    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    UIButton *bypassBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [bypassBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    [bypassBtn addTarget:self action:@selector(doneWithAuth) forControlEvents:UIControlEventTouchUpInside];
+    [bypassBtn setTitle:@"Bypass" forState:UIControlStateNormal];
+    [bypassBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:bypassBtn];
+    
+    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-40)];
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
     [self.view addSubview:authWeb];
-     */
 }
 
 /*

@@ -20,7 +20,7 @@
 
 @synthesize deals; 
 
-- (void) refreshOngoingDeals {
+- (void) checkEBayAccountDetails {
     // add to the deals array
     
 }
@@ -31,8 +31,8 @@
     // Override point for customization after application launch.
     
     deals = [[DealSaver new] LoadDeals];
-    // Make an EBay api call to add to deals here
-    [self refreshOngoingDeals];
+    // Make an EBay api call to see if our auth token, if it exists, is valid
+    [self checkEBayAccountDetails];
     
     UIViewController *viewController1 = [[PostViewController alloc] initWithNibName:nil bundle:nil];
     //UIViewController *viewController2 = [[HotViewController alloc] initWithNibName:nil bundle:nil];

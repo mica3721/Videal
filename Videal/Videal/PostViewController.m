@@ -158,10 +158,40 @@
     [self presentModalViewController:dataCtrl animated:YES];
 }
 
+- (void) showMainView
+{
+    picker = [[UIImagePickerController alloc] init];
+    
+    UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [eBayBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
+    [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
+    [eBayBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:eBayBtn];
+    
+    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
+    postedDeals.delegate = self;
+    postedDeals.dataSource = self; 
+    [self.view addSubview:postedDeals];
+    
+    UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
+    postButton.frame = CGRectMake(116, 380, 88, 70);
+    [postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
+    [postButton setUserInteractionEnabled:YES];
+    //[postButton setTitle:@"Post Video Deals" forState: UIControlStateNormal];
+    [postButton setBackgroundColor:[UIColor darkGrayColor]];
+    [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
+    [self.view addSubview:postButton];
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(showMainView:) name:kNotificationGotAuthKey object: NULL];
+    
+    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
     
     /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
@@ -173,6 +203,7 @@
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     */
     
+    /*
     picker = [[UIImagePickerController alloc] init];
     /*UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
@@ -195,6 +226,7 @@
     [testBtn setUserInteractionEnabled:YES];
     [self.view addSubview:testBtn];*/
     
+    /*
     UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [eBayBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
     [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
@@ -215,7 +247,7 @@
     [postButton setBackgroundColor:[UIColor darkGrayColor]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
     [self.view addSubview:postButton];
-    
+    */
     
 }
 #pragma mark UIActionSheetDelegate methods
