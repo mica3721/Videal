@@ -20,9 +20,19 @@
 
 @synthesize deals; 
 
-- (void) checkEBayAccountDetails {
-    // add to the deals array
-    
+- (void) checkEBayAccountDetails
+{
+    authKeyExists = NO;
+    hasCard = NO;
+    if (deals.count >= 2)
+    {
+        authKeyExists = YES;
+
+        if ([[deals objectAtIndex:DEALS_EBAY_HASCARD_INDEX] isEqualToString:@"hasCard"])
+        {
+            hasCard = YES;
+        }
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

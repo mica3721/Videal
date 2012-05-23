@@ -11,8 +11,6 @@
 #import "EBayAuthClient.h"
 #import "XMLReader.h"
 
-#define kNotificationGotAuthKey @"got_auth_key"
-
 @interface EBayAuthViewController : UIViewController <UIWebViewDelegate>{
     UIWebView *authWeb;
 }

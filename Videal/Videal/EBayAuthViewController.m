@@ -7,6 +7,7 @@
 //
 
 #import "EBayAuthViewController.h"
+#import "AppDelegate.h"
 
 @interface EBayAuthViewController ()
 
@@ -268,10 +269,9 @@
     [HttpPostHelper doPost:request from:self withSelector: @selector(getSessionID:)];
 }
 
-- (void) ddoneWithAuth
+- (void) doneWithAuth
 {
-    NSNotification *notif = [NSNotification notificationWithName:kNotificationGotAuthKey object:NULL];
-    [[NSNotificationCenter defaultCenter] postNotification:notif];
+    [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
 /*
@@ -314,7 +314,12 @@
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
     NSLog(@"%@", [dict description]);
     self.authToken = [[dict objectForKey:@"FetchTokenResponse"] objectForKey:@"eBayAuthToken"];
+    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    del->authKeyExists = YES;
+    [del->deals addObject:self.authToken]; 
     NSLog(@"%@", self.authToken);
+    
+    [self doneWithAuth];
 }
 
 /*

@@ -158,40 +158,26 @@
     [self presentModalViewController:dataCtrl animated:YES];
 }
 
-- (void) showMainView
+// Do all cleanup here.
+- (void) logOut
 {
-    picker = [[UIImagePickerController alloc] init];
+    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    del->authKeyExists = NO;
+    del->hasCard = NO;
+    [del->deals removeAllObjects]; 
     
-    UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [eBayBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
-    [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
-    [eBayBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:eBayBtn];
-    
-    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
-    postedDeals.delegate = self;
-    postedDeals.dataSource = self; 
-    [self.view addSubview:postedDeals];
-    
-    UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
-    postButton.frame = CGRectMake(116, 380, 88, 70);
-    [postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setUserInteractionEnabled:YES];
-    //[postButton setTitle:@"Post Video Deals" forState: UIControlStateNormal];
-    [postButton setBackgroundColor:[UIColor darkGrayColor]];
-    [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
-    [self.view addSubview:postButton];
+    /*
+     ********
+     * TODO *
+     ********
+     * There should be code to get rid of already existing items in this view.
+     */
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(showMainView:) name:kNotificationGotAuthKey object: NULL];
-    
-    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
     
     /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
@@ -203,7 +189,6 @@
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     */
     
-    /*
     picker = [[UIImagePickerController alloc] init];
     /*UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
@@ -226,13 +211,21 @@
     [testBtn setUserInteractionEnabled:YES];
     [self.view addSubview:testBtn];*/
     
-    /*
     UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [eBayBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    [eBayBtn setFrame:CGRectMake(0, 0, 160, 40)];
     [eBayBtn addTarget:self action:@selector(EBay) forControlEvents:UIControlEventTouchUpInside];
-    [eBayBtn setTitle:@"eBay" forState:UIControlStateNormal];
+    [eBayBtn setTitle:@"Sign in to eBay" forState:UIControlStateNormal];
     [eBayBtn setUserInteractionEnabled:YES];
     [self.view addSubview:eBayBtn];
+    
+    UIButton *logOutBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [logOutBtn setFrame:CGRectMake(160, 0, 160, 40)];
+    [logOutBtn addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
+    [logOutBtn setTitle:@"Log out" forState:UIControlStateNormal];
+    //AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    //[logOutBtn setTitle:[del->deals objectAtIndex:DEALS_EBAY_AUTHKEY_INDEX] forState:UIControlStateNormal];
+    [logOutBtn setUserInteractionEnabled:YES];
+    [self.view addSubview:logOutBtn];
     
     postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
     postedDeals.delegate = self;
@@ -247,9 +240,9 @@
     [postButton setBackgroundColor:[UIColor darkGrayColor]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
     [self.view addSubview:postButton];
-    */
     
 }
+     
 #pragma mark UIActionSheetDelegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
