@@ -14,6 +14,8 @@
     NSArray *detailValueArray;
     UITextField *title;
     UITextView *desc;
+    UITextField *paypal;
+    UITextField *price;
 }
 
 - (void) dismissKeyboard;

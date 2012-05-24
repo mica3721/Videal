@@ -20,6 +20,32 @@
     if (self) {
         // Custom initialization
         
+        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Start price",@"Duration",@"Paypal",@"Shipping",@"Return", nil];
+        detailStringArray = [[NSArray alloc] initWithObjects:@"", @"", @"7 days", @"", @"USPS", @"Moneyback, 30 days", nil];
+        detailValueArray = [[NSArray alloc] initWithObjects:@"", @"", @"", @"", @"", @"", nil];
+        
+        title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
+        title.placeholder = @"Title";
+        [title setReturnKeyType:UIReturnKeyDone];
+        [title addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        desc = [[UITextView alloc] initWithFrame:CGRectMake(15, 12, 290, 123)];
+        desc.backgroundColor = [UIColor clearColor];
+        [desc setReturnKeyType:UIReturnKeyDone];
+        [desc setDelegate:self];
+        
+        paypal = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
+        paypal.placeholder = @"Your Paypal Account";
+        [paypal setKeyboardType:UIKeyboardTypeEmailAddress];
+        [paypal setReturnKeyType:UIReturnKeyDone];
+        [paypal addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        price = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
+        price.placeholder = @"Name Your Price";
+        [price setKeyboardType:UIKeyboardTypeEmailAddress];
+        [price setReturnKeyType:UIReturnKeyDone];
+        [price addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
     }
     return self;
 }
@@ -34,29 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = @"Now list your item on eBay!";
-    detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Start price",@"Duration",@"Paypal",@"Shipping",@"Return", nil];
-    detailStringArray = [[NSArray alloc] initWithObjects:@"", @"$1.00", @"7 days", @"", @"USPS", @"Moneyback, 30 days", nil];
-    detailValueArray = [[NSArray alloc] initWithObjects:@"", @"", @"", @"", @"", @"", nil];
-    
-    /*
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
-    [view addGestureRecognizer:tap];
-    [self.view addSubview:view];
-    [self.view sendSubviewToBack:view];
-     */
-    
-    title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
-    title.placeholder = @"Title";
-    [title setReturnKeyType:UIReturnKeyDone];
-    [title addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    
-    desc = [[UITextView alloc] initWithFrame:CGRectMake(15, 12, 290, 123)];
-    desc.backgroundColor = [UIColor clearColor];
-    [desc setReturnKeyType:UIReturnKeyDone];
-    [desc setDelegate:self];
+
     
     // Category
     // Start Price
@@ -98,7 +102,7 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     if (section == 2) {
-        return 4;
+        return 6;
     } else return 1;
 }
 
@@ -118,7 +122,13 @@
             [cell addSubview:desc];
         } else if (indexPath.section == 2) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            if (indexPath.row == 1) {
+                [cell addSubview:price];
+            } else if (indexPath.row == 3) {
+                [cell addSubview:paypal];
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
             //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -128,9 +138,12 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    if (indexPath.section > 1) {
-        cell.textLabel.text = [arrayAdobeProducts objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [arrayAppleProducts objectAtIndex:indexPath.row];
+    if (indexPath.section == 2) {
+        cell.textLabel.text = [detailNameArray objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = [detailStringArray objectAtIndex:indexPath.row];
+    } else if (indexPath.section == 3) {
+        cell.textLabel.text = @"Submit";
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
     }
     
     return cell;
@@ -148,7 +161,9 @@
         return @"Title";
     } else if (section == 1) {
         return @"Description";
-    } else return @"List Details";
+    } else if (section == 2) {
+        return @"List Details";
+    } else return @"Finalize and submit";
 }
 
 - (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
