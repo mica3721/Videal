@@ -9,7 +9,7 @@
 #import "PostViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AppDelegate.h"
-#import "ItemDetailViewController.h"
+#import "ItemViewController.h"
 
 @implementation PostViewController
 
@@ -161,7 +161,7 @@
 }
 
 - (void) postDetailView {
-    ItemDetailViewController *detailCtrl = [ItemDetailViewController new];
+    ItemViewController *detailCtrl = [[ItemViewController new] initWithStyle:UITableViewStyleGrouped];
     [self presentModalViewController:detailCtrl animated:YES];
 }
 
