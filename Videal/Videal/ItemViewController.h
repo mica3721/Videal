@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate> {
+    
+    @public
     NSArray *detailNameArray;
     NSArray *detailStringArray;
     NSArray *detailValueArray;
@@ -17,7 +19,5 @@
     UITextField *paypal;
     UITextField *price;
 }
-
-- (void) dismissKeyboard;
 
 @end

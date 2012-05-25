@@ -7,6 +7,7 @@
 //
 
 #import "ItemViewController.h"
+#import "CategoryViewController.h"
 
 @interface ItemViewController ()
 
@@ -92,14 +93,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     if (section == 2) {
         return 6;
@@ -232,7 +231,13 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            NSLog(@"Clicked Category");
+            CategoryViewController *categoryViewController = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self presentModalViewController:categoryViewController animated:YES];
+        }
+    }
     if (indexPath.section == 3) [self submit];
 }
 
