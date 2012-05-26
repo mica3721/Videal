@@ -40,11 +40,6 @@
 }
 
 
-
-
-
-
-
 /*READING THINGS FROM THE BUFFER*/
 -(int) readInt {
     Byte intVerifier = buffer[pos];

@@ -99,7 +99,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    NSLog(@"%@", self.navigationController);
+    UILabel *label = [[UILabel alloc]init];
+    label.text = @"Pick options";
+    [label setFont:[UIFont fontWithName:@"Futura" size:20]];
+    label.frame = CGRectMake(0, 0, 200, 200);
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+	label.adjustsFontSizeToFitWidth = YES;
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    self.navigationItem.titleView = label;
     
     // Category
     // Start Price

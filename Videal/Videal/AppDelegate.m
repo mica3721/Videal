@@ -18,7 +18,9 @@
 
 @synthesize window = _window;
 
-@synthesize deals; 
+@synthesize deals;
+
+@synthesize navController =_navigationController;
 
 - (void) checkEBayAccountDetails
 {
@@ -52,7 +54,10 @@
     //self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
 
     
-    self.window.rootViewController = viewController1;
+    navController = [[UINavigationController alloc] initWithRootViewController: viewController1];
+    [self.window setRootViewController: navController];
+    
+    
     [self.window makeKeyAndVisible];
     
     return YES;
