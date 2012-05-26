@@ -73,8 +73,17 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     [array addObject:[[NSArray alloc] initWithObjects:@"Auction-like", @"Chinese", nil]];
-    [array addObject:[[NSArray alloc] initWithObjects:@"Mutliple Item", @"Dutch", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"Fixed Price", @"FixedPriceItem", nil]];
+    
+    return array;
+}
+
++ (NSMutableArray *) getDurationLists
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:[[NSArray alloc] initWithObjects:@"3 days", @"Days_3", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"5 days", @"Days_5", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"7 days", @"Days_7", nil]];
     
     return array;
 }
