@@ -162,13 +162,13 @@
 
 - (void) postDetailView {
     ItemViewController *detailCtrl = [[ItemViewController new] initWithStyle:UITableViewStyleGrouped];
-    [self presentModalViewController:detailCtrl animated:YES];
+    [self.navigationController pushViewController:detailCtrl animated:YES];
 }
 
 // Do all cleanup here.
 - (void) logOut
 {
-    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     del->authKeyExists = NO;
     del->hasCard = NO;
     [del->deals removeAllObjects]; 
@@ -229,7 +229,7 @@
     [logOutBtn setFrame:CGRectMake(110, 0, 100, 40)];
     [logOutBtn addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
     [logOutBtn setTitle:@"Log out" forState:UIControlStateNormal];
-    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //[logOutBtn setTitle:[del->deals objectAtIndex:DEALS_EBAY_AUTHKEY_INDEX] forState:UIControlStateNormal];
     [logOutBtn setUserInteractionEnabled:!(del->authKeyExists)];
     [self.view addSubview:logOutBtn];

@@ -514,10 +514,14 @@
 		1B5BFDE51550960700335348 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Do Hyeong Kwon (8RBSXTYP5A)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9F6A5AF3-523C-4F1F-BC1B-47DAA04DC6E2";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -526,10 +530,14 @@
 		1B5BFDE61550960700335348 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Do Hyeong Kwon (8RBSXTYP5A)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9F6A5AF3-523C-4F1F-BC1B-47DAA04DC6E2";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -26,4 +26,6 @@
 
 @property (strong, nonatomic) NSMutableArray * deals; 
 
+@property (nonatomic, strong) UINavigationController *navController;
+
 @end
