@@ -49,24 +49,62 @@
 + (NSMutableURLRequest*) uploadVideoToYouTube: (NSURL *) videoLink
                                   withAuthKey: (NSString *) authKey
 {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"/feeds/api/users/default/uploads HTTP/1.1"]];
-     NSError *error = NULL;
+    NSString *title = [videoLink lastPathComponent];
+    NSString *desc = @"This is test video.";
+    NSString *category = @"People";
+    NSString *keywords = @"video";
     
-    NSString *temp = [NSString stringWithFormat:@"%@~", videoLink];
-    [NSString stringWithFormat:@""];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*/()~"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:temp
-                                                    options:0
-                                                      range:NSMakeRange(0, [temp length])];
-    NSString *filename =@"";
-    if (match) {
-        NSRange range = [match rangeAtIndex:1];
-        
-        filename = [temp substringWithRange:range];
-    }
-
+    NSString *boundary = @"--qwerty";
+    
+    NSString *xml = [NSString stringWithFormat:
+                     @"<?xml version=\"1.0\"?>"
+                     @"<entry xmlns=\"http://www.w3.org/2005/Atom\" xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns:yt=\"http://gdata.youtube.com/schemas/2007\">"
+                     @"<media:group>"
+                     @"<media:title type=\"plain\">%@</media:title>"
+                     @"<media:description type=\"plain\">%@</media:description>"
+                     @"<media:category scheme=\"http://gdata.youtube.com/schemas/2007/categories.cat\">%@</media:category>"
+                     @"<media:keywords>%@</media:keywords>"
+                     @"</media:group>"
+                     @"</entry>", title, desc, category, keywords];
+    
+    NSData *fileData = [[NSFileManager defaultManager] contentsAtPath:[videoLink path]];
+    
+    NSMutableData *postBody = [NSMutableData data];
+    [postBody appendData:[[NSString stringWithFormat:@"%@\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"Content-Type: application/atom+xml; charset=UTF-8\n\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"%@\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"Content-Type: video/mp4\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"Content-Transfer-Encoding: binary\n\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:fileData];
+    [postBody appendData:[[NSString stringWithFormat:@"%@", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURL *url = [NSURL URLWithString:@"http://gdata.youtube.com/feeds/api/users/default/uploads/"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"uploads.gdata.youtube.com" forHTTPHeaderField:@"Host"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@", authKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"2" forHTTPHeaderField:@"GData-Version"];
+    [request setValue:@"key=AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q" forHTTPHeaderField:@"X-GData-Key"];
+    [request setValue:[videoLink lastPathComponent] forHTTPHeaderField:@"Slug"];
+    [request setValue:[NSString stringWithFormat:@"multipart/related; boundary=%@", boundary] forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%d", [postBody length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"close" forHTTPHeaderField:@"Connection"];
+    [request setHTTPBody:postBody];
+    
+    NSLog(@"Headers");
+    NSLog(@"%@", [request allHTTPHeaderFields]);
+    
+    return request;
+    
+    /*
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://uploads.gdata.youtube.com/feeds/api/users/default/uploads"]];
+  
+   
+    NSString *filename =[videoLink lastPathComponent];
+    
     
     
     //NSData *video = [NSData dataWithContentsOfURL:videoLink];
@@ -79,32 +117,34 @@
         "xmlns:yt=\"http://gdata.youtube.com/schemas/2007\">"
     "<media:group>"
     "<media:title type=\"plain\">Videal Video for: </media:title>"
-    "<media:description type=\"plain\">"
+    "<media:description type=\"plain\"></media:description>"
     "</media:group>"
     "</entry>"
-    "--f93dcbA3"
+    "--f93dcbA3\n"
     "Content-Type: video/mp4"
-    "Content-Transfer-Encoding: binary";
+    "Content-Transfer-Encoding: binary\n";
     NSMutableData *data = [[NSMutableData alloc] initWithContentsOfURL:videoLink];
-    body = [body stringByAppendingFormat:[NSString stringWithContentsOfURL:videoLink encoding:NSUTF8StringEncoding error:nil]];
-    NSString *footer = @"--f93dcbA3--";
+    NSString *path = [videoLink path];
+    NSData *videoFile = [[NSFileManager defaultManager] contentsAtPath:path];
+    
+    body = [body stringByAppendingFormat:@"%@", videoFile];
+    NSString *footer = @"\n--f93dcbA3--";
     body = [body stringByAppendingFormat:[NSString stringWithFormat:@"%@", footer]];
     
-    
-    
-    
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:data];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", authKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@", authKey] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"2" forHTTPHeaderField:@"GData-Version"];
     [request setValue:@"key=AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q" forHTTPHeaderField:@"X-GData-Key"];
     [request setValue:filename forHTTPHeaderField:@"Slug"];
     [request setValue:@"multipart/related; boundary=\"f93dcbA3\"" forHTTPHeaderField:@"Content-type"];
     [request setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-length"];
     [request setValue:@"close" forHTTPHeaderField:@"Connection"];
-    
     [request setValue:@"uploads.gdata.youtube.com" forHTTPHeaderField:@"Host"];
+    [request setHTTPBody:data];
+    //NSLog(@"%@", body);
+    //NSLog(@"++++%@");
     return request;
+    */
 }
 
 + (NSMutableURLRequest *) createeBayRequestWithURL: (NSString *) url

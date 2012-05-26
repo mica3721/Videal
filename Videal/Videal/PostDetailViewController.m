@@ -58,8 +58,10 @@
 
 
 -(void) upload {
-    NSMutableURLRequest *request = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
-    [HttpPostHelper doPost:request from:self withSelector: @selector(doneUploadingVideo:)];
+   
+    
+    NSMutableURLRequest *req = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
+    [HttpPostHelper doPost:req from:self withSelector: @selector(doneUploadingVideo:)];
     
 }
 
@@ -113,11 +115,6 @@
     [priceInput setDelegate:self];
     [priceInput setPlaceholder:@"What's your price?"];
     [self.view addSubview:priceInput];
-    
-    
-    
-    
-    
 }
 
 
