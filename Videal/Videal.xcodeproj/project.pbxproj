@@ -500,6 +500,7 @@
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -511,6 +512,7 @@
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

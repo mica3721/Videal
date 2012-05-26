@@ -158,8 +158,16 @@
     [self presentModalViewController:dataCtrl animated:YES];
 }
 
-- (void) showMainView
+
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(EBay) name:@"LoginNow" object:nil];
+    
     picker = [[UIImagePickerController alloc] init];
     
     UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -182,16 +190,9 @@
     [postButton setBackgroundColor:[UIColor darkGrayColor]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
     [self.view addSubview:postButton];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(showMainView:) name:kNotificationGotAuthKey object: NULL];
     
-    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
+    NSNotification *notif = [NSNotification notificationWithName:@"LoginNow" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notif];
     
     /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
@@ -205,7 +206,7 @@
     
     /*
     picker = [[UIImagePickerController alloc] init];
-    /*UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
     [pickBtn addTarget:self action:@selector(CallVideoLibrary:) forControlEvents:UIControlEventTouchUpInside];
     [pickBtn setTitle:@"Pick a Video" forState:UIControlStateNormal];
