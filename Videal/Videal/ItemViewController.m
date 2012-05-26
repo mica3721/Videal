@@ -7,6 +7,7 @@
 //
 
 #import "ItemViewController.h"
+#import "OptionLists.h"
 #import "CategoryViewController.h"
 
 @interface ItemViewController ()
@@ -21,9 +22,8 @@
     if (self) {
         // Custom initialization
         
-        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Start price",@"Duration",@"Paypal",@"Shipping",@"Return", nil];
-        detailStringArray = [[NSArray alloc] initWithObjects:@"", @"", @"7 days", @"", @"USPS", @"Moneyback, 30 days", nil];
-        detailValueArray = [[NSArray alloc] initWithObjects:@"", @"", @"", @"", @"", @"", nil];
+        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Duration",@"Paypal",@"Shipping",@"Dispatch", @"Return", nil];
+        detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"7 days", @"", @"USPS", @"3 days", @"Moneyback, 30 days", nil];
         
         title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
         title.placeholder = @"Title";
@@ -34,6 +34,10 @@
         desc.backgroundColor = [UIColor clearColor];
         [desc setReturnKeyType:UIReturnKeyDone];
         [desc setDelegate:self];
+        
+        // define defaults
+        categoryIndex = NO_CATEGORY;
+        dispatchIndex = 3;
         
         paypal = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
         paypal.placeholder = @"Your Paypal Account";
@@ -51,11 +55,45 @@
     return self;
 }
 
+- (void) setCategory: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getCategoryLists] objectAtIndex:idx];
+    [detailStringArray replaceObjectAtIndex:DETAIL_CATEGORY withObject:[arr objectAtIndex:0]];
+    categoryCode = [arr objectAtIndex:1];
+    categoryIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Category to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode, categoryIndex);
+}
+
+- (void) setDispatch: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getDispatchLists] objectAtIndex:idx];
+    [detailStringArray replaceObjectAtIndex:DETAIL_DISPATCH withObject:[arr objectAtIndex:0]];
+    dispatchTimeMax = [arr objectAtIndex:1];
+    dispatchIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Dispatch Time to: %@ %d", dispatchTimeMax, dispatchIndex);
+} 
+
+- (void) setAuction: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getAuctionLists] objectAtIndex:idx];
+    [detailStringArray replaceObjectAtIndex:DETAIL_AUCTION withObject:[arr objectAtIndex:0]];
+    auctionCode = [arr objectAtIndex:1];
+    auctionIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], auctionCode, auctionIndex);
+}
+
 - (void) submit
 {
     NSLog(@"Submit BTN clicked");
     NSLog(@"Title: %@", title.text);
     NSLog(@"Desc: %@", desc.text);
+    NSLog(@"Category: %@\t%@\t %d", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode, categoryIndex);
 }
 
 - (void)viewDidLoad
@@ -101,7 +139,7 @@
 {
     // Return the number of rows in the section.
     if (section == 2) {
-        return 6;
+        return [detailNameArray count];
     } else return 1;
 }
 
@@ -121,28 +159,22 @@
             [cell addSubview:desc];
         } else if (indexPath.section == 2) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
-            if (indexPath.row == 1) {
+            if (indexPath.row == DETAIL_PRICE) {
                 [cell addSubview:price];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == DETAIL_PAYPAL) {
                 [cell addSubview:paypal];
             } else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
-            //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell.textLabel.text = [detailNameArray objectAtIndex:indexPath.row];
+            cell.detailTextLabel.text = [detailStringArray objectAtIndex:indexPath.row];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             [cell setBackgroundColor:[UIColor redColor]];
+            cell.textLabel.text = @"Submit";
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
-    }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    if (indexPath.section == 2) {
-        cell.textLabel.text = [detailNameArray objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [detailStringArray objectAtIndex:indexPath.row];
-    } else if (indexPath.section == 3) {
-        cell.textLabel.text = @"Submit";
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;
@@ -232,10 +264,24 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == DETAIL_CATEGORY) {
             NSLog(@"Clicked Category");
-            CategoryViewController *categoryViewController = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self presentModalViewController:categoryViewController animated:YES];
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getCategoryLists]];
+            [view registerParentViewController:self withSelector:@selector(setCategory:) andIndex:categoryIndex];
+            [self presentModalViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_DISPATCH) {
+            NSLog(@"Clicked Dispatch");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getDispatchLists]];
+            [view registerParentViewController:self withSelector:@selector(setDispatch:) andIndex:dispatchIndex];
+            [self presentModalViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_AUCTION) {
+            NSLog(@"Clicked Auction");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getAuctionLists]];
+            [view registerParentViewController:self withSelector:@selector(setAuction:) andIndex:auctionIndex];
+            [self presentModalViewController:view animated:YES];
         }
     }
     if (indexPath.section == 3) [self submit];

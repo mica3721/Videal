@@ -14,13 +14,17 @@
 
 @implementation CategoryViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithStyle: (UITableViewStyle)style
+           andArray: (NSMutableArray *)arr;
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
         
+        categoryArray = arr;
+        
         // Define the eBay categories
+        /*
         categoryArray = [[NSMutableArray alloc] init];
         [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Antiques", @"20081", nil]];
         [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Art", @"550", nil]];
@@ -57,8 +61,18 @@
         [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Video Games", @"1249", nil]];
         [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Everything Else", @"99", nil]];
         [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Partner", @"10159", nil]];
+         */
     }
     return self;
+}
+
+- (void) registerParentViewController: (ItemViewController *)vc
+                         withSelector: (SEL)sel
+                             andIndex: (int) index;
+{
+    itemViewController = vc;
+    selector = sel;
+    selectedIndex = index;
 }
 
 - (void)viewDidLoad
@@ -106,6 +120,9 @@
     // Configure the cell...
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = [[categoryArray objectAtIndex:indexPath.row] objectAtIndex:0];
+    if (indexPath.row == selectedIndex) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     
     return cell;
 }
@@ -165,6 +182,9 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    [itemViewController performSelector:selector withObject:[NSNumber numberWithInt:indexPath.row]];
+    [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
 @end

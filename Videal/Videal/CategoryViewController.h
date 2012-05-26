@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ItemViewController.h"
 
 @interface CategoryViewController : UITableViewController {
     NSMutableArray *categoryArray;
+    ItemViewController *itemViewController;
+    int selectedIndex;
+    SEL selector;
 }
+
+- (id) initWithStyle: (UITableViewStyle)style
+            andArray: (NSMutableArray *)arr;
+
+- (void) registerParentViewController: (ItemViewController *)vc
+                         withSelector: (SEL)sel
+                             andIndex: (int) index;
+- (void) setIndex: (int)index;
 
 @end

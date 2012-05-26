@@ -13,6 +13,7 @@
 		0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EFF15607A9900D90528 /* EBayAuthClient.m */; };
 		0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F021560B44200D90528 /* HttpPostHelper.m */; };
 		0A744F0C1560EB1E00D90528 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F0B1560EB1D00D90528 /* XMLReader.m */; };
+		0A7B61671570930B00F06657 /* OptionLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B61661570930B00F06657 /* OptionLists.m */; };
 		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
 		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
 		1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D02B155290FE00F0E0E7 /* VideoViewController.m */; };
@@ -70,6 +71,8 @@
 		0A744F021560B44200D90528 /* HttpPostHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpPostHelper.m; sourceTree = "<group>"; };
 		0A744F0A1560EB1D00D90528 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		0A744F0B1560EB1D00D90528 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		0A7B61651570930B00F06657 /* OptionLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionLists.h; sourceTree = "<group>"; };
+		0A7B61661570930B00F06657 /* OptionLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionLists.m; sourceTree = "<group>"; };
 		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		1B16D014155277E100F0E0E7 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -222,6 +225,8 @@
 				0A744EF815606EC300D90528 /* EBayAuthViewController.m */,
 				0A218DAD156D9527008630D0 /* ItemViewController.h */,
 				0A218DAE156D9527008630D0 /* ItemViewController.m */,
+				0A7B61651570930B00F06657 /* OptionLists.h */,
+				0A7B61661570930B00F06657 /* OptionLists.m */,
 				0A218DB1156E0D2C008630D0 /* CategoryViewController.h */,
 				0A218DB2156E0D2C008630D0 /* CategoryViewController.m */,
 				1B16D02A155290CA00F0E0E7 /* VideoViewController.h */,
@@ -403,6 +408,7 @@
 				1B2ECBAD156869DD0056A942 /* DealSaver.m in Sources */,
 				0A218DAF156D9527008630D0 /* ItemViewController.m in Sources */,
 				0A218DB3156E0D2C008630D0 /* CategoryViewController.m in Sources */,
+				0A7B61671570930B00F06657 /* OptionLists.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
