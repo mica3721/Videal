@@ -15,7 +15,11 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate> {
     
     UINavigationController *navController;
+    
+    @public
     NSMutableArray *deals;
+    BOOL authKeyExists;
+    BOOL hasCard;
 }
 
 @property (strong, nonatomic) UIWindow *window;

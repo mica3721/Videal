@@ -20,9 +20,21 @@
 
 @synthesize deals; 
 
-- (void) checkEBayAccountDetails {
-    // add to the deals array
-    
+- (void) checkEBayAccountDetails
+{
+    authKeyExists = NO;
+    hasCard = NO;
+    if (deals.count >= 1)
+    {
+        authKeyExists = YES;
+
+        /*
+        if ([[deals objectAtIndex:DEALS_EBAY_HASCARD_INDEX] isEqualToString:@"hasCard"])
+        {
+            hasCard = YES;
+        }
+         */
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -52,6 +64,9 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    NSLog(@"resign active");
+    NSLog(@"%d", deals.count);
+    [[DealSaver new] SaveDeals:deals];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -60,6 +75,8 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    NSLog(@"Entering Background");
+    NSLog(@"%d", deals.count);
     [[DealSaver new] SaveDeals:deals];
 }
 
@@ -84,6 +101,8 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    NSLog(@"Terminating");
+    NSLog(@"%d", deals.count);
     [[DealSaver new] SaveDeals:deals];
 }
 
