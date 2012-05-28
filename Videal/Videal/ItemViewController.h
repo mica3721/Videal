@@ -34,6 +34,11 @@
     NSString *shippingCode;
     UITextField *paypal;
     UITextField *price;
+    NSURL *videoLink; 
+    NSString *authKey;
+    @private
+    NSThread *uploadThread;
+    
 }
 
 - (void) setCategory: (NSNumber *) index;

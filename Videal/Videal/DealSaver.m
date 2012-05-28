@@ -81,6 +81,32 @@
     return [[pathArray objectAtIndex:0] stringByAppendingPathComponent:@"deals.plist"];
 }
 
+-(NSString *) filePath2 {
+    NSArray * pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return [[pathArray objectAtIndex:0] stringByAppendingPathComponent:@"authkey.plist"];
+}
+
+-(void) SaveAuthKey: (NSString *) authkey {
+    pos = 0;
+    [self writeString:authkey];
+    NSData *authData = [NSData dataWithBytes:buffer length:pos];
+    [authData writeToFile:[self filePath2] atomically:YES];
+    
+}
+
+-(NSString *) LoadAuthKey {
+    pos = 0;
+    NSString * filePath2 = [self filePath2];
+    BOOL authFileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath2];
+    if (authFileExists) {
+        NSData *authData= [[NSData alloc] initWithContentsOfFile:filePath2];
+        [authData getBytes:buffer length:[authData length]];
+        return [self readString];
+    }
+    return nil;
+    
+}
+
 -(void) SaveDeals: (NSMutableArray*) deals {
     
     pos = 0;

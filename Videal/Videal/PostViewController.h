@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "PostDetailViewController.h"
 #import "EBayAuthViewController.h"
 
 

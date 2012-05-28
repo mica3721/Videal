@@ -17,14 +17,16 @@
     UINavigationController *navController;
     
     @public
+    NSString *authKey;
     NSMutableArray *deals;
     BOOL authKeyExists;
     BOOL hasCard;
 }
 
+@property (nonatomic, copy) NSString *authkey;
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) NSMutableArray * deals; 
+@property (strong, nonatomic) NSMutableArray *deals; 
 
 @property (nonatomic, strong) UINavigationController *navController;
 

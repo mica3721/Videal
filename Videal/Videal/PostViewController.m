@@ -48,13 +48,6 @@
     
 }
 
-- (void) showdiffpage {
-    NSLog(@"3");
-    PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
-    [self.navigationController pushViewController:details animated:YES];
-    
-    
-}
 
 // as a delegate we are being told a picture was taken
 - (void)imagePickerController:(UIImagePickerController *)_picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -64,9 +57,6 @@
     UISaveVideoAtPathToSavedPhotosAlbum((NSString *)videoLink, nil, nil, nil);
     [self.navigationController dismissModalViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotification: [NSNotification notificationWithName:@"show" object:nil]];
-    
-   
-    
 }
 
 /*
@@ -164,12 +154,12 @@
  */
 
 -(void) eBay {
-    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
+    
 }
 
 - (void) postDetailView {
     ItemViewController *detailCtrl = [[ItemViewController new] initWithStyle:UITableViewStyleGrouped];
+    detailCtrl->videoLink = videoLink;
     [self.navigationController pushViewController:detailCtrl animated:YES];
 }
 
@@ -189,81 +179,46 @@
      */
 }
 
+-(void) showLoginPage {
+    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+    [self presentModalViewController:dataCtrl animated:YES];
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showdiffpage) name:@"show" object:nil];
-    /*
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [label setBackgroundColor:[UIColor darkGrayColor]];
-    [label setText:@"Your Deals"];
-    [label setTextColor:[UIColor whiteColor]];
-    [label setTextAlignment:UITextAlignmentCenter];
-    [self.view addSubview:label];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postDetailView) name:@"show" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"showLoginPage" object:self];
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
-    */
     
     picker = [[UIImagePickerController alloc] init];
-    /*
-    UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
-    [pickBtn addTarget:self action:@selector(CallVideoLibrary:) forControlEvents:UIControlEventTouchUpInside];
-    [pickBtn setTitle:@"Pick a Video" forState:UIControlStateNormal];
-    [pickBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:pickBtn];
     
-    UIButton *filmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [filmBtn setFrame:CGRectMake(50, 130, 200, 60)];
-    [filmBtn addTarget:self action:@selector(CallVideoCamera:) forControlEvents:UIControlEventTouchUpInside];
-    [filmBtn setTitle:@"Take a Video" forState:UIControlStateNormal];
-    [filmBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:filmBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+											   initWithTitle:@"Logout"
+											   style:UIBarButtonItemStylePlain
+											   target:self
+											   action:@selector(logOut)]; 
     
-    UIButton *testBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [testBtn setFrame:CGRectMake(50, 230, 200, 60)];
-    [testBtn addTarget:self action:@selector(Youtube) forControlEvents:UIControlEventTouchUpInside];
-    [testBtn setTitle:@"Youtube" forState:UIControlStateNormal];
-    [testBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:testBtn];*/
     
-    UIButton *eBayBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [eBayBtn setFrame:CGRectMake(0, 0, 100, 40)];
-    [eBayBtn addTarget:self action:@selector(eBay) forControlEvents:UIControlEventTouchUpInside];
-    [eBayBtn setTitle:@"Sign in to eBay" forState:UIControlStateNormal];
-    [eBayBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:eBayBtn];
     
-    UIButton *logOutBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [logOutBtn setFrame:CGRectMake(110, 0, 100, 40)];
-    [logOutBtn addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
-    [logOutBtn setTitle:@"Log out" forState:UIControlStateNormal];
-    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[logOutBtn setTitle:[del->deals objectAtIndex:DEALS_EBAY_AUTHKEY_INDEX] forState:UIControlStateNormal];
-    [logOutBtn setUserInteractionEnabled:!(del->authKeyExists)];
-    [self.view addSubview:logOutBtn];
-    
-    UIButton *postDetailTestBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [postDetailTestBtn setFrame:CGRectMake(220, 0, 100, 40)];
-    [postDetailTestBtn addTarget:self action:@selector(postDetailView) forControlEvents:UIControlEventTouchUpInside];
-    [postDetailTestBtn setTitle:@"Test Detail" forState:UIControlStateNormal];
-    [postDetailTestBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:postDetailTestBtn];
-    
-    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
+    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
     postedDeals.delegate = self;
     postedDeals.dataSource = self; 
     [self.view addSubview:postedDeals];
     
     UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
-    postButton.frame = CGRectMake(116, 380, 88, 70);
+    postButton.frame = CGRectMake(116, 330, 88, 70);
     [postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
     [postButton setUserInteractionEnabled:YES];
     //[postButton setTitle:@"Post Video Deals" forState: UIControlStateNormal];
     [postButton setBackgroundColor:[UIColor darkGrayColor]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
     [self.view addSubview:postButton];
-    
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!del->authKeyExists) {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"showLoginPage" object:nil]];
+    }
 }
      
 #pragma mark UIActionSheetDelegate methods

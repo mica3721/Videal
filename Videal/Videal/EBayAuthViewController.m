@@ -363,7 +363,8 @@
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
     NSLog(@"%@", [dict description]);
     self.authToken = [[dict objectForKey:@"FetchTokenResponse"] objectForKey:@"eBayAuthToken"];
-    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    del->authKey = self.authToken;
     del->authKeyExists = YES;
     [del->deals addObject:self.authToken]; 
     NSLog(@"%@", self.authToken);

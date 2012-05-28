@@ -23,7 +23,9 @@
     Byte buffer[10000];
 }
 
+-(void) SaveAuthKey: (NSString *) authkey;
 
+-(NSString *) LoadAuthKey;
 
 -(void) SaveDeals: (NSMutableArray*) deals;
 

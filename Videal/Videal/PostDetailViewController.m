@@ -212,23 +212,6 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     /* More comments or some shit */
     [super viewDidLoad];
     [self uploadVideoFile];
-    /*
-    NSLog(@"Google Client Login");
-    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
-    NSString *googleID = @"Videal.Test";
-    NSString *googlePW = @"eunmo123";
-    NSString *googleSource = @"Videal_Test";
-    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
-    NSLog(@"%@", body);
-    
-    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
-    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
-    
-    UITextField *priceInput = [[UITextField alloc] initWithFrame:CGRectMake(40, 50, 240, 60)];
-    [priceInput setDelegate:self];
-    [priceInput setPlaceholder:@"What's your price?"];
-    [self.view addSubview:priceInput];
-     */
 }
 
 
