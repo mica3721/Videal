@@ -17,6 +17,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize authkey;
 
 @synthesize deals;
 
@@ -43,8 +44,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    
-    deals = [[DealSaver new] LoadDeals];
+    DealSaver *saver= [DealSaver new];
+    deals = [saver LoadDeals];
+    authKey = [saver LoadAuthKey];
+    if (authKey == nil) {
+        authKeyExists = false;
+    }
     // Make an EBay api call to see if our auth token, if it exists, is valid
     [self checkEBayAccountDetails];
     
@@ -71,7 +76,9 @@
      */
     NSLog(@"resign active");
     NSLog(@"%d", deals.count);
-    [[DealSaver new] SaveDeals:deals];
+    DealSaver *saver = [DealSaver new];
+    [saver SaveDeals:deals];
+    [saver SaveAuthKey:authKey];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -82,7 +89,8 @@
      */
     NSLog(@"Entering Background");
     NSLog(@"%d", deals.count);
-    [[DealSaver new] SaveDeals:deals];
+    
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

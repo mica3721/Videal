@@ -10,11 +10,128 @@
 #import "OptionLists.h"
 #import "CategoryViewController.h"
 
+#import "GData/GData.h"
+#import "GData/GDataServiceGoogleYouTube.h"
+#import "GData/GDataEntryYouTubeUpload.h"
+
+static NSString* const videal_client_id = @"57312008374.apps.googleusercontent.com";
+static NSString* const videal_client_secret = @"5HDLSxm0ciiFZ14etx-2q1hs";
+static NSString* const videal_user_id = @"videal.test";
+static NSString* const videal_user_secret = @"eunmo123";
+static NSString* const videal_dev_key = @"AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q";
+
+
 @interface ItemViewController ()
 
 @end
 
 @implementation ItemViewController
+
+- (GDataServiceGoogleYouTube *)youTubeService
+{
+    
+    GDataServiceGoogleYouTube* service = [[GDataServiceGoogleYouTube alloc] init];
+    [service setShouldCacheResponseData:YES];
+    [service setServiceShouldFollowNextLinks:YES];
+    [service setIsServiceRetryEnabled:YES];
+    
+    [service setUserCredentialsWithUsername:videal_user_id password:videal_user_secret];
+    [service setYouTubeDeveloperKey:videal_dev_key];
+    
+    return service;
+}
+
+// progress callback
+- (void)       ticket:(GDataServiceTicket *)ticket
+hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
+     ofTotalByteCount:(unsigned long long)dataLength
+{
+    /*
+     [mUploadProgressIndicator setMinValue:0.0];
+     [mUploadProgressIndicator setMaxValue:(double)dataLength];
+     [mUploadProgressIndicator setDoubleValue:(double)numberOfBytesRead];
+     */
+}
+
+// upload callback
+- (void)uploadTicket:(GDataServiceTicket *)ticket
+   finishedWithEntry:(GDataEntryYouTubeVideo *)videoEntry
+               error:(NSError *)error {
+    if (error == nil) {
+        // tell the user that the add worked
+        NSLog(@"URL is :%@", [[[[videoEntry mediaGroup] mediaContents] objectAtIndex:0] URLString]);
+        
+        // refetch the current entries, in case the list of uploads
+        // has changed
+        //[self fetchAllEntries];
+    } else {
+        NSLog(@"Upload failed: %@", error);
+    }
+    //[mUploadProgressIndicator setDoubleValue:0.0];
+    
+    //[self setUploadTicket:nil];
+}
+
+- (void)uploadVideoFile
+{
+    
+    //NSString *devKey = videal_dev_key;
+    
+    GDataServiceGoogleYouTube *service = [self youTubeService];
+    
+    NSURL *url = [GDataServiceGoogleYouTube youTubeUploadURLForUserID:kGDataServiceDefaultUser];
+    
+    // load the file data
+    NSString *path = [videoLink path];
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+    NSString *filename = [path lastPathComponent];
+    
+    // gather all the metadata needed for the mediaGroup
+    NSString *titleStr = @"TEST_TITLE_EUNMO";
+    GDataMediaTitle *title = [GDataMediaTitle textConstructWithString:titleStr];
+    
+    NSString *categoryStr = @"People";
+    GDataMediaCategory *category = [GDataMediaCategory mediaCategoryWithString:categoryStr];
+    [category setScheme:kGDataSchemeYouTubeCategory];
+    
+    NSString *descStr = @"TEST_DESC";
+    GDataMediaDescription *desc = [GDataMediaDescription textConstructWithString:descStr];
+    
+    NSString *keywordsStr = @"";
+    GDataMediaKeywords *keywords = [GDataMediaKeywords keywordsWithString:keywordsStr];
+    
+    BOOL isPrivate = NO;
+    
+    GDataYouTubeMediaGroup *mediaGroup = [GDataYouTubeMediaGroup mediaGroup];
+    [mediaGroup setMediaTitle:title];
+    [mediaGroup setMediaDescription:desc];
+    [mediaGroup addMediaCategory:category];
+    [mediaGroup setMediaKeywords:keywords];
+    [mediaGroup setIsPrivate:isPrivate];
+    
+    NSString *mimeType = [GDataUtilities MIMETypeForFileAtPath:path
+                                               defaultMIMEType:@"video/mp4"];
+    
+    // create the upload entry with the mediaGroup and the file
+    GDataEntryYouTubeUpload *entry;
+    entry = [GDataEntryYouTubeUpload uploadEntryWithMediaGroup:mediaGroup
+                                                    fileHandle:fileHandle
+                                                      MIMEType:mimeType
+                                                          slug:filename];
+    [entry addAccessControl:[GDataYouTubeAccessControl accessControlWithAction:@"list" permission:@"denied"]];
+    
+    SEL progressSel = @selector(ticket:hasDeliveredByteCount:ofTotalByteCount:);
+    [service setServiceUploadProgressSelector:progressSel];
+    
+    GDataServiceTicket *ticket;
+    ticket = [service fetchEntryByInsertingEntry:entry
+                                      forFeedURL:url
+                                        delegate:self
+                               didFinishSelector:@selector(uploadTicket:finishedWithEntry:error:)];
+    //[self setUploadTicket:ticket];
+}
+
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -117,6 +234,7 @@
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     self.navigationItem.titleView = label;
     
+    uploadThread = [[NSThread alloc] initWithTarget:self selector:@selector(uploadVideoFile) object:nil];
     // Category
     // Start Price
     // Duration
@@ -270,13 +388,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
     if (indexPath.section == 2) {
         if (indexPath.row == DETAIL_CATEGORY) {
             NSLog(@"Clicked Category");

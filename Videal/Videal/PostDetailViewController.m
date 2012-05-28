@@ -72,77 +72,6 @@ static NSString* const videal_dev_key = @"AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumb
     NSMutableURLRequest *req = [HttpPostHelper uploadVideoToYouTube:videoLink withAuthKey:authKey];
     [HttpPostHelper doPost:req from:self withSelector: @selector(doneUploadingVideo:)];
     
-    
-    NSString *devKey = [mDeveloperKeyField stringValue];
-    
-    GDataServiceGoogleYouTube *service = [self youTubeService];
-    [service setYouTubeDeveloperKey:devKey];
-    
-    NSURL *url = [GDataServiceGoogleYouTube youTubeUploadURLForUserID:kGDataServiceDefaultUser];
-    
-    // load the file data
-    NSString *path = [mFilePathField stringValue];
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-    NSString *filename = [path lastPathComponent];
-    
-    // gather all the metadata needed for the mediaGroup
-    NSString *titleStr = [mTitleField stringValue];
-    GDataMediaTitle *title = [GDataMediaTitle textConstructWithString:titleStr];
-    
-    NSString *categoryStr = [[mCategoryPopup selectedItem] representedObject];
-    GDataMediaCategory *category = [GDataMediaCategory mediaCategoryWithString:categoryStr];
-    [category setScheme:kGDataSchemeYouTubeCategory];
-    
-    NSString *descStr = [mDescriptionField stringValue];
-    GDataMediaDescription *desc = [GDataMediaDescription textConstructWithString:descStr];
-    
-    NSString *keywordsStr = [mKeywordsField stringValue];
-    GDataMediaKeywords *keywords = [GDataMediaKeywords keywordsWithString:keywordsStr];
-    
-    BOOL isPrivate = ([mPrivateCheckbox state] == NSOnState);
-    
-    GDataYouTubeMediaGroup *mediaGroup = [GDataYouTubeMediaGroup mediaGroup];
-    [mediaGroup setMediaTitle:title];
-    [mediaGroup setMediaDescription:desc];
-    [mediaGroup addMediaCategory:category];
-    [mediaGroup setMediaKeywords:keywords];
-    [mediaGroup setIsPrivate:isPrivate];
-    
-    NSString *mimeType = [GDataUtilities MIMETypeForFileAtPath:path
-                                               defaultMIMEType:@"video/mp4"];
-    
-    // create the upload entry with the mediaGroup and the file
-    GDataEntryYouTubeUpload *entry;
-    entry = [GDataEntryYouTubeUpload uploadEntryWithMediaGroup:mediaGroup
-                                                    fileHandle:fileHandle
-                                                      MIMEType:mimeType
-                                                          slug:filename];
-    
-    SEL progressSel = @selector(ticket:hasDeliveredByteCount:ofTotalByteCount:);
-    [service setServiceUploadProgressSelector:progressSel];
-    
-    GDataServiceTicket *ticket;
-    ticket = [service fetchEntryByInsertingEntry:entry
-                                      forFeedURL:url
-                                        delegate:self
-                               didFinishSelector:@selector(uploadTicket:finishedWithEntry:error:)];
-    [self setUploadTicket:ticket];
-    
-    // To allow restarting after stopping, we need to track the upload location
-    // URL. The location URL will be a different address than the upload URL that
-    // is used to start a new upload.
-    //
-    // For compatibility with systems that do not support Objective-C blocks
-    // (iOS 3 and Mac OS X 10.5), the location URL may also be obtained in the
-    // progress callback as ((GTMHTTPUploadFetcher *)[ticket objectFetcher]).locationURL
-    // 
-    GTMHTTPUploadFetcher *uploadFetcher = (GTMHTTPUploadFetcher *)[ticket objectFetcher];
-    [uploadFetcher setLocationChangeBlock:^(NSURL *url) {
-        [self setUploadLocationURL:url];
-        [self updateUI];
-    }];
-    
-    
 }
 
 - (void) getAuthToken: (NSMutableData *) data
@@ -283,23 +212,6 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     /* More comments or some shit */
     [super viewDidLoad];
     [self uploadVideoFile];
-    /*
-    NSLog(@"Google Client Login");
-    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
-    NSString *googleID = @"Videal.Test";
-    NSString *googlePW = @"eunmo123";
-    NSString *googleSource = @"Videal_Test";
-    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
-    NSLog(@"%@", body);
-    
-    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
-    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
-    
-    UITextField *priceInput = [[UITextField alloc] initWithFrame:CGRectMake(40, 50, 240, 60)];
-    [priceInput setDelegate:self];
-    [priceInput setPlaceholder:@"What's your price?"];
-    [self.view addSubview:priceInput];
-     */
 }
 
 

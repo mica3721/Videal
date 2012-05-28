@@ -33,6 +33,11 @@
     int shippingIndex;
     NSString *shippingCode;
     UITextField *price;
+    NSURL *videoLink; 
+    NSString *authKey;
+    @private
+    NSThread *uploadThread;
+    
 }
 
 - (void) setCategory: (NSNumber *) index;
