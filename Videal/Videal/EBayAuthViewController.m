@@ -112,6 +112,36 @@
 /*
  * Formulates a http POST request to ebay to see if our item will be valid for listing.
  */
+- (void) GetCategoryFeaturesRequest
+{
+    NSLog(@"GeteBayDetailsRequest");
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<GetCategoryFeaturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<CategoryID>10159</CategoryID>"
+                      "<DetailLevel>ReturnAll</DetailLevel>"
+                      "<FeatureID>ListingDurations</FeatureID>"
+                      "<FeatureID>HandlingTimeEnabled</FeatureID>"
+                      "<FeatureID>MaxFlatShippingCost</FeatureID>"
+                      "<FeatureID>PayPalRequired</FeatureID>"
+                      "<FeatureID>BestOfferEnabled</FeatureID>"
+                      "<FeatureID>ReturnPolicyEnabled</FeatureID>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</GetCategoryFeaturesRequest>", self.authToken];
+    
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:self.eBayURL andBody:body callName:@"GetCategoryFeatures"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(VerifyAddItemResponse:)];
+}
+
+/*
+ * Formulates a http POST request to ebay to see if our item will be valid for listing.
+ */
 - (void) VerifyAddItemRequest
 {
     NSLog(@"GeteBayDetailsRequest");
@@ -121,7 +151,7 @@
                         "<WarningLevel>High</WarningLevel>"
                         "<Item>"
                             "<Title>Harry Potter and the Philosopher's Stone</Title>"
-                            "<Description>This is the first book in the Harry Potter series. In excellent condition!</Description>"
+                        "<Description></Description>"
                             "<PrimaryCategory>"
                                 "<CategoryID>377</CategoryID>"
                             "</PrimaryCategory>"
@@ -184,7 +214,17 @@
                       "<WarningLevel>High</WarningLevel>"
                       "<Item>"
                       "<Title>Harry Potter and the Philosopher's Stone</Title>"
-                      "<Description>This is the first book in the Harry Potter series. In excellent condition!</Description>"
+                      "<Description>"
+                      "<![CDATA["
+                      "<p align=\"center\">"
+                      "<object height=\"385\" width=\"640\"><param name=\"movie\" "
+                      "value=\"http://www.youtube.com/v/XXXXXXXXXXX?fs=1&amp;hl=en_US\">"
+                      "<param name=\"allowFullScreen\" value=\"true\">"
+                      "<param name=\"allowscriptaccess\" value=\"always\">"
+                      "<embed src=\"http://www.youtube.com/v/XXXXXXXXXXX?fs=1&amp;hl=en_US\" "
+                      "type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" "
+                      "allowfullscreen=\"true\" height=\"385\" width=\"640\"></object></span></strong></p>"
+                      "]]></Description>"
                       "<PrimaryCategory>"
                       "<CategoryID>377</CategoryID>"
                       "</PrimaryCategory>"
@@ -219,7 +259,7 @@
                       "</ShippingServiceOptions>"
                       "</ShippingDetails>"
                       "<Site>US</Site>"
-                      "<UUID>8344f8f3207b4e21b387fb7d41ca45d1</UUID>"
+                      //"<UUID>8344f8f3207b4e21b387fb7d41ca45d1</UUID>"
                       "</Item>"
                       "<RequesterCredentials>"
                       "<eBayAuthToken>%@</eBayAuthToken>"
@@ -280,8 +320,6 @@
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
-
-
 /*
  * Requests for sessionID
  * And creates a UIWebView to display the login page for user authroization.
@@ -294,8 +332,10 @@
     
     //[self ValidateTestUser];
     //[self VerifyAddItemRequest];
-    //[self AddItemRequest];
+    [self AddItemRequest];
+    //[self GetCategoryFeaturesRequest];
     
+    /*
     [self sessionIDRequest];
     
     UIButton *bypassBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -309,6 +349,7 @@
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
     [self.view addSubview:authWeb];
+     */
 }
 
 /*

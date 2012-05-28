@@ -32,6 +32,7 @@
     NSString *auctionCode;
     int shippingIndex;
     NSString *shippingCode;
+    UITextField *paypal;
     UITextField *price;
 }
 

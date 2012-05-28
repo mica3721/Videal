@@ -42,7 +42,7 @@
         
         price = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
         price.placeholder = @"Name Your Price";
-        [price setKeyboardType:UIKeyboardTypeEmailAddress];
+        [price setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
         [price setReturnKeyType:UIReturnKeyDone];
         [price addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
         
@@ -177,7 +177,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
             if (indexPath.row == DETAIL_PRICE) {
                 [cell addSubview:price];
-            } else {
+            }else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             cell.textLabel.text = [detailNameArray objectAtIndex:indexPath.row];

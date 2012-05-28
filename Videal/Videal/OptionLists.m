@@ -84,6 +84,7 @@
     [array addObject:[[NSArray alloc] initWithObjects:@"3 days", @"Days_3", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"5 days", @"Days_5", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"7 days", @"Days_7", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"10 days", @"Days_10", nil]];
     
     return array;
 }
@@ -97,6 +98,7 @@
     [array addObject:[[NSArray alloc] initWithObjects:@"UPS Next Day Air Saver", @"UPSNextDay", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"USPS Priority Mail", @"USPSPriority", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"USPS Parcel Post", @"USPSParcel", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Media Mail", @"USPSMedia", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"USPS First Class Letter", @"USPSFirstClassLetter", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"USPS Express Mail", @"USPS Express Mail", nil]];
     [array addObject:[[NSArray alloc] initWithObjects:@"UPS Next Day Air", @"UPSNextDayAir", nil]];
