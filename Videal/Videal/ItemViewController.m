@@ -22,8 +22,8 @@
     if (self) {
         // Custom initialization
         
-        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Duration",@"Paypal",@"Shipping",@"Dispatch", @"Return", nil];
-        detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"7 days", @"", @"USPS", @"3 days", @"Moneyback, 30 days", nil];
+        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Duration",@"Shipping",@"Dispatch", @"Return", nil];
+        detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"7 days", @"", @"3 days", @"Moneyback, 30 days", nil];
         
         title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
         title.placeholder = @"Title";
@@ -38,12 +38,7 @@
         // define defaults
         categoryIndex = NO_CATEGORY;
         dispatchIndex = 3;
-        
-        paypal = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
-        paypal.placeholder = @"Your Paypal Account";
-        [paypal setKeyboardType:UIKeyboardTypeEmailAddress];
-        [paypal setReturnKeyType:UIReturnKeyDone];
-        [paypal addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        shippingIndex = NO_CATEGORY;
         
         price = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
         price.placeholder = @"Name Your Price";
@@ -86,6 +81,17 @@
     auctionIndex = idx;
     [self.tableView reloadData];
     NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], auctionCode, auctionIndex);
+}
+
+- (void) setShipping: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getShippingLists] objectAtIndex:idx];
+    [detailStringArray replaceObjectAtIndex:DETAIL_SHIPPING withObject:[arr objectAtIndex:0]];
+    shippingCode = [arr objectAtIndex:1];
+    shippingIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], shippingCode, shippingIndex);
 }
 
 - (void) submit
@@ -171,8 +177,6 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
             if (indexPath.row == DETAIL_PRICE) {
                 [cell addSubview:price];
-            } else if (indexPath.row == DETAIL_PAYPAL) {
-                [cell addSubview:paypal];
             } else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
@@ -291,6 +295,12 @@
             CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
                                                                                 andArray:[OptionLists getAuctionLists]];
             [view registerParentViewController:self withSelector:@selector(setAuction:) andIndex:auctionIndex];
+            [self presentModalViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_SHIPPING) {
+            NSLog(@"Clicked Shipping");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getShippingLists]];
+            [view registerParentViewController:self withSelector:@selector(setShipping:) andIndex:shippingIndex];
             [self presentModalViewController:view animated:YES];
         }
     }

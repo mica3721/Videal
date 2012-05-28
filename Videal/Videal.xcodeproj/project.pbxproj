@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0A218DAF156D9527008630D0 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A218DAE156D9527008630D0 /* ItemViewController.m */; };
 		0A218DB3156E0D2C008630D0 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A218DB2156E0D2C008630D0 /* CategoryViewController.m */; };
+		0A2F279815730DCD00862BF0 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F279715730DCD00862BF0 /* GDataXMLNode.m */; };
+		0A2F27DB1573108C00862BF0 /* libGDataTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2F27D21573107300862BF0 /* libGDataTouchStaticLib.a */; };
+		0A2F27DD157310A500862BF0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2F27DC157310A500862BF0 /* Security.framework */; };
+		0A2F27DF157310AD00862BF0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2F27DE157310AC00862BF0 /* SystemConfiguration.framework */; };
 		0A744EF915606EC400D90528 /* EBayAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EF815606EC300D90528 /* EBayAuthViewController.m */; };
 		0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744EFF15607A9900D90528 /* EBayAuthClient.m */; };
 		0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A744F021560B44200D90528 /* HttpPostHelper.m */; };
@@ -23,9 +27,6 @@
 		1B16D06615575E5500F0E0E7 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D05B15575E5500F0E0E7 /* NSObject+SBJSON.m */; };
 		1B16D06715575E5500F0E0E7 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D05D15575E5500F0E0E7 /* NSString+SBJSON.m */; };
 		1B16D06815575E5500F0E0E7 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D05F15575E5500F0E0E7 /* SBJSON.m */; };
-		1B16D06915575E5500F0E0E7 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06115575E5500F0E0E7 /* SBJsonBase.m */; };
-		1B16D06A15575E5500F0E0E7 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06315575E5500F0E0E7 /* SBJsonParser.m */; };
-		1B16D06B15575E5500F0E0E7 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D06515575E5500F0E0E7 /* SBJsonWriter.m */; };
 		1B2ECBAD156869DD0056A942 /* DealSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2ECBAC156869DD0056A942 /* DealSaver.m */; };
 		1B2ECBB4156882A20056A942 /* sth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B2ECBB3156882A20056A942 /* sth.jpg */; };
 		1B2ECBB6156886170056A942 /* camera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B2ECBB5156886170056A942 /* camera.jpg */; };
@@ -49,6 +50,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A2F27CF1573107300862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
+			remoteInfo = GDataFramework;
+		};
+		0A2F27D11573107300862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F1C6E0F1027B3CE00B46459;
+			remoteInfo = GDataTouchStaticLib;
+		};
+		0A2F27D31573107300862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F14A9DD0B1276B70072EBB8;
+			remoteInfo = GDataUnitTests;
+		};
+		0A2F27D51573107300862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F85E018103B83B700B4C418;
+			remoteInfo = GDataIPhoneUnitTests;
+		};
+		0A2F27D71573107300862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
+			remoteInfo = DevelopmentTestTool;
+		};
+		0A2F27D91573107A00862BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F38F6A50B66E91D00B24B81;
+			remoteInfo = GDataFramework;
+		};
 		1B5BFDD71550960700335348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1B5BFD9A1550960500335348 /* Project object */;
@@ -63,6 +106,11 @@
 		0A218DAE156D9527008630D0 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		0A218DB1156E0D2C008630D0 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		0A218DB2156E0D2C008630D0 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		0A2F279615730DCD00862BF0 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataXMLNode.h; path = "../../../../GData/gdata-objectivec-client-read-only/Source/XMLSupport/GDataXMLNode.h"; sourceTree = "<group>"; };
+		0A2F279715730DCD00862BF0 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataXMLNode.m; path = "../../../../GData/gdata-objectivec-client-read-only/Source/XMLSupport/GDataXMLNode.m"; sourceTree = "<group>"; };
+		0A2F27C31573107300862BF0 /* GData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GData.xcodeproj; path = "../../../GData/gdata-objectivec-client-read-only/Source/GData.xcodeproj"; sourceTree = "<group>"; };
+		0A2F27DC157310A500862BF0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0A2F27DE157310AC00862BF0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0A744EF715606EC300D90528 /* EBayAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBayAuthViewController.h; sourceTree = "<group>"; };
 		0A744EF815606EC300D90528 /* EBayAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBayAuthViewController.m; sourceTree = "<group>"; };
 		0A744EFE15607A9900D90528 /* EBayAuthClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBayAuthClient.h; sourceTree = "<group>"; };
@@ -90,12 +138,6 @@
 		1B16D05D15575E5500F0E0E7 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
 		1B16D05E15575E5500F0E0E7 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
 		1B16D05F15575E5500F0E0E7 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
-		1B16D06015575E5500F0E0E7 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		1B16D06115575E5500F0E0E7 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		1B16D06215575E5500F0E0E7 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		1B16D06315575E5500F0E0E7 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
-		1B16D06415575E5500F0E0E7 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		1B16D06515575E5500F0E0E7 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		1B2ECBAB156869DD0056A942 /* DealSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealSaver.h; sourceTree = "<group>"; };
 		1B2ECBAC156869DD0056A942 /* DealSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealSaver.m; sourceTree = "<group>"; };
 		1B2ECBB3156882A20056A942 /* sth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sth.jpg; sourceTree = "<group>"; };
@@ -129,6 +171,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A2F27DF157310AD00862BF0 /* SystemConfiguration.framework in Frameworks */,
+				0A2F27DD157310A500862BF0 /* Security.framework in Frameworks */,
+				0A2F27DB1573108C00862BF0 /* libGDataTouchStaticLib.a in Frameworks */,
 				1B16D0491556F56200F0E0E7 /* QuartzCore.framework in Frameworks */,
 				1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */,
 				1B5BFDA81550960600335348 /* UIKit.framework in Frameworks */,
@@ -150,6 +195,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A2F27C41573107300862BF0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A2F27D01573107300862BF0 /* GData.framework */,
+				0A2F27D21573107300862BF0 /* libGDataTouchStaticLib.a */,
+				0A2F27D41573107300862BF0 /* GDataUnitTests.octest */,
+				0A2F27D61573107300862BF0 /* GDataIPhoneUnitTests.octest */,
+				0A2F27D81573107300862BF0 /* DevelopmentTestTool */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1B16D05815575E5500F0E0E7 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,12 +217,6 @@
 				1B16D05D15575E5500F0E0E7 /* NSString+SBJSON.m */,
 				1B16D05E15575E5500F0E0E7 /* SBJSON.h */,
 				1B16D05F15575E5500F0E0E7 /* SBJSON.m */,
-				1B16D06015575E5500F0E0E7 /* SBJsonBase.h */,
-				1B16D06115575E5500F0E0E7 /* SBJsonBase.m */,
-				1B16D06215575E5500F0E0E7 /* SBJsonParser.h */,
-				1B16D06315575E5500F0E0E7 /* SBJsonParser.m */,
-				1B16D06415575E5500F0E0E7 /* SBJsonWriter.h */,
-				1B16D06515575E5500F0E0E7 /* SBJsonWriter.m */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -173,6 +224,7 @@
 		1B5BFD981550960500335348 = {
 			isa = PBXGroup;
 			children = (
+				0A2F27C31573107300862BF0 /* GData.xcodeproj */,
 				1B5BFDAD1550960600335348 /* Videal */,
 				1B5BFDD91550960700335348 /* VidealTests */,
 				1B5BFDA61550960600335348 /* Frameworks */,
@@ -192,6 +244,8 @@
 		1B5BFDA61550960600335348 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A2F27DE157310AC00862BF0 /* SystemConfiguration.framework */,
+				0A2F27DC157310A500862BF0 /* Security.framework */,
 				1B16D0481556F56200F0E0E7 /* QuartzCore.framework */,
 				1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */,
 				1B5BFDA71550960600335348 /* UIKit.framework */,
@@ -241,6 +295,8 @@
 		1B5BFDAE1550960600335348 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0A2F279615730DCD00862BF0 /* GDataXMLNode.h */,
+				0A2F279715730DCD00862BF0 /* GDataXMLNode.m */,
 				1B2ECBB3156882A20056A942 /* sth.jpg */,
 				1B2ECBB5156886170056A942 /* camera.jpg */,
 				1B16D05815575E5500F0E0E7 /* JSON */,
@@ -289,6 +345,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0A2F27DA1573107A00862BF0 /* PBXTargetDependency */,
 			);
 			name = Videal;
 			productName = Videal;
@@ -333,6 +390,12 @@
 			mainGroup = 1B5BFD981550960500335348;
 			productRefGroup = 1B5BFDA41550960600335348 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0A2F27C41573107300862BF0 /* Products */;
+					ProjectRef = 0A2F27C31573107300862BF0 /* GData.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1B5BFDA21550960600335348 /* Videal */,
@@ -340,6 +403,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0A2F27D01573107300862BF0 /* GData.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GData.framework;
+			remoteRef = 0A2F27CF1573107300862BF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A2F27D21573107300862BF0 /* libGDataTouchStaticLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGDataTouchStaticLib.a;
+			remoteRef = 0A2F27D11573107300862BF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A2F27D41573107300862BF0 /* GDataUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GDataUnitTests.octest;
+			remoteRef = 0A2F27D31573107300862BF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A2F27D61573107300862BF0 /* GDataIPhoneUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GDataIPhoneUnitTests.octest;
+			remoteRef = 0A2F27D51573107300862BF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A2F27D81573107300862BF0 /* DevelopmentTestTool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = DevelopmentTestTool;
+			remoteRef = 0A2F27D71573107300862BF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1B5BFDA11550960600335348 /* Resources */ = {
@@ -398,9 +499,6 @@
 				1B16D06615575E5500F0E0E7 /* NSObject+SBJSON.m in Sources */,
 				1B16D06715575E5500F0E0E7 /* NSString+SBJSON.m in Sources */,
 				1B16D06815575E5500F0E0E7 /* SBJSON.m in Sources */,
-				1B16D06915575E5500F0E0E7 /* SBJsonBase.m in Sources */,
-				1B16D06A15575E5500F0E0E7 /* SBJsonParser.m in Sources */,
-				1B16D06B15575E5500F0E0E7 /* SBJsonWriter.m in Sources */,
 				0A744EF915606EC400D90528 /* EBayAuthViewController.m in Sources */,
 				0A744F0015607A9A00D90528 /* EBayAuthClient.m in Sources */,
 				0A744F031560B44300D90528 /* HttpPostHelper.m in Sources */,
@@ -417,12 +515,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B5BFDE11550960700335348 /* VidealTests.m in Sources */,
+				0A2F279815730DCD00862BF0 /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A2F27DA1573107A00862BF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GDataFramework;
+			targetProxy = 0A2F27D91573107A00862BF0 /* PBXContainerItemProxy */;
+		};
 		1B5BFDD81550960700335348 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1B5BFDA21550960600335348 /* Videal */;
@@ -472,6 +576,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "com.apple.ubiquity.peer-uuid.3FB01488-3693-48D9-9755-657A98CF5863";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -487,6 +592,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -497,6 +603,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "com.apple.ubiquity.peer-uuid.3FB01488-3693-48D9-9755-657A98CF5863";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -506,6 +613,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -518,13 +626,27 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Videal\"",
+<<<<<<< HEAD
+=======
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/YouTubeSample-fqisibptcyxxfpdbyirsfungxurz/Build/Products/Debug\"",
+>>>>>>> 524d515020e10398546f84200e4f3fc6a6fee3c8
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = (
+					"-DGDATA_REQUIRE_SERVICE_INCLUDES=1",
+					"-DGDATA_INCLUDE_YOUTUBE_SERVICE=1",
+				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9F6A5AF3-523C-4F1F-BC1B-47DAA04DC6E2";
+				PROVISIONING_PROFILE = "3CB2429D-809E-45BD-9E58-E44520C00EEA";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -538,13 +660,28 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Videal\"",
+<<<<<<< HEAD
+=======
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/YouTubeSample-fqisibptcyxxfpdbyirsfungxurz/Build/Products/Debug\"",
+>>>>>>> 524d515020e10398546f84200e4f3fc6a6fee3c8
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Videal/Videal-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-DGDATA_REQUIRE_SERVICE_INCLUDES=1",
+					"-DGDATA_INCLUDE_YOUTUBE_SERVICE=1",
+				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9F6A5AF3-523C-4F1F-BC1B-47DAA04DC6E2";
+				PROVISIONING_PROFILE = "3CB2429D-809E-45BD-9E58-E44520C00EEA";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -558,6 +695,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/YouTubeSample-fqisibptcyxxfpdbyirsfungxurz/Build/Products/Debug\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";
@@ -575,6 +713,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/YouTubeSample-fqisibptcyxxfpdbyirsfungxurz/Build/Products/Debug\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Videal/Videal-Prefix.pch";

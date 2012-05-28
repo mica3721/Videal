@@ -13,10 +13,9 @@
 #define DETAIL_AUCTION 1
 #define DETAIL_PRICE 2
 #define DETAIL_DURATION 3
-#define DETAIL_PAYPAL 4
-#define DETAIL_SHIPPING 5
-#define DETAIL_DISPATCH 6
-#define DETAIL_RETURN 7
+#define DETAIL_SHIPPING 4
+#define DETAIL_DISPATCH 5
+#define DETAIL_RETURN 6
 
 @interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate> {
     
@@ -31,7 +30,8 @@
     NSString *dispatchTimeMax;
     int auctionIndex;
     NSString *auctionCode;
-    UITextField *paypal;
+    int shippingIndex;
+    NSString *shippingCode;
     UITextField *price;
 }
 

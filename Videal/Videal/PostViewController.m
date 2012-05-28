@@ -48,15 +48,24 @@
     
 }
 
+- (void) showdiffpage {
+    NSLog(@"3");
+    PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
+    [self.navigationController pushViewController:details animated:YES];
+    
+    
+}
+
 // as a delegate we are being told a picture was taken
 - (void)imagePickerController:(UIImagePickerController *)_picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     videoLink = [[info objectForKey:UIImagePickerControllerMediaURL] copy];
+    NSLog(@"%@", videoLink);
     UISaveVideoAtPathToSavedPhotosAlbum((NSString *)videoLink, nil, nil, nil);
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotification: [NSNotification notificationWithName:@"show" object:nil]];
     
-    PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
-    [self presentModalViewController:details animated:YES];
+   
     
 }
 
@@ -83,7 +92,6 @@
     picker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeMovie]; 
     //picker.videoQuality = UIImagePickerControllerQualityTypeHigh; 
     picker.delegate = self;
-    
     [self presentModalViewController:picker animated:YES];
 }
 
@@ -185,7 +193,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showdiffpage) name:@"show" object:nil];
     /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
     [label setBackgroundColor:[UIColor darkGrayColor]];
@@ -195,8 +203,9 @@
     [self.view addSubview:label];
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     */
-    /*
+    
     picker = [[UIImagePickerController alloc] init];
+    /*
     UIButton *pickBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [pickBtn setFrame:CGRectMake(50, 30, 200, 60)];
     [pickBtn addTarget:self action:@selector(CallVideoLibrary:) forControlEvents:UIControlEventTouchUpInside];

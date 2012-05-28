@@ -13,5 +13,7 @@
 + (NSMutableArray *) getCategoryLists;
 + (NSMutableArray *) getDispatchLists;
 + (NSMutableArray *) getAuctionLists;
++ (NSMutableArray *) getDurationLists;
++ (NSMutableArray *) getShippingLists;
 
 @end
