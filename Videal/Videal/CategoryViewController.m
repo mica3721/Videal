@@ -22,46 +22,6 @@
         // Custom initialization
         
         categoryArray = arr;
-        
-        // Define the eBay categories
-        /*
-        categoryArray = [[NSMutableArray alloc] init];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Antiques", @"20081", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Art", @"550", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Baby", @"2984", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Books", @"267", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Business & Industrial", @"12576", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Cameras & Photo", @"625", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Cell Phones & Accessories", @"15032", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Clothing, Shoes & Accessories", @"11450", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Coins & Paper Money", @"11116", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Collectibles", @"1", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Computers/Tablets & Networking", @"58058", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Consumer Electonics", @"293", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Crafts", @"14339", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Dolls & Bears", @"237", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"DVDs & Movies", @"11232", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Entertainment Memorabilia", @"45100", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Gift Cards & Coupons", @"172008", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Health & Beauty", @"26395", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Home & Garden", @"11700", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Jewelry & Watches", @"281", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Music", @"11233", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Musical Instruments & Gear", @"619", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Pet Supplies", @"1281", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Pottery & Glass", @"870", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Real Estate", @"10542", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Specialty Services", @"316", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Sporting Goods", @"382", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Sports Mem, Cards & Fan Shop", @"64482", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Stamps", @"260", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Tickets", @"1305", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Toys & Hobbies", @"220", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Travel", @"3252", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Video Games", @"1249", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Everything Else", @"99", nil]];
-        [categoryArray addObject:[[NSArray alloc] initWithObjects:@"Partner", @"10159", nil]];
-         */
     }
     return self;
 }

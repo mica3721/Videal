@@ -85,7 +85,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"uploads.gdata.youtube.com" forHTTPHeaderField:@"Host"];
+    [request setValue:@"http://gdata.youtube.com/feeds/api/users/default/uploads/" forHTTPHeaderField:@"Host"];
     [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@", authKey] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"2" forHTTPHeaderField:@"GData-Version"];
     [request setValue:@"key=AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q" forHTTPHeaderField:@"X-GData-Key"];

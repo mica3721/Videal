@@ -88,4 +88,31 @@
     return array;
 }
 
++ (NSMutableArray *) getShippingLists
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Ground", @"UPSGround", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS 3 Day Select", @"UPS3rdDay", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS 2 Day Air", @"UPS2ndDay", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Next Day Air Saver", @"UPSNextDay", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Priority Mail", @"USPSPriority", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Parcel Post", @"USPSParcel", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS First Class Letter", @"USPSFirstClassLetter", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Express Mail", @"USPS Express Mail", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Next Day Air", @"UPSNextDayAir", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Next Day Air AM", @"UPS2DayAirAM", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Global Express Mail", @"USPSGlobalExpress", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Global Priority Mail", @"USPSGlobalPriority", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Economy Parcel Post", @"USPSEconomyParcel", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Economy Letter Post", @"USPSEconomyLetter", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Airmail Letter Post", @"USPSAirmailLetter", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"USPS Airmail Parcel Post", @"USPSAirmailParcel", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Worldwide Express Plus", @"UPSWorldWideExpressPlus", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Worldwide Express", @"UPSWorldWideExpress", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Worldwide Expedited", @"UPSWorldWideExpedited", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"UPS Standard To Canada", @"UPSStandardToCanada", nil]];
+    
+    return array;
+}
+
 @end

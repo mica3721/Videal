@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HttpPostHelper.h"
 #import "EBayAuthViewController.h"
+
 @interface PostDetailViewController : UIViewController <UITextFieldDelegate>{
     
     NSURL *videoLink; 
