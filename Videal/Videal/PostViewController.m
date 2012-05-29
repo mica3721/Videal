@@ -245,7 +245,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
                       "<ActiveList>"
                       "<Sort>TimeLeft</Sort>"
                       "<Pagination>"
-                      "<EntriesPerPage>10</EntriesPerPage>"
+                      "<EntriesPerPage>7</EntriesPerPage>"
                       "<PageNumber>1</PageNumber>"
                       "</Pagination>"
                       "</ActiveList>"
@@ -333,16 +333,19 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
     // Do Something here
+    /*
     if (indexPath.row < [postedDeals count]) {
         UIViewController *view = [[UIViewController alloc] init];
         UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        NSString *itemUrl = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:2];
+        //NSString *itemUrl = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:2];
+        NSString *itemUrl = @"http://cgi.sandbox.ebay.com/Sf-/110099282940#ht_500wt_951";
         NSLog(@"%@", itemUrl);
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:itemUrl]];
-        [view.view addSubview:webView];
         [webView loadRequest:request];
+        [view.view addSubview:webView];
         [self.navigationController pushViewController:view animated:YES];
     }
+     */
 }
 
 // Customize the number of sections in the table view.
@@ -369,6 +372,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.textLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:0];
         cell.detailTextLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:1];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	return cell;

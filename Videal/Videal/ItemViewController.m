@@ -168,6 +168,10 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSLog(@"Setting Return Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN_SHIPPING],returnShippingCode, returnShippingIndex);
 } 
 
+- (void)        alertView:(UIAlertView *)alertView
+didDismissWithButtonIndex:(NSInteger)buttonIndex
+{}
+
 - (void) VerifyAddItemResponse: (NSMutableData *) data
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
@@ -181,14 +185,22 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
         view->ebayItemDetails = ebayItemDetails;
         view->videoLink = videoLink;
         [self.navigationController pushViewController:view animated:YES];
-    } else if ([ack isEqualToString:@"Failure"]) {
-        NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
-        NSLog(@"%@", errorMessage);
-        /*
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    }
+    else if ([ack isEqualToString:@"Failure"])
+    {
+        NSString *errorMessage;
+        if ([[response objectForKey:@"Errors"] isKindOfClass:[NSMutableArray class]]) {
+            NSLog(@"Multiple errors");
+            errorMessage = [[[response objectForKey:@"Errors"] objectAtIndex:0] objectForKey:@"LongMessage"];
+            NSLog(@"%@", errorMessage);
+        } else {
+            errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
+            NSLog(@"%@", errorMessage);
+        }
         
-        [message show];
-         */
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
 }
 

@@ -158,7 +158,12 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 {
     [super viewDidLoad];
     
-    [self uploadVideoFile];
+    if (ebayItemDetails->video != nil) {
+        uploadComplete = YES;
+        [progressBar setProgress:1.0];
+    } else {
+        [self uploadVideoFile];
+    }
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -271,6 +276,15 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 
 - (void) feesCallbackFuntion: (NSInteger *) idx{}
 
+
+- (void)        alertView:(UIAlertView *)alertView
+didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView title] isEqualToString:@"Done"]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
 - (void) AddItemResponse: (NSMutableData *) data
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
@@ -279,22 +293,21 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     NSString *ack = [response objectForKey:@"Ack"];
     
     if ([ack isEqualToString:@"Success"]) {
-        /*
-        NSMutableArray *fees = [[response objectForKey:@"Fees"] objectForKey:@"Fee"];
-        UploadViewController *view = [[UploadViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:fees];
-        view->ebayItemDetails = ebayItemDetails;
-        view->videoLink = videoLink;
-        [self.navigationController pushViewController:view animated:YES];
-         */
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Done" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     } else if ([ack isEqualToString:@"Failure"]) {
-        /*
-        NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
-        NSLog(@"%@", errorMessage);
+        NSString *errorMessage;
+        if ([[response objectForKey:@"Errors"] isKindOfClass:[NSMutableArray class]]) {
+            NSLog(@"Multiple errors");
+            errorMessage = [[[response objectForKey:@"Errors"] objectAtIndex:0] objectForKey:@"LongMessage"];
+            NSLog(@"%@", errorMessage);
+        } else {
+            errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
+            NSLog(@"%@", errorMessage);
+        }
         
-         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-         
-         [message show];
-         */
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -333,6 +346,9 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     } else if (indexPath.section == 2) {
         if (uploadComplete) {
             [self submit];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please wait until video upload is complete" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }
 }

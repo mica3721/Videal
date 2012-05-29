@@ -22,7 +22,8 @@
 #define DETAIL_SR_RETURN 4
 #define DETAIL_SR_RETURN_SHIPPING 5
 
-@interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate> {
+@interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate>
+{
     @public
     NSURL *videoLink; 
     
