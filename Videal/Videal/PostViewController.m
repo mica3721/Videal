@@ -10,6 +10,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AppDelegate.h"
 #import "ItemViewController.h"
+static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 @implementation PostViewController
 
@@ -186,7 +187,34 @@
     NSLog(@"fsdadfsdfsadfsfdsadfsfsd");
 }
 
-
+/*
+ * Formulates a http POST request to ebay for authToken.
+ */
+- (void) fetchTokenRequest
+{
+    NSLog(@"GetMyeBaySellingRequest");
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<GetMyeBaySellingRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<ActiveList>"
+                      "<Sort>TimeLeft</Sort>"
+                      "<Pagination>"
+                      "<EntriesPerPage>5</EntriesPerPage>"
+                      "<PageNumber>1</PageNumber>"
+                      "</Pagination>"
+                      "</ActiveList>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</GetMyeBaySellingRequest>", del->authKey];
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebay_url andBody:body callName:@"GetMyeBaySelling"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad

@@ -290,13 +290,12 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         /*
         NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
         NSLog(@"%@", errorMessage);
-        /*
+        
          UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
          
          [message show];
          */
     }
-    */
 }
 
 - (void) submit
