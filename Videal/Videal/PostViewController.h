@@ -20,4 +20,7 @@
     NSMutableArray *postedDeals;
 }
 
+
+- (void) GetMyeBaySellingRequest;
+
 @end

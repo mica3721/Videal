@@ -10,6 +10,7 @@
 #import "CategoryViewController.h"
 #import "HttpPostHelper.h"
 #import "XMLReader.h"
+#import "PostViewController.h"
 
 #import "GData/GData.h"
 #import "GData/GDataServiceGoogleYouTube.h"
@@ -281,6 +282,8 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if ([[alertView title] isEqualToString:@"Done"]) {
+        PostViewController *view = (PostViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+        [view GetMyeBaySellingRequest];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
