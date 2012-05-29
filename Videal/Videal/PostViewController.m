@@ -151,6 +151,63 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSLog(@"fsdadfsdfsadfsfdsadfsfsd");
 }
 
+- (NSString *) formatTimeLeft: (NSString *) timeLeft
+{
+    const char *cString = [timeLeft cStringUsingEncoding:NSASCIIStringEncoding];
+    int days = 0, hours = 0, minutes = 0, seconds = 0;
+    
+    const char *ptr = cString;
+    while(*ptr)
+    {
+        if(*ptr == 'P' || *ptr == 'T')
+        {
+            ptr++;
+            continue;
+        }
+        
+        int value, charsRead;
+        char type;
+        if(sscanf(ptr, "%d%c%n", &value, &type, &charsRead) != 2)
+            ;  // handle parse error
+        if(type == 'D')
+            days = value;
+        else if(type == 'H')
+            hours = value;
+        else if(type == 'M')
+            minutes = value;
+        else if(type == 'S')
+            seconds = value;
+        else
+            ;  // handle invalid type
+        
+        ptr += charsRead;
+    }
+    
+    NSString *formattedTimeLeft;
+
+    if (days == 0) {
+        if (hours == 1) {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Hour left", hours];
+        } else {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Hours left", hours];
+        }
+    } else if (days == 1) {
+        if (hours == 1) {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Day %d Hour left", days, hours];
+        } else {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Day %d Hours left", days, hours];
+        }
+    } else {
+        if (hours == 1) {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Days %d Hour left", days, hours];
+        } else {
+            formattedTimeLeft = [NSString stringWithFormat:@"%d Days %d Hours left", days, hours];
+        }
+    }
+    
+    return formattedTimeLeft;
+}
+
 - (void) updateSellingItems: (NSMutableData *) data
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
@@ -159,14 +216,18 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSMutableArray *itemArray = [[[[dict objectForKey:@"GetMyeBaySellingResponse"] objectForKey:@"ActiveList"] objectForKey:@"ItemArray"] objectForKey:@"Item"];
     NSLog(@"%d", [itemArray count]);
     [postedDeals removeAllObjects];
+    
     for (int i = 0; i < [itemArray count]; i++) {
         NSDictionary *item = [itemArray objectAtIndex:i];
+        
         NSString *currentPrice = [[[item objectForKey:@"SellingStatus"] objectForKey:@"CurrentPrice"] objectForKey:@"text"];
         NSString *itemTitle = [item objectForKey:@"Title"];
-        NSString *timeLeft = [item objectForKey:@"TimeLeft"];
+        NSString *timeLeft = [self formatTimeLeft:[item objectForKey:@"TimeLeft"]];
         NSString *itemDetail = [NSString stringWithFormat:@"currently $%@  %@", currentPrice, timeLeft];
-        [postedDeals addObject:[[NSArray alloc] initWithObjects:itemTitle, itemDetail, nil]];
-        NSLog(@"%d\t%@\t%@\t%@", i, itemTitle, currentPrice, timeLeft);
+        NSString *itemUrl = [[item objectForKey:@"ListingDetails"] objectForKey:@"ViewItemURL"];
+        
+        [postedDeals addObject:[[NSArray alloc] initWithObjects:itemTitle, itemDetail, itemUrl, nil]];
+        NSLog(@"%d\t%@\t%@\t%@", i, itemTitle, itemDetail, itemUrl);
     }
     
     [postedDealsView reloadData];
@@ -271,8 +332,17 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 */
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
-	// Do Something here
-    return;
+    // Do Something here
+    if (indexPath.row < [postedDeals count]) {
+        UIViewController *view = [[UIViewController alloc] init];
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        NSString *itemUrl = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:2];
+        NSLog(@"%@", itemUrl);
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:itemUrl]];
+        [view.view addSubview:webView];
+        [webView loadRequest:request];
+        [self.navigationController pushViewController:view animated:YES];
+    }
 }
 
 // Customize the number of sections in the table view.
