@@ -87,6 +87,7 @@
 }
 
 -(void) SaveAuthKey: (NSString *) authkey {
+    if(authkey == nil) return;
     pos = 0;
     [self writeString:authkey];
     NSData *authData = [NSData dataWithBytes:buffer length:pos];

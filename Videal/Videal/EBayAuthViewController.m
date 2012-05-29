@@ -298,14 +298,9 @@
     
     [self sessionIDRequest];
     
-    UIButton *bypassBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [bypassBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [bypassBtn addTarget:self action:@selector(doneWithAuth) forControlEvents:UIControlEventTouchUpInside];
-    [bypassBtn setTitle:@"Bypass" forState:UIControlStateNormal];
-    [bypassBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:bypassBtn];
     
-    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-40)];
+    
+    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-40)];
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
     [self.view addSubview:authWeb];
@@ -329,6 +324,7 @@
     NSLog(@"%@", self.authToken);
     
     [self VerifyAddItemRequest];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

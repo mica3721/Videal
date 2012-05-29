@@ -45,6 +45,7 @@
 		1B5BFDE11550960700335348 /* VidealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BFDE01550960700335348 /* VidealTests.m */; };
 		1BA201F71573491D005F5702 /* libGDataTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA201EF157346D8005F5702 /* libGDataTouchStaticLib.a */; };
 		1BA201FF15734DFE005F5702 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA201FE15734DFE005F5702 /* GDataXMLNode.m */; };
+		1BA2022615738A98005F5702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BA2022515738A98005F5702 /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		1BA201E0157346D7005F5702 /* GData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GData.xcodeproj; path = "../../gdata-objectivec-client-read-only/Source/GData.xcodeproj"; sourceTree = "<group>"; };
 		1BA201FD15734DF1005F5702 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		1BA201FE15734DFE005F5702 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		1BA2022515738A98005F5702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				1BA201FD15734DF1005F5702 /* GDataXMLNode.h */,
+				1BA2022515738A98005F5702 /* Icon.png */,
 				1BA201FE15734DFE005F5702 /* GDataXMLNode.m */,
 				1B2ECBB3156882A20056A942 /* sth.jpg */,
 				1B2ECBB5156886170056A942 /* camera.jpg */,
@@ -439,6 +442,7 @@
 				1B5BFDCC1550960700335348 /* SecondViewController.xib in Resources */,
 				1B2ECBB4156882A20056A942 /* sth.jpg in Resources */,
 				1B2ECBB6156886170056A942 /* camera.jpg in Resources */,
+				1BA2022615738A98005F5702 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

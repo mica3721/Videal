@@ -153,9 +153,6 @@
 }
  */
 
--(void) eBay {
-    
-}
 
 - (void) postDetailView {
     ItemViewController *detailCtrl = [[ItemViewController new] initWithStyle:UITableViewStyleGrouped];
@@ -181,18 +178,22 @@
 
 -(void) showLoginPage {
     EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
+    [self.navigationController pushViewController:dataCtrl animated:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIColor *navColor = [[UIColor alloc] initWithRed:107/255.0 green:66/255.0 blue:38/255.0 alpha:1] ; 
+	[self.navigationController.navigationBar setTintColor:navColor];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postDetailView) name:@"show" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"showLoginPage" object:self];
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     
     picker = [[UIImagePickerController alloc] init];
+    
+    
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
 											   initWithTitle:@"Logout"
@@ -217,7 +218,7 @@
     [self.view addSubview:postButton];
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (!del->authKeyExists) {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"showLoginPage" object:nil]];
+        [self showLoginPage];
     }
 }
      
@@ -242,11 +243,18 @@
     
 }
 
-
+- (void) addHeaderAndFooter: (UITableView *) tableView
+{
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
+    v.backgroundColor = [UIColor clearColor];
+    [tableView setTableHeaderView:v];
+    [tableView setTableFooterView:v];
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	
-	return 120;
+	return 60;
 }
 
 
@@ -265,7 +273,18 @@
 {
 	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     return [[appDel deals] count];
+    //return 10;
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath { 
+    if (indexPath.row % 2 == 0) {
+        [cell setBackgroundColor:[[UIColor alloc] initWithRed:222/225.0 green:184/255.0 blue:135/255.0 alpha:1]];
+    } else {
+        [cell setBackgroundColor:[[UIColor alloc] initWithRed:222/225.0 green:184/255.0 blue:135/255.0 alpha:0]];
+        
+    }
+}
+
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -274,9 +293,11 @@
 	static NSString *CellIdentifier = @"Cell";
 	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = [[appDel deals] objectAtIndex:indexPath.row];
+        //cell.textLabel.text = @"1";
 	}
 	
 	return cell;
