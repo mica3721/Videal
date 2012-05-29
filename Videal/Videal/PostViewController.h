@@ -16,8 +16,8 @@
     UIImagePickerController *picker;
     //NSThread *captureThread;     // Temporary get rid of later
     NSURL *videoLink;
-    UITableView *postedDeals;
-    
+    UITableView *postedDealsView;
+    NSMutableArray *postedDeals;
 }
 
 @end

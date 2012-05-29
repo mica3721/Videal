@@ -10,6 +10,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AppDelegate.h"
 #import "ItemViewController.h"
+#import "HttpPostHelper.h"
 static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 @implementation PostViewController
@@ -20,6 +21,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     if (self) {
         self.title = @"Post Offers";
         self.tabBarItem.image = [UIImage imageNamed:@"first"];
+        postedDeals = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -116,44 +118,6 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     
 }
 
-/*- (void) getAuthToken: (NSMutableData *) data
-{
-    NSString *authResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"%@", authResponse);
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*Auth=()"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:authResponse
-                                                    options:0
-                                                      range:NSMakeRange(0, [authResponse length])];
-    
-    if (match) {
-        NSRange range = [match rangeAtIndex:1];
-        
-        authResponse = [authResponse substringFromIndex:range.location];
-        NSLog(@"%@",authResponse);
-        
-        PostDetailViewController *details = [[PostDetailViewController alloc] initWithVideoLink:videoLink];
-        [self presentModalViewController:details animated:YES];
-    }
-}
-
--(void) Youtube {
-    NSLog(@"Google Client Login");
-    NSString *googleURL = @"https://www.google.com/accounts/ClientLogin";
-    NSString *googleID = @"Videal.Test";
-    NSString *googlePW = @"eunmo123";
-    NSString *googleSource = @"Videal_Test";
-    NSString *body = [NSString stringWithFormat:@"Email=%@&Passwd=%@&service=youtube&source=%@", googleID, googlePW, googleSource];
-    NSLog(@"%@", body);
-    
-    NSMutableURLRequest *request = [HttpPostHelper createGoogleAuthRequestWithURL:googleURL andBody:body];
-    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
-}
- */
-
 -(void) eBay {
     
 }
@@ -187,10 +151,31 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSLog(@"fsdadfsdfsadfsfdsadfsfsd");
 }
 
+- (void) updateSellingItems: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    
+    NSMutableArray *itemArray = [[[[dict objectForKey:@"GetMyeBaySellingResponse"] objectForKey:@"ActiveList"] objectForKey:@"ItemArray"] objectForKey:@"Item"];
+    NSLog(@"%d", [itemArray count]);
+    [postedDeals removeAllObjects];
+    for (int i = 0; i < [itemArray count]; i++) {
+        NSDictionary *item = [itemArray objectAtIndex:i];
+        NSString *currentPrice = [[[item objectForKey:@"SellingStatus"] objectForKey:@"CurrentPrice"] objectForKey:@"text"];
+        NSString *itemTitle = [item objectForKey:@"Title"];
+        NSString *timeLeft = [item objectForKey:@"TimeLeft"];
+        NSString *itemDetail = [NSString stringWithFormat:@"currently $%@  %@", currentPrice, timeLeft];
+        [postedDeals addObject:[[NSArray alloc] initWithObjects:itemTitle, itemDetail, nil]];
+        NSLog(@"%d\t%@\t%@\t%@", i, itemTitle, currentPrice, timeLeft);
+    }
+    
+    [postedDealsView reloadData];
+}
+
 /*
  * Formulates a http POST request to ebay for authToken.
  */
-- (void) fetchTokenRequest
+- (void) GetMyeBaySellingRequest
 {
     NSLog(@"GetMyeBaySellingRequest");
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -199,7 +184,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
                       "<ActiveList>"
                       "<Sort>TimeLeft</Sort>"
                       "<Pagination>"
-                      "<EntriesPerPage>5</EntriesPerPage>"
+                      "<EntriesPerPage>10</EntriesPerPage>"
                       "<PageNumber>1</PageNumber>"
                       "</Pagination>"
                       "</ActiveList>"
@@ -213,7 +198,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     [HttpPostHelper setCert:request];
     NSLog(@"%@", body);
     
-    [HttpPostHelper doPost:request from:self withSelector: @selector(getAuthToken:)];
+    [HttpPostHelper doPost:request from:self withSelector: @selector(updateSellingItems:)];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -234,10 +219,10 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     
     
     
-    postedDeals = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
-    postedDeals.delegate = self;
-    postedDeals.dataSource = self; 
-    [self.view addSubview:postedDeals];
+    postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
+    postedDealsView.delegate = self;
+    postedDealsView.dataSource = self; 
+    [self.view addSubview:postedDealsView];
     
     UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
     postButton.frame = CGRectMake(116, 330, 88, 70);
@@ -252,6 +237,8 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
         EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
         [self.navigationController pushViewController: dataCtrl animated:YES];
     }
+    
+    [self GetMyeBaySellingRequest];
 }
      
 #pragma mark UIActionSheetDelegate methods
@@ -276,12 +263,12 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 }
 
 
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	
 	return 120;
 }
-
+*/
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
 	// Do Something here
@@ -296,8 +283,9 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    return [[appDel deals] count];
+	//AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //return [[appDel deals] count];
+    return [postedDeals count];
 }
 
 // Customize the appearance of table view cells.
@@ -308,8 +296,9 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 	AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.textLabel.text = [[appDel deals] objectAtIndex:indexPath.row];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:0];
+        cell.detailTextLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:1];
 	}
 	
 	return cell;
