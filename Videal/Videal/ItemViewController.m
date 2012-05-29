@@ -13,16 +13,8 @@
 #import "HttpPostHelper.h"
 #import "AppDelegate.h"
 #import "SubCategoryViewController.h"
+#import "UploadViewController.h"
 
-#import "GData/GData.h"
-#import "GData/GDataServiceGoogleYouTube.h"
-#import "GData/GDataEntryYouTubeUpload.h"
-
-static NSString* const videal_client_id = @"57312008374.apps.googleusercontent.com";
-static NSString* const videal_client_secret = @"5HDLSxm0ciiFZ14etx-2q1hs";
-static NSString* const videal_user_id = @"videal.test";
-static NSString* const videal_user_secret = @"eunmo123";
-static NSString* const videal_dev_key = @"AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q";
 static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 
@@ -31,112 +23,6 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 @end
 
 @implementation ItemViewController
-
-- (GDataServiceGoogleYouTube *)youTubeService
-{
-    
-    GDataServiceGoogleYouTube* service = [[GDataServiceGoogleYouTube alloc] init];
-    [service setShouldCacheResponseData:YES];
-    [service setServiceShouldFollowNextLinks:YES];
-    [service setIsServiceRetryEnabled:YES];
-    
-    [service setUserCredentialsWithUsername:videal_user_id password:videal_user_secret];
-    [service setYouTubeDeveloperKey:videal_dev_key];
-    
-    return service;
-}
-
-// progress callback
-- (void)       ticket:(GDataServiceTicket *)ticket
-hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
-     ofTotalByteCount:(unsigned long long)dataLength
-{
-    /*
-     [mUploadProgressIndicator setMinValue:0.0];
-     [mUploadProgressIndicator setMaxValue:(double)dataLength];
-     [mUploadProgressIndicator setDoubleValue:(double)numberOfBytesRead];
-     */
-}
-
-// upload callback
-- (void)uploadTicket:(GDataServiceTicket *)ticket
-   finishedWithEntry:(GDataEntryYouTubeVideo *)videoEntry
-               error:(NSError *)error {
-    if (error == nil) {
-        // tell the user that the add worked
-        NSLog(@"URL is :%@", [[[[videoEntry mediaGroup] mediaContents] objectAtIndex:0] URLString]);
-        
-        // refetch the current entries, in case the list of uploads
-        // has changed
-        //[self fetchAllEntries];
-    } else {
-        NSLog(@"Upload failed: %@", error);
-    }
-    //[mUploadProgressIndicator setDoubleValue:0.0];
-    
-    //[self setUploadTicket:nil];
-}
-
-- (void)uploadVideoFile
-{
-    
-    //NSString *devKey = videal_dev_key;
-    
-    GDataServiceGoogleYouTube *service = [self youTubeService];
-    
-    NSURL *url = [GDataServiceGoogleYouTube youTubeUploadURLForUserID:kGDataServiceDefaultUser];
-    
-    // load the file data
-    NSString *path = [videoLink path];
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-    NSString *filename = [path lastPathComponent];
-    
-    // gather all the metadata needed for the mediaGroup
-    NSString *titleStr = @"TEST_TITLE_EUNMO";
-    GDataMediaTitle *title = [GDataMediaTitle textConstructWithString:titleStr];
-    
-    NSString *categoryStr = @"People";
-    GDataMediaCategory *category = [GDataMediaCategory mediaCategoryWithString:categoryStr];
-    [category setScheme:kGDataSchemeYouTubeCategory];
-    
-    NSString *descStr = @"TEST_DESC";
-    GDataMediaDescription *desc = [GDataMediaDescription textConstructWithString:descStr];
-    
-    NSString *keywordsStr = @"";
-    GDataMediaKeywords *keywords = [GDataMediaKeywords keywordsWithString:keywordsStr];
-    
-    BOOL isPrivate = NO;
-    
-    GDataYouTubeMediaGroup *mediaGroup = [GDataYouTubeMediaGroup mediaGroup];
-    [mediaGroup setMediaTitle:title];
-    [mediaGroup setMediaDescription:desc];
-    [mediaGroup addMediaCategory:category];
-    [mediaGroup setMediaKeywords:keywords];
-    [mediaGroup setIsPrivate:isPrivate];
-    
-    NSString *mimeType = [GDataUtilities MIMETypeForFileAtPath:path
-                                               defaultMIMEType:@"video/mp4"];
-    
-    // create the upload entry with the mediaGroup and the file
-    GDataEntryYouTubeUpload *entry;
-    entry = [GDataEntryYouTubeUpload uploadEntryWithMediaGroup:mediaGroup
-                                                    fileHandle:fileHandle
-                                                      MIMEType:mimeType
-                                                          slug:filename];
-    [entry addAccessControl:[GDataYouTubeAccessControl accessControlWithAction:@"list" permission:@"denied"]];
-    
-    SEL progressSel = @selector(ticket:hasDeliveredByteCount:ofTotalByteCount:);
-    [service setServiceUploadProgressSelector:progressSel];
-    
-    GDataServiceTicket *ticket;
-    ticket = [service fetchEntryByInsertingEntry:entry
-                                      forFeedURL:url
-                                        delegate:self
-                               didFinishSelector:@selector(uploadTicket:finishedWithEntry:error:)];
-    //[self setUploadTicket:ticket];
-}
-
-
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -198,6 +84,8 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         [zipcode setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
         [zipcode setReturnKeyType:UIReturnKeyDone];
         [zipcode addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        ebayItemDetails = [[EBayItemDetails alloc] init];
         
     }
     return self;
@@ -288,10 +176,14 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     NSString *ack = [response objectForKey:@"Ack"];
     
     if ([ack isEqualToString:@"Success"]) {
-        
+        NSMutableArray *fees = [[response objectForKey:@"Fees"] objectForKey:@"Fee"];
+        UploadViewController *view = [[UploadViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:fees];
+        view->ebayItemDetails = ebayItemDetails;
+        view->videoLink = videoLink;
+        [self.navigationController pushViewController:view animated:YES];
     } else if ([ack isEqualToString:@"Failure"]) {
         NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
-        
+        NSLog(@"%@", errorMessage);
         /*
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
@@ -300,20 +192,9 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     }
 }
 
-- (void) submit
+- (void) verify
 {
-    // There should be checks to validate the fields
-    
-    NSLog(@"Submit BTN clicked");
-    NSLog(@"Title: %@", title.text);
-    NSLog(@"Desc: %@", desc.text);
-    NSLog(@"Setting Category to: %@\t%@", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode);
-    NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], auctionCode, auctionIndex);
-    NSLog(@"Setting Duration to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_DURATION], durationCode, durationIndex);
-    NSLog(@"Setting Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_SHIPPING], shippingCode, shippingIndex);
-    NSLog(@"Setting Dispatch to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_DISPATCH], dispatchTimeMax, dispatchIndex);
-    NSLog(@"Setting Return to: %@\t%@\t%@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN], returnsAcceptedOption, refundOption, returnsWithinOption, returnIndex);
-    NSLog(@"Setting Return Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN_SHIPPING],returnShippingCode, returnShippingIndex);
+    NSLog(@"Verify BTN clicked");
     
     NSString *returnPolicy = @"<ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption>";
     if ([returnsAcceptedOption isEqualToString:@"ReturnsAccepted"]) {
@@ -325,46 +206,20 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     
     NSLog(@"VerifyAddItemRequest");
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                      "<VerifyAddItemRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
-                      "<ErrorLanguage>en_US</ErrorLanguage>"
-                      "<WarningLevel>High</WarningLevel>"
-                      "<Item>"
-                      "<Title>%@</Title>"
-                      "<Description>%@</Description>"
-                      "<PrimaryCategory>"
-                      "<CategoryID>%@</CategoryID>"
-                      "</PrimaryCategory>"
-                      "<StartPrice>%@</StartPrice>"
-                      "<CategoryMappingAllowed>true</CategoryMappingAllowed>"
-                      "<ConditionID>1000</ConditionID>"
-                      "<Country>US</Country>"
-                      "<Currency>USD</Currency>"
-                      "<DispatchTimeMax>%@</DispatchTimeMax>"
-                      "<ListingDuration>%@</ListingDuration>"
-                      "<ListingType>%@</ListingType>"
-                      "<Quantity>1</Quantity>"
-                      "<PaymentMethods>PayPal</PaymentMethods>"
-                      "<PayPalEmailAddress>%@</PayPalEmailAddress>"
-                      "<PostalCode>%@</PostalCode>"
-                      "<ReturnPolicy>%@</ReturnPolicy>"
-                      "<ShippingDetails>"
-                      "<ShippingType>Flat</ShippingType>"
-                      "<ShippingServiceOptions>"
-                      "<ShippingServicePriority>1</ShippingServicePriority>"
-                      "<ShippingService>%@</ShippingService>"
-                      "<ShippingServiceCost>%@</ShippingServiceCost>"
-                      "</ShippingServiceOptions>"
-                      "</ShippingDetails>"
-                      "<Site>US</Site>"
-                      "</Item>"
-                      "<RequesterCredentials>"
-                      "<eBayAuthToken>%@</eBayAuthToken>"
-                      "</RequesterCredentials>"
-                      "<WarningLevel>High</WarningLevel>"
-                      "</VerifyAddItemRequest>", title.text, desc.text, @"377", price.text, dispatchTimeMax, durationCode, auctionCode, paypal.text, zipcode.text, returnPolicy, shippingCode, shippingCost.text, del->authKey];
-    
-    //NSLog(@"%@", body);
+    ebayItemDetails->title = title.text;
+    ebayItemDetails->desc = desc.text;
+    ebayItemDetails->category = categoryCode;
+    ebayItemDetails->price = price.text;
+    ebayItemDetails->dispatch = dispatchTimeMax;
+    ebayItemDetails->duration = durationCode;
+    ebayItemDetails->auction = auctionCode;
+    ebayItemDetails->paypal = paypal.text;
+    ebayItemDetails->zipcode = zipcode.text;
+    ebayItemDetails->returnPolicy = returnPolicy;
+    ebayItemDetails->shipping = shippingCode;
+    ebayItemDetails->shippingCost = shippingCost.text;
+    ebayItemDetails->authKey = del->authKey;
+    NSString *body = [ebayItemDetails getVerifyAddItemRequestBody];
 
     NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebay_url andBody:body callName:@"VerifyAddItem"];
     [HttpPostHelper setCert:request];
@@ -387,14 +242,6 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     self.navigationItem.titleView = label;
-    
-    uploadThread = [[NSThread alloc] initWithTarget:self selector:@selector(uploadVideoFile) object:nil];
-    // Category
-    // Start Price
-    // Duration
-    // Paypal account
-    // Shipping Details
-    // Return Details
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -473,7 +320,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             [cell setBackgroundColor:[UIColor redColor]];
-            cell.textLabel.text = @"Submit";
+            cell.textLabel.text = @"Validate";
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -498,7 +345,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         return @"List Details";
     } else if (section == 3) {
         return @"Shipping and Return";
-    } else return @"Finalize and submit";
+    } else return @"Validate your settings";
 }
 
 - (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -566,12 +413,6 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     [view registerParentViewController:self withSelector:@selector(setCategory:)];
     [view setDepth:1];
     [self.navigationController pushViewController:view animated:YES];
-    /*
-    for (int i = 0; i < [categoryArray count]; i++) {
-        NSDictionary *category = [categoryArray objectAtIndex:i];
-        NSLog(@"%d\t%@\t%@", i, [category objectForKey:@"CategoryName"], [category objectForKey:@"CategoryID"]);
-    }
-    */
 }
 
 - (void) GetCategoriesRequest
@@ -660,7 +501,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
             [self.navigationController pushViewController:view animated:YES];
         }
     }
-    if (indexPath.section == 4) [self submit];
+    if (indexPath.section == 4) [self verify];
 }
 
 @end

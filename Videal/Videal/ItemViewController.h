@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EBayItemDetails.h"
 
 #define NO_CATEGORY -1
 #define DETAIL_CATEGORY 0
@@ -22,8 +23,10 @@
 #define DETAIL_SR_RETURN_SHIPPING 5
 
 @interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate> {
-    
     @public
+    NSURL *videoLink; 
+    
+    @private
     NSArray *detailNameArray;
     NSMutableArray *detailStringArray;
     NSArray *detailSRNameArray;
@@ -51,11 +54,10 @@
     UITextField *price;
     UITextField *shippingCost;
     UITextField *zipcode;
-    NSURL *videoLink; 
     NSString *authKey;
-    @private
     NSThread *uploadThread;
     
+    EBayItemDetails *ebayItemDetails;
 }
 
 - (void) setCategory: (NSDictionary *) dict;

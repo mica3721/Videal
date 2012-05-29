@@ -10,17 +10,20 @@
 #import "ItemViewController.h"
 
 @interface CategoryViewController : UITableViewController {
+    @public
     NSMutableArray *categoryArray;
-    ItemViewController *itemViewController;
+    UITableViewController *itemViewController;
     int selectedIndex;
     SEL selector;
     NSString *sectionTitle;
+    BOOL dontSelect;
+    UITableViewCellStyle cellStyle;
 }
 
 - (id) initWithStyle: (UITableViewStyle)style
             andArray: (NSMutableArray *)arr;
 
-- (void) registerParentViewController: (ItemViewController *)vc
+- (void) registerParentViewController: (UITableViewController *)vc
                          withSelector: (SEL) sel
                              andIndex: (int) index;
 - (void) setSectionTitle: (NSString *)title;

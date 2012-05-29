@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EBayItemDetails.h"
 
 @interface HttpPostHelper : NSObject
 
@@ -26,18 +27,9 @@
                                           callName: (NSString *) callName;
 
 /*
- * Creates a HTTP POST request to Google with appropriate headers.
- */
-+ (NSMutableURLRequest *) createGoogleAuthRequestWithURL: (NSString *) url
-                                                 andBody: (NSString *) body;
-
-/*
  * Insert additional headers for certification on eBay.
  * Not needed after receiving authToken.
  */
 + (void) setCert: (NSMutableURLRequest *) request;
-
-+ (NSMutableURLRequest*) uploadVideoToYouTube: (NSURL *) videoLink
-                                  withAuthKey: (NSString *) authKey;
 
 @end

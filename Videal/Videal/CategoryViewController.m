@@ -22,11 +22,13 @@
         // Custom initialization
         sectionTitle = @"";
         categoryArray = arr;
+        dontSelect = NO;
+        cellStyle = UITableViewCellStyleDefault;
     }
     return self;
 }
 
-- (void) registerParentViewController: (ItemViewController *)vc
+- (void) registerParentViewController: (UITableViewController *)vc
                          withSelector: (SEL) sel
                              andIndex: (int) index
 {
@@ -83,10 +85,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell = [[UITableViewCell alloc] initWithStyle:cellStyle reuseIdentifier:nil];
     cell.textLabel.text = [[categoryArray objectAtIndex:indexPath.row] objectAtIndex:0];
+    if (cellStyle != UITableViewCellStyleDefault) {
+        cell.detailTextLabel.text = [[categoryArray objectAtIndex:indexPath.row] objectAtIndex:1];
+    }
     if (indexPath.row == selectedIndex) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    if (dontSelect) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;

@@ -19,6 +19,8 @@
 		0AF62079157362CA00B9F71C /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF62078157362CA00B9F71C /* GDataXMLNode.m */; };
 		0AF6207C157362F000B9F71C /* libGDataTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF6206F157362A200B9F71C /* libGDataTouchStaticLib.a */; };
 		0AF6207F157431AF00B9F71C /* SubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6207E157431AF00B9F71C /* SubCategoryViewController.m */; };
+		0AF6208215746E9B00B9F71C /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6208115746E9A00B9F71C /* UploadViewController.m */; };
+		0AF6208515746FFA00B9F71C /* EBayItemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6208415746FF900B9F71C /* EBayItemDetails.m */; };
 		1B16D015155277E100F0E0E7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D014155277E100F0E0E7 /* PostViewController.m */; };
 		1B16D01E1552828D00F0E0E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */; };
 		1B16D02C155290FE00F0E0E7 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16D02B155290FE00F0E0E7 /* VideoViewController.m */; };
@@ -115,6 +117,10 @@
 		0AF62078157362CA00B9F71C /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataXMLNode.m; path = "../../../../GData/gdata-objectivec-client-read-only/Source/XMLSupport/GDataXMLNode.m"; sourceTree = "<group>"; };
 		0AF6207D157431AE00B9F71C /* SubCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCategoryViewController.h; sourceTree = "<group>"; };
 		0AF6207E157431AF00B9F71C /* SubCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCategoryViewController.m; sourceTree = "<group>"; };
+		0AF6208015746E9A00B9F71C /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
+		0AF6208115746E9A00B9F71C /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
+		0AF6208315746FF900B9F71C /* EBayItemDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBayItemDetails.h; sourceTree = "<group>"; };
+		0AF6208415746FF900B9F71C /* EBayItemDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBayItemDetails.m; sourceTree = "<group>"; };
 		1B16D013155277E100F0E0E7 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		1B16D014155277E100F0E0E7 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		1B16D01D1552828D00F0E0E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -273,6 +279,10 @@
 				0A218DB2156E0D2C008630D0 /* CategoryViewController.m */,
 				0AF6207D157431AE00B9F71C /* SubCategoryViewController.h */,
 				0AF6207E157431AF00B9F71C /* SubCategoryViewController.m */,
+				0AF6208315746FF900B9F71C /* EBayItemDetails.h */,
+				0AF6208415746FF900B9F71C /* EBayItemDetails.m */,
+				0AF6208015746E9A00B9F71C /* UploadViewController.h */,
+				0AF6208115746E9A00B9F71C /* UploadViewController.m */,
 				1B16D02A155290CA00F0E0E7 /* VideoViewController.h */,
 				1B16D02B155290FE00F0E0E7 /* VideoViewController.m */,
 				1B5BFDC71550960700335348 /* FirstViewController.xib */,
@@ -494,6 +504,8 @@
 				0A218DB3156E0D2C008630D0 /* CategoryViewController.m in Sources */,
 				0A7B61671570930B00F06657 /* OptionLists.m in Sources */,
 				0AF6207F157431AF00B9F71C /* SubCategoryViewController.m in Sources */,
+				0AF6208215746E9B00B9F71C /* UploadViewController.m in Sources */,
+				0AF6208515746FFA00B9F71C /* EBayItemDetails.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
