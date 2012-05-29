@@ -34,7 +34,7 @@
         // Custom initialization
         self.eBayURL = @"https://api.sandbox.ebay.com/ws/api.dll";
         self.ruName = @"Videal-Videal79d-642a--tyyobjxod";
-        self.authToken = @"AgAAAA**AQAAAA**aAAAAA**AAK6Tw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhCJiApQidj6x9nY+seQ**H88BAA**AAMAAA**tLYLmBUTikeNlwwPhFoN1AO8lUkIJVoUNDtX5STrMjsUNfjR7qAqJ9fD/N16ZMiC6xBI7MUFElt6Ci7DLCUIieRrniTHIj6XjM/6nvxUJ7fMdXRhXe1/5qhyvPaVkCa1umWYSn45JQ7oIdFoD5I7dSF9bDEkOzZFtmS5drDUEBVH5qZgYzbbjcdfdRF4XgvoXD1/dTor0FiuRojfCB2QD/2Mo9IUD1eS5dcGNiKhAZp/3Qq9o1xnaaXvkUDYEhMHQIpkJ0MAzZb+0NcZZkbf3C3muLiG8+lLMgYGDvFx4lvDh3xh17dUvBVgmNBJ/DwLgaBNgz1QpzWnmVcszZ/ha3nzHn5Lm9VM6CtOEFTOMUpGUEpawFlU8cLmZZHfIPEv+0KBhfbK9h38o9O3pgNDrZ4d5KMNSd+kX7dTkW3jqjmlIQzGug8gxvqpKImVUvR5kwHhDa5d9xR9gAvEBR6s/cXSsVC25/EUqxmlN/TWgYgudRbChLkVAvmoONVnMpHuW0Sc37lzWin/5SwLHkw4KA/zebADfNBDticXonq88XRr1C4CBkdlSQVWa4FAGCXLvIZMo5j8W5voxC5oLZKoMI6ac+xt/8EmE7EpBDpX72Zt3E/QiCb7VHJdgN8OV8FRIfdQG1yA/lzex9NZUQC2fXmdv/7GSPeoGiKpEWkBw6iEv4EfO0vHp0UI1Vlh5uHFcmiMlk4kak0eWsGLrByMxLGysHt5c6UMRhsyQQOoY8DLYXZP0/lKZU2so+ylzjh4";
+        //self.authToken = @"AgAAAA**AQAAAA**aAAAAA**AAK6Tw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhCJiApQidj6x9nY+seQ**H88BAA**AAMAAA**tLYLmBUTikeNlwwPhFoN1AO8lUkIJVoUNDtX5STrMjsUNfjR7qAqJ9fD/N16ZMiC6xBI7MUFElt6Ci7DLCUIieRrniTHIj6XjM/6nvxUJ7fMdXRhXe1/5qhyvPaVkCa1umWYSn45JQ7oIdFoD5I7dSF9bDEkOzZFtmS5drDUEBVH5qZgYzbbjcdfdRF4XgvoXD1/dTor0FiuRojfCB2QD/2Mo9IUD1eS5dcGNiKhAZp/3Qq9o1xnaaXvkUDYEhMHQIpkJ0MAzZb+0NcZZkbf3C3muLiG8+lLMgYGDvFx4lvDh3xh17dUvBVgmNBJ/DwLgaBNgz1QpzWnmVcszZ/ha3nzHn5Lm9VM6CtOEFTOMUpGUEpawFlU8cLmZZHfIPEv+0KBhfbK9h38o9O3pgNDrZ4d5KMNSd+kX7dTkW3jqjmlIQzGug8gxvqpKImVUvR5kwHhDa5d9xR9gAvEBR6s/cXSsVC25/EUqxmlN/TWgYgudRbChLkVAvmoONVnMpHuW0Sc37lzWin/5SwLHkw4KA/zebADfNBDticXonq88XRr1C4CBkdlSQVWa4FAGCXLvIZMo5j8W5voxC5oLZKoMI6ac+xt/8EmE7EpBDpX72Zt3E/QiCb7VHJdgN8OV8FRIfdQG1yA/lzex9NZUQC2fXmdv/7GSPeoGiKpEWkBw6iEv4EfO0vHp0UI1Vlh5uHFcmiMlk4kak0eWsGLrByMxLGysHt5c6UMRhsyQQOoY8DLYXZP0/lKZU2so+ylzjh4";
     }
     return self;
 }
@@ -332,24 +332,16 @@
     
     //[self ValidateTestUser];
     //[self VerifyAddItemRequest];
-    [self AddItemRequest];
+    //[self AddItemRequest];
     //[self GetCategoryFeaturesRequest];
     
-    /*
+    
     [self sessionIDRequest];
     
-    UIButton *bypassBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [bypassBtn setFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    [bypassBtn addTarget:self action:@selector(doneWithAuth) forControlEvents:UIControlEventTouchUpInside];
-    [bypassBtn setTitle:@"Bypass" forState:UIControlStateNormal];
-    [bypassBtn setUserInteractionEnabled:YES];
-    [self.view addSubview:bypassBtn];
-    
-    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-40)];
+    authWeb = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-40)];
     authWeb.delegate = self;
     authWeb.scalesPageToFit = YES;
     [self.view addSubview:authWeb];
-     */
 }
 
 /*
@@ -364,12 +356,12 @@
     NSLog(@"%@", [dict description]);
     self.authToken = [[dict objectForKey:@"FetchTokenResponse"] objectForKey:@"eBayAuthToken"];
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    del->authKey = self.authToken;
+    del->authKey = [self.authToken copy];
     del->authKeyExists = YES;
-    [del->deals addObject:self.authToken]; 
-    NSLog(@"%@", self.authToken);
-    
-    [self VerifyAddItemRequest];
+    NSLog(@"%@\n%@", del->authKey, self.authToken);
+    [self.navigationController popViewControllerAnimated:YES];
+    //[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"dismissLoginPage" object:nil]];
+    //[self VerifyAddItemRequest];
 }
 
 /*

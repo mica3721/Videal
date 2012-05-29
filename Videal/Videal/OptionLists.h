@@ -15,5 +15,7 @@
 + (NSMutableArray *) getAuctionLists;
 + (NSMutableArray *) getDurationLists;
 + (NSMutableArray *) getShippingLists;
++ (NSMutableArray *) getReturnLists;
++ (NSMutableArray *) getReturnShippingLists;
 
 @end

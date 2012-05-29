@@ -1,18 +1,23 @@
 //
-//  CategoryViewController.m
+//  SubCategoryViewController.m
 //  Videal
 //
-//  Created by Eunmo Yang on 5/23/12.
+//  Created by Eunmo Yang on 5/28/12.
 //  Copyright (c) 2012 Stanford University. All rights reserved.
 //
 
-#import "CategoryViewController.h"
+#import "SubCategoryViewController.h"
+#import "AppDelegate.h"
+#import "XMLReader.h"
+#import "HttpPostHelper.h"
 
-@interface CategoryViewController ()
+static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
+
+@interface SubCategoryViewController ()
 
 @end
 
-@implementation CategoryViewController
+@implementation SubCategoryViewController
 
 - (id)initWithStyle: (UITableViewStyle)style
            andArray: (NSMutableArray *)arr
@@ -28,11 +33,14 @@
 
 - (void) registerParentViewController: (ItemViewController *)vc
                          withSelector: (SEL) sel
-                             andIndex: (int) index
 {
     itemViewController = vc;
     selector = sel;
-    selectedIndex = index;
+}
+
+- (void) setDepth:(int)d
+{
+    depth = d;
 }
 
 - (void) setSectionTitle:(NSString *)title
@@ -56,7 +64,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-} 
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -84,10 +92,7 @@
     
     // Configure the cell...
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell.textLabel.text = [[categoryArray objectAtIndex:indexPath.row] objectAtIndex:0];
-    if (indexPath.row == selectedIndex) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
+    cell.textLabel.text = [[categoryArray objectAtIndex:indexPath.row] objectForKey:@"CategoryName"];
     
     return cell;
 }
@@ -134,7 +139,61 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+ */
+
+- (void) getNextLevelCategories: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    NSMutableArray *nextCategoryArray = [[[dict objectForKey:@"GetCategoriesResponse"] objectForKey:@"CategoryArray"] objectForKey:@"Category"];
+    
+    for (int i = 0; i < [nextCategoryArray count]; i++) {
+        NSDictionary *category = [nextCategoryArray objectAtIndex:i];
+        NSString *id = [category objectForKey:@"CategoryID"];
+        NSString *parentId = [category objectForKey:@"CategoryParentID"];
+        //NSLog(@"%@\t%@", id, parentId);
+        if ([id isEqualToString:parentId]) {
+            [nextCategoryArray removeObjectAtIndex:i];
+        }
+    }
+    
+    SubCategoryViewController *view = [[SubCategoryViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:nextCategoryArray];
+    [view registerParentViewController:itemViewController withSelector:@selector(setCategory:)];
+    [view setDepth:(depth + 1)];
+    [self.navigationController pushViewController:view animated:YES];
+    /*
+     for (int i = 0; i < [categoryArray count]; i++) {
+     NSDictionary *category = [categoryArray objectAtIndex:i];
+     NSLog(@"%d\t%@\t%@", i, [category objectForKey:@"CategoryName"], [category objectForKey:@"CategoryID"]);
+     }
+     */
+}
+
+
+- (void) GetCategoriesRequest: (NSString *) categoryCode
+{
+    NSLog(@"GetCategories");
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSString *levelLimit = [NSString stringWithFormat:@"%d", (depth + 1)];
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<GetCategoriesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<CategorySiteID>0</CategorySiteID>"
+                      "<CategoryParent>%@</CategoryParent>"
+                      "<LevelLimit>%@</LevelLimit>"
+                      "<DetailLevel>ReturnAll</DetailLevel>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</GetCategoriesRequest>", categoryCode, levelLimit, del->authKey];
+    
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebay_url andBody:body callName:@"GetCategories"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getNextLevelCategories:)];
+}
 
 #pragma mark - Table view delegate
 
@@ -148,9 +207,16 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-    [itemViewController performSelector:selector withObject:[NSNumber numberWithInt:indexPath.row]];
-    [self.navigationController popViewControllerAnimated:YES];
-    //[[self presentingViewController] dismissModalViewControllerAnimated:YES];
+    NSDictionary *category = [categoryArray objectAtIndex:indexPath.row];
+    NSString *leafNode = [category objectForKey:@"LeafCategory"];
+    
+    if (leafNode == nil) {
+        NSString *code = [category objectForKey:@"CategoryID"];
+        [self GetCategoriesRequest:code];
+    } else {
+        [itemViewController performSelector:selector withObject:category];
+        [self.navigationController popToViewController:itemViewController animated:YES];
+    }
 }
 
 @end

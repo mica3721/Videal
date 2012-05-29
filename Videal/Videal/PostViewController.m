@@ -179,9 +179,11 @@
      */
 }
 
--(void) showLoginPage {
-    EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
-    [self presentModalViewController:dataCtrl animated:YES];
+-(void) dismissLoginPage:(NSNotification *) notif {
+    
+    UIViewController *prev = (UIViewController *) [notif object];
+    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"fsdadfsdfsadfsfdsadfsfsd");
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -189,7 +191,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postDetailView) name:@"show" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginPage) name:@"showLoginPage" object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissLoginPage:dismissLoginPage:) name:@"dismissLoginPage" object:nil];
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     
     picker = [[UIImagePickerController alloc] init];
@@ -217,7 +219,8 @@
     [self.view addSubview:postButton];
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (!del->authKeyExists) {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"showLoginPage" object:nil]];
+        EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
+        [self.navigationController pushViewController: dataCtrl animated:YES];
     }
 }
      

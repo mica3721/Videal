@@ -9,6 +9,10 @@
 #import "ItemViewController.h"
 #import "OptionLists.h"
 #import "CategoryViewController.h"
+#import "XMLReader.h"
+#import "HttpPostHelper.h"
+#import "AppDelegate.h"
+#import "SubCategoryViewController.h"
 
 #import "GData/GData.h"
 #import "GData/GDataServiceGoogleYouTube.h"
@@ -19,6 +23,7 @@ static NSString* const videal_client_secret = @"5HDLSxm0ciiFZ14etx-2q1hs";
 static NSString* const videal_user_id = @"videal.test";
 static NSString* const videal_user_secret = @"eunmo123";
 static NSString* const videal_dev_key = @"AI39si65Z4UhYeyjyzbxDQApWSQb-5QYGwBumbfHupMMxWmoUd8j3xBjRYqaqcAtNCCPkqC3BcTBEO518uvIImcpE4jo89lm6Q";
+static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
 
 @interface ItemViewController ()
@@ -139,8 +144,10 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     if (self) {
         // Custom initialization
         
-        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Duration",@"Shipping",@"Dispatch", @"Return", nil];
-        detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"7 days", @"", @"3 days", @"Moneyback, 30 days", nil];
+        detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Paypal",@"Duration",nil];
+        detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"",  @"7 days",nil];
+        detailSRNameArray = [[NSArray alloc] initWithObjects:@"Shipping",@"Ship cost",@"Dispatch",@"Zipcode",@"Return",@"Return cost", nil];
+        detailSRStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"", @"3 days", @"", @"Moneyback, 14 Days", @"paid by buyer", nil];
         
         title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
         title.placeholder = @"Title";
@@ -154,8 +161,19 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         
         // define defaults
         categoryIndex = NO_CATEGORY;
-        dispatchIndex = 3;
+        auctionIndex = 0;
+        auctionCode = [[[OptionLists getAuctionLists] objectAtIndex:auctionIndex] objectAtIndex:1];
+        durationIndex = 2;
+        durationCode = [[[OptionLists getDurationLists] objectAtIndex:durationIndex] objectAtIndex:1];
         shippingIndex = NO_CATEGORY;
+        dispatchIndex = 3;
+        dispatchTimeMax = [[[OptionLists getDispatchLists] objectAtIndex:dispatchIndex] objectAtIndex:1];
+        returnIndex = 1;
+        returnsAcceptedOption = [[[OptionLists getReturnLists] objectAtIndex:returnIndex] objectAtIndex:1];
+        refundOption = [[[OptionLists getReturnLists] objectAtIndex:returnIndex] objectAtIndex:2];
+        returnsWithinOption = [[[OptionLists getReturnLists] objectAtIndex:returnIndex] objectAtIndex:3];
+        returnShippingIndex = 0;
+        returnShippingCode = [[[OptionLists getReturnShippingLists] objectAtIndex:returnShippingIndex] objectAtIndex:1];
         
         price = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
         price.placeholder = @"Name Your Price";
@@ -163,31 +181,36 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         [price setReturnKeyType:UIReturnKeyDone];
         [price addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
         
+        paypal = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
+        paypal.placeholder = @"Your Paypal Account";
+        [paypal setKeyboardType:UIKeyboardTypeEmailAddress];
+        [paypal setReturnKeyType:UIReturnKeyDone];
+        [paypal addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        shippingCost = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
+        shippingCost.placeholder = @"Name your shipping cost";
+        [shippingCost setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+        [shippingCost setReturnKeyType:UIReturnKeyDone];
+        [shippingCost addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        zipcode = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
+        zipcode.placeholder = @"Your Zipcode";
+        [zipcode setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+        [zipcode setReturnKeyType:UIReturnKeyDone];
+        [zipcode addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
     }
     return self;
 }
 
-- (void) setCategory: (NSNumber *) index
+- (void) setCategory: (NSDictionary *) dict
 {
-    int idx = [index intValue];
-    NSMutableArray *arr = [[OptionLists getCategoryLists] objectAtIndex:idx];
-    [detailStringArray replaceObjectAtIndex:DETAIL_CATEGORY withObject:[arr objectAtIndex:0]];
-    categoryCode = [arr objectAtIndex:1];
-    categoryIndex = idx;
+    NSString *name = [dict objectForKey:@"CategoryName"];
+    categoryCode = [dict objectForKey:@"CategoryID"];
+    [detailStringArray replaceObjectAtIndex:DETAIL_CATEGORY withObject:name];
     [self.tableView reloadData];
-    NSLog(@"Setting Category to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode, categoryIndex);
+    NSLog(@"Setting Category to: %@\t%@", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode);
 }
-
-- (void) setDispatch: (NSNumber *) index
-{
-    int idx = [index intValue];
-    NSMutableArray *arr = [[OptionLists getDispatchLists] objectAtIndex:idx];
-    [detailStringArray replaceObjectAtIndex:DETAIL_DISPATCH withObject:[arr objectAtIndex:0]];
-    dispatchTimeMax = [arr objectAtIndex:1];
-    dispatchIndex = idx;
-    [self.tableView reloadData];
-    NSLog(@"Setting Dispatch Time to: %@ %d", dispatchTimeMax, dispatchIndex);
-} 
 
 - (void) setAuction: (NSNumber *) index
 {
@@ -200,23 +223,154 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], auctionCode, auctionIndex);
 }
 
+- (void) setDuration: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getDurationLists] objectAtIndex:idx];
+    [detailStringArray replaceObjectAtIndex:DETAIL_DURATION withObject:[arr objectAtIndex:0]];
+    durationCode = [arr objectAtIndex:1];
+    durationIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Duration to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_DURATION], durationCode, durationIndex);
+}
+
 - (void) setShipping: (NSNumber *) index
 {
     int idx = [index intValue];
     NSMutableArray *arr = [[OptionLists getShippingLists] objectAtIndex:idx];
-    [detailStringArray replaceObjectAtIndex:DETAIL_SHIPPING withObject:[arr objectAtIndex:0]];
+    [detailSRStringArray replaceObjectAtIndex:DETAIL_SR_SHIPPING withObject:[arr objectAtIndex:0]];
     shippingCode = [arr objectAtIndex:1];
     shippingIndex = idx;
     [self.tableView reloadData];
-    NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], shippingCode, shippingIndex);
+    NSLog(@"Setting Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_SHIPPING], shippingCode, shippingIndex);
+}
+
+- (void) setDispatch: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getDispatchLists] objectAtIndex:idx];
+    [detailSRStringArray replaceObjectAtIndex:DETAIL_SR_DISPATCH withObject:[arr objectAtIndex:0]];
+    dispatchTimeMax = [arr objectAtIndex:1];
+    dispatchIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Dispatch Time to: %@ %d", dispatchTimeMax, dispatchIndex);
+} 
+
+- (void) setReturn: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getReturnLists] objectAtIndex:idx];
+    [detailSRStringArray replaceObjectAtIndex:DETAIL_SR_RETURN withObject:[arr objectAtIndex:0]];
+    returnsAcceptedOption = [arr objectAtIndex:1];
+    refundOption = [arr objectAtIndex:2];
+    returnsWithinOption = [arr objectAtIndex:3];
+    returnIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Return to: %@\t%@\t%@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN], returnsAcceptedOption, refundOption, returnsWithinOption, returnIndex);
+}
+
+- (void) setReturnShipping: (NSNumber *) index
+{
+    int idx = [index intValue];
+    NSMutableArray *arr = [[OptionLists getReturnShippingLists] objectAtIndex:idx];
+    [detailSRStringArray replaceObjectAtIndex:DETAIL_SR_RETURN_SHIPPING withObject:[arr objectAtIndex:0]];
+    returnShippingCode = [arr objectAtIndex:0];
+    returnShippingIndex = idx;
+    [self.tableView reloadData];
+    NSLog(@"Setting Return Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN_SHIPPING],returnShippingCode, returnShippingIndex);
+} 
+
+- (void) VerifyAddItemResponse: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    NSDictionary *response = [dict objectForKey:@"VerifyAddItemResponse"];
+    NSString *ack = [response objectForKey:@"Ack"];
+    
+    if ([ack isEqualToString:@"Success"]) {
+        
+    } else if ([ack isEqualToString:@"Failure"]) {
+        NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
+        
+        /*
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [message show];
+         */
+    }
 }
 
 - (void) submit
 {
+    // There should be checks to validate the fields
+    
     NSLog(@"Submit BTN clicked");
     NSLog(@"Title: %@", title.text);
     NSLog(@"Desc: %@", desc.text);
-    NSLog(@"Category: %@\t%@\t %d", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode, categoryIndex);
+    NSLog(@"Setting Category to: %@\t%@", [detailStringArray objectAtIndex:DETAIL_CATEGORY], categoryCode);
+    NSLog(@"Setting Auction to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_AUCTION], auctionCode, auctionIndex);
+    NSLog(@"Setting Duration to: %@\t%@\t%d", [detailStringArray objectAtIndex:DETAIL_DURATION], durationCode, durationIndex);
+    NSLog(@"Setting Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_SHIPPING], shippingCode, shippingIndex);
+    NSLog(@"Setting Dispatch to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_DISPATCH], dispatchTimeMax, dispatchIndex);
+    NSLog(@"Setting Return to: %@\t%@\t%@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN], returnsAcceptedOption, refundOption, returnsWithinOption, returnIndex);
+    NSLog(@"Setting Return Shipping to: %@\t%@\t%d", [detailSRStringArray objectAtIndex:DETAIL_SR_RETURN_SHIPPING],returnShippingCode, returnShippingIndex);
+    
+    NSString *returnPolicy = @"<ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption>";
+    if ([returnsAcceptedOption isEqualToString:@"ReturnsAccepted"]) {
+        returnPolicy = [NSString stringWithFormat:@"<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>"
+                        "<RefundOption>%@</RefundOption>"
+                        "<ReturnsWithinOption>%@</ReturnsWithinOption>"
+                        "<ShippingCostPaidByOption>%@</ShippingCostPaidByOption>", refundOption, returnsWithinOption, returnShippingCode];
+    }
+    
+    NSLog(@"VerifyAddItemRequest");
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<VerifyAddItemRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<ErrorLanguage>en_US</ErrorLanguage>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "<Item>"
+                      "<Title>%@</Title>"
+                      "<Description>%@</Description>"
+                      "<PrimaryCategory>"
+                      "<CategoryID>%@</CategoryID>"
+                      "</PrimaryCategory>"
+                      "<StartPrice>%@</StartPrice>"
+                      "<CategoryMappingAllowed>true</CategoryMappingAllowed>"
+                      "<ConditionID>1000</ConditionID>"
+                      "<Country>US</Country>"
+                      "<Currency>USD</Currency>"
+                      "<DispatchTimeMax>%@</DispatchTimeMax>"
+                      "<ListingDuration>%@</ListingDuration>"
+                      "<ListingType>%@</ListingType>"
+                      "<Quantity>1</Quantity>"
+                      "<PaymentMethods>PayPal</PaymentMethods>"
+                      "<PayPalEmailAddress>%@</PayPalEmailAddress>"
+                      "<PostalCode>%@</PostalCode>"
+                      "<ReturnPolicy>%@</ReturnPolicy>"
+                      "<ShippingDetails>"
+                      "<ShippingType>Flat</ShippingType>"
+                      "<ShippingServiceOptions>"
+                      "<ShippingServicePriority>1</ShippingServicePriority>"
+                      "<ShippingService>%@</ShippingService>"
+                      "<ShippingServiceCost>%@</ShippingServiceCost>"
+                      "</ShippingServiceOptions>"
+                      "</ShippingDetails>"
+                      "<Site>US</Site>"
+                      "</Item>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</VerifyAddItemRequest>", title.text, desc.text, @"377", price.text, dispatchTimeMax, durationCode, auctionCode, paypal.text, zipcode.text, returnPolicy, shippingCode, shippingCost.text, del->authKey];
+    
+    //NSLog(@"%@", body);
+
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebay_url andBody:body callName:@"VerifyAddItem"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(VerifyAddItemResponse:)];
 }
 
 - (void)viewDidLoad
@@ -266,7 +420,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -274,6 +428,8 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     // Return the number of rows in the section.
     if (section == 2) {
         return [detailNameArray count];
+    } if (section == 3) {
+        return [detailSRNameArray count];
     } else return 1;
 }
 
@@ -295,11 +451,25 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
             if (indexPath.row == DETAIL_PRICE) {
                 [cell addSubview:price];
+            } else if (indexPath.row == DETAIL_PAYPAL)
+            {
+                [cell addSubview:paypal];
             }else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             cell.textLabel.text = [detailNameArray objectAtIndex:indexPath.row];
             cell.detailTextLabel.text = [detailStringArray objectAtIndex:indexPath.row];
+        }  else if (indexPath.section == 3) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+            if (indexPath.row == DETAIL_SR_SHIPPING_COST) {
+                [cell addSubview:shippingCost];
+            } else if (indexPath.row == DETAIL_SR_ZIPCODE) {
+                [cell addSubview:zipcode];
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            cell.textLabel.text = [detailSRNameArray objectAtIndex:indexPath.row];
+            cell.detailTextLabel.text = [detailSRStringArray objectAtIndex:indexPath.row];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             [cell setBackgroundColor:[UIColor redColor]];
@@ -326,6 +496,8 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
         return @"Description";
     } else if (section == 2) {
         return @"List Details";
+    } else if (section == 3) {
+        return @"Shipping and Return";
     } else return @"Finalize and submit";
 }
 
@@ -384,6 +556,47 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 }
 */
 
+- (void) getTopLevelCategories: (NSMutableData *) data
+{
+    NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
+    NSLog(@"%@", [dict description]);
+    NSMutableArray *categoryArray = [[[dict objectForKey:@"GetCategoriesResponse"] objectForKey:@"CategoryArray"] objectForKey:@"Category"];
+    
+    SubCategoryViewController *view = [[SubCategoryViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:categoryArray];
+    [view registerParentViewController:self withSelector:@selector(setCategory:)];
+    [view setDepth:1];
+    [self.navigationController pushViewController:view animated:YES];
+    /*
+    for (int i = 0; i < [categoryArray count]; i++) {
+        NSDictionary *category = [categoryArray objectAtIndex:i];
+        NSLog(@"%d\t%@\t%@", i, [category objectForKey:@"CategoryName"], [category objectForKey:@"CategoryID"]);
+    }
+    */
+}
+
+- (void) GetCategoriesRequest
+{
+    NSLog(@"GetCategories");
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                      "<GetCategoriesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+                      "<CategorySiteID>0</CategorySiteID>"
+                      "<LevelLimit>1</LevelLimit>"
+                      "<DetailLevel>ReturnAll</DetailLevel>"
+                      "<RequesterCredentials>"
+                      "<eBayAuthToken>%@</eBayAuthToken>"
+                      "</RequesterCredentials>"
+                      "<WarningLevel>High</WarningLevel>"
+                      "</GetCategoriesRequest>", del->authKey];
+    
+    
+    NSMutableURLRequest *request = [HttpPostHelper createeBayRequestWithURL:ebay_url andBody:body callName:@"GetCategories"];
+    [HttpPostHelper setCert:request];
+    NSLog(@"%@", body);
+    
+    [HttpPostHelper doPost:request from:self withSelector: @selector(getTopLevelCategories:)];
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -392,31 +605,62 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     if (indexPath.section == 2) {
         if (indexPath.row == DETAIL_CATEGORY) {
             NSLog(@"Clicked Category");
+            [self GetCategoriesRequest];
+            /*
             CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
                                                                                 andArray:[OptionLists getCategoryLists]];
             [view registerParentViewController:self withSelector:@selector(setCategory:) andIndex:categoryIndex];
-            [self presentModalViewController:view animated:YES];
-        } else if (indexPath.row == DETAIL_DISPATCH) {
-            NSLog(@"Clicked Dispatch");
-            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
-                                                                                andArray:[OptionLists getDispatchLists]];
-            [view registerParentViewController:self withSelector:@selector(setDispatch:) andIndex:dispatchIndex];
-            [self presentModalViewController:view animated:YES];
+            [view setSectionTitle:@"Which a category that best fits your item?"];
+            [self.navigationController pushViewController:view animated:YES];
+             */
         } else if (indexPath.row == DETAIL_AUCTION) {
             NSLog(@"Clicked Auction");
             CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
                                                                                 andArray:[OptionLists getAuctionLists]];
             [view registerParentViewController:self withSelector:@selector(setAuction:) andIndex:auctionIndex];
-            [self presentModalViewController:view animated:YES];
-        } else if (indexPath.row == DETAIL_SHIPPING) {
+            [view setSectionTitle:@"How do you want your auction to be?"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_DURATION) {
+            NSLog(@"Clicked Duration");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getDurationLists]];
+            [view registerParentViewController:self withSelector:@selector(setDuration:) andIndex:durationIndex];
+            [view setSectionTitle:@"How long do you want your item to be listed?"];
+            [self.navigationController pushViewController:view animated:YES];
+        } 
+    }
+    if (indexPath.section == 3) {
+        if (indexPath.row == DETAIL_SR_SHIPPING) {
             NSLog(@"Clicked Shipping");
             CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
                                                                                 andArray:[OptionLists getShippingLists]];
             [view registerParentViewController:self withSelector:@selector(setShipping:) andIndex:shippingIndex];
-            [self presentModalViewController:view animated:YES];
+            [view setSectionTitle:@"Which shipping method will you use?"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_SR_DISPATCH) {
+            NSLog(@"Clicked Dispatch");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getDispatchLists]];
+            [view registerParentViewController:self withSelector:@selector(setDispatch:) andIndex:dispatchIndex];
+            [view setSectionTitle:@"How long would it take for you to send the item?"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_SR_RETURN) {
+            NSLog(@"Clicked Return");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getReturnLists]];
+            [view registerParentViewController:self withSelector:@selector(setReturn:) andIndex:returnIndex];
+            [view setSectionTitle:@"What is your return policy? How long will you accept returns?"];
+            [self.navigationController pushViewController:view animated:YES];
+        } else if (indexPath.row == DETAIL_SR_RETURN_SHIPPING) {
+            NSLog(@"Clicked Return Shipping");
+            CategoryViewController *view = [[CategoryViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                andArray:[OptionLists getReturnShippingLists]];
+            [view registerParentViewController:self withSelector:@selector(setReturnShipping:) andIndex:returnShippingIndex];
+            [view setSectionTitle:@"Who will pay the return shipping cost?"];
+            [self.navigationController pushViewController:view animated:YES];
         }
     }
-    if (indexPath.section == 3) [self submit];
+    if (indexPath.section == 4) [self submit];
 }
 
 @end

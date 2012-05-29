@@ -87,6 +87,9 @@
 }
 
 -(void) SaveAuthKey: (NSString *) authkey {
+    if (!authkey) {
+        return;
+    }
     pos = 0;
     [self writeString:authkey];
     NSData *authData = [NSData dataWithBytes:buffer length:pos];
@@ -101,7 +104,7 @@
     if (authFileExists) {
         NSData *authData= [[NSData alloc] initWithContentsOfFile:filePath2];
         [authData getBytes:buffer length:[authData length]];
-        return [self readString];
+        return [[self readString] copy];
     }
     return nil;
     

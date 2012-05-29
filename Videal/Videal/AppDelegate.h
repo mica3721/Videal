@@ -23,7 +23,7 @@
     BOOL hasCard;
 }
 
-@property (nonatomic, copy) NSString *authkey;
+@property (nonatomic, strong) NSString *authkey;
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) NSMutableArray *deals; 

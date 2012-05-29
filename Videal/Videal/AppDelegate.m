@@ -47,8 +47,9 @@
     DealSaver *saver= [DealSaver new];
     deals = [saver LoadDeals];
     authKey = [saver LoadAuthKey];
-    if (authKey == nil) {
-        authKeyExists = false;
+    NSLog(@"Authkey = %@", authKey);
+    if (authKey != nil) {
+        authKeyExists = true;
     }
     // Make an EBay api call to see if our auth token, if it exists, is valid
     [self checkEBayAccountDetails];
@@ -74,11 +75,7 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
-    NSLog(@"resign active");
-    NSLog(@"%d", deals.count);
-    DealSaver *saver = [DealSaver new];
-    [saver SaveDeals:deals];
-    [saver SaveAuthKey:authKey];
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -89,6 +86,10 @@
      */
     NSLog(@"Entering Background");
     NSLog(@"%d", deals.count);
+    NSLog(@"%@", authKey);
+    DealSaver *saver = [DealSaver new];
+    [saver SaveDeals:deals];
+    [saver SaveAuthKey:authKey];
     
 
 }
@@ -115,8 +116,11 @@
      See also applicationDidEnterBackground:.
      */
     NSLog(@"Terminating");
-    NSLog(@"%d", deals.count);
-    [[DealSaver new] SaveDeals:deals];
+    NSLog(@"%@", authKey);
+    DealSaver *saver = [DealSaver new];
+    if(self.authkey != nil) {
+        [saver SaveAuthKey:authKey];
+    }
 }
 
 /*

@@ -117,4 +117,27 @@
     return array;
 }
 
++ (NSMutableArray *) getReturnLists
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:[[NSArray alloc] initWithObjects:@"No Returns Accepted", @"ReturnsNotAccepted", @"", @"", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback, 14 Days", @"ReturnsAccepted", @"MoneyBack", @"Days_14", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback, 30 Days", @"ReturnsAccepted", @"MoneyBack", @"Days_30", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback, 60 Days", @"ReturnsAccepted", @"MoneyBack", @"Days_60", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback/Exchange, 14 Days", @"ReturnsAccepted", @"MoneyBackOrExchange", @"Days_14", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback/Exchange, 30 Days", @"ReturnsAccepted", @"MoneyBackOrExchange", @"Days_30", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"Moneyback/Exchange, 60 Days", @"ReturnsAccepted", @"MoneyBackOrExchange", @"Days_60", nil]];
+    
+    return array;
+}
+
++ (NSMutableArray *) getReturnShippingLists
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:[[NSArray alloc] initWithObjects:@"paid by buyer", @"Buyer", nil]];
+    [array addObject:[[NSArray alloc] initWithObjects:@"paid by seller", @"Seller", nil]];
+    
+    return array;
+}
+
 @end
