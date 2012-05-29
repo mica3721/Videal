@@ -275,25 +275,26 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
 {
     NSDictionary *dict = [XMLReader dictionaryForXMLData:data];
     NSLog(@"%@", [dict description]);
-    
-    /*
-    NSDictionary *response = [dict objectForKey:@"VerifyAddItemResponse"];
+    NSDictionary *response = [dict objectForKey:@"AddItemResponse"];
     NSString *ack = [response objectForKey:@"Ack"];
     
     if ([ack isEqualToString:@"Success"]) {
+        /*
         NSMutableArray *fees = [[response objectForKey:@"Fees"] objectForKey:@"Fee"];
         UploadViewController *view = [[UploadViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:fees];
         view->ebayItemDetails = ebayItemDetails;
         view->videoLink = videoLink;
         [self.navigationController pushViewController:view animated:YES];
+         */
     } else if ([ack isEqualToString:@"Failure"]) {
+        /*
         NSString *errorMessage = [[response objectForKey:@"Errors"] objectForKey:@"LongMessage"];
         NSLog(@"%@", errorMessage);
         /*
          UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
          
          [message show];
-         
+         */
     }
     */
 }

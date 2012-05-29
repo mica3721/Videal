@@ -85,7 +85,8 @@
                       "<embed src=\"http://www.youtube.com/v/%@?fs=1&amp;hl=en_US\" "
                       "type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" "
                       "allowfullscreen=\"true\" height=\"385\" width=\"640\"></object></span></strong></p>"
-                      "]]></Description>"
+                      "<p><a href=\"http://www.youtube.com/watch?v=%@\">"
+                      "Video Link (for those on Safari without Flash)</a></p>]]></Description>"
                       "<PrimaryCategory>"
                       "<CategoryID>%@</CategoryID>"
                       "</PrimaryCategory>"
@@ -119,6 +120,7 @@
                       "</AddItemRequest>",
                       title,
                       desc,
+                      video,
                       video,
                       video,
                       category,
