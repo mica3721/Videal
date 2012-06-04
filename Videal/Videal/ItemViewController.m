@@ -246,7 +246,6 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
     NSLog(@"%@", self.navigationController);
     UILabel *label = [[UILabel alloc]init];
     label.text = @"Pick options";
-    [label setFont:[UIFont fontWithName:@"Futura" size:20]];
     label.frame = CGRectMake(0, 0, 200, 200);
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = UITextAlignmentCenter;
@@ -254,7 +253,8 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     self.navigationItem.titleView = label;
-
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"orange.png"]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

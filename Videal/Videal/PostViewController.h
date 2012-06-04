@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "EBayAuthViewController.h"
+#import <iAd/iAd.h>
 
 
-
-@interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate> {
+@interface PostViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, ADBannerViewDelegate> {
     UIImagePickerController *picker;
     //NSThread *captureThread;     // Temporary get rid of later
     NSURL *videoLink;
     UITableView *postedDealsView;
     NSMutableArray *postedDeals;
+    ADBannerView * adView;
+    BOOL bannerVisible;
 }
 
 

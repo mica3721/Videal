@@ -13,6 +13,7 @@
 #import "HttpPostHelper.h"
 static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 
+
 @implementation PostViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -262,6 +263,30 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     [HttpPostHelper doPost:request from:self withSelector: @selector(updateSellingItems:)];
 }
 
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    bannerVisible = YES;
+    /*if (![self.view.subviews containsObject:postedDealsView]) {
+        postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width , self.view.frame.size.height - 140) style:UITableViewStylePlain];
+        [self.view addSubview:postedDealsView];
+        [postedDealsView reloadData];
+        
+    }*/
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    
+    bannerVisible = NO;
+     if ([self.view.subviews containsObject:postedDealsView]) {
+         [postedDealsView removeFromSuperview];
+         postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 90) style:UITableViewStylePlain];
+         [self.view addSubview:postedDealsView];
+         [postedDealsView reloadData]; 
+     }
+}
+
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -272,29 +297,53 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     
     picker = [[UIImagePickerController alloc] init];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
 											   initWithTitle:@"Logout"
 											   style:UIBarButtonItemStylePlain
 											   target:self
-											   action:@selector(logOut)]; 
+											   action:@selector(logOut)]; */
+    //UIColor *navColor = [[UIColor alloc] initWithRed:250/255.0 green:108/255.0 blue:108/255.0 alpha:1] ; 
+	
+    adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    adView.frame = CGRectMake(0, 0, 320, 50);
+    adView.requiredContentSizeIdentifiers = [NSSet setWithObject:ADBannerContentSizeIdentifierPortrait];
+    adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+    [self.view addSubview:adView];
+    adView.delegate = self;
+    
+   
+    postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width , self.view.frame.size.height - 140) style:UITableViewStylePlain];
     
     
-    
-    postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 130) style:UITableViewStylePlain];
     postedDealsView.delegate = self;
     postedDealsView.dataSource = self; 
     [self.view addSubview:postedDealsView];
     
-    UIButton * postButton = [UIButton buttonWithType:UIButtonTypeCustom]; 
-    postButton.frame = CGRectMake(116, 330, 88, 70);
-    [postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setUserInteractionEnabled:YES];
+    UIBarButtonItem * postButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showPostOptions)]; 
+    //postButton.frame = CGRectMake(125, self.view.frame.size.height - 120, 70, 70);
+    //[postButton addTarget:self action:@selector(showPostOptions) forControlEvents:UIControlEventTouchUpInside];
+    //[postButton setUserInteractionEnabled:YES];
     //[postButton setTitle:@"Post Video Deals" forState: UIControlStateNormal];
-    [postButton setBackgroundColor:[UIColor darkGrayColor]];
-    [postButton setBackgroundImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
-    [self.view addSubview:postButton];
+    //[postButton setBackgroundColor:[UIColor darkGrayColor]];
+    //[postButton setBackgroundImage: forState:UIControlStateNormal];
+    //[postButton setTitle:@"Upload Deals" forState:UIControlStateNormal];
+    //[self.view addSubview:postButton];
+    
+    UIBarButtonItem *infoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    
+    UIBarButtonItem *spacing = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    
+    UIToolbar *bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 90, self.view.frame.size.width, 50)];
+    //[bar setBackgroundColor:[UIColor blackColor]];
+    bar.barStyle = UIBarStyleBlackTranslucent;
+    [bar setTintColor:[UIColor blackColor]];
+    [bar setOpaque:YES];
+    [bar setItems:[NSArray arrayWithObjects:spacing, infoItem, spacing, spacing,spacing, spacing, spacing,spacing, spacing,spacing, spacing, postButton, nil]];
+    [self.view addSubview:bar];
+    
+    
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (!del->authKeyExists) {
+    if (!del->authKey) {
         EBayAuthViewController *dataCtrl = [EBayAuthViewController new];
         [self.navigationController pushViewController: dataCtrl animated:YES];
     }
@@ -359,6 +408,7 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 	//AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //return [[appDel deals] count];
     return [postedDeals count];
+    //return 7;
 }
 
 // Customize the appearance of table view cells.
@@ -373,6 +423,11 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
         cell.textLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:0];
         cell.detailTextLabel.text = [[postedDeals objectAtIndex:indexPath.row] objectAtIndex:1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        /*CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = cell.bounds;
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor]CGColor], (id)[[UIColor grayColor]CGColor], nil];
+        [cell.layer addSublayer:gradient];*/
 	}
 	
 	return cell;
