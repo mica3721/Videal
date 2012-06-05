@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AF62622157C417300B9F71C /* GDataXMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF62621157C417300B9F71C /* GDataXMLNode.h */; };
+		0AF62625157C417E00B9F71C /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF62624157C417E00B9F71C /* GDataXMLNode.m */; };
 		4F00C37C1355026B00DEC154 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F00C3791355026B00DEC154 /* GTMOAuth2Authentication.m */; };
 		4F00C37D1355026B00DEC154 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F00C37B1355026B00DEC154 /* GTMOAuth2SignIn.m */; };
 		4F00C37E1355026B00DEC154 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F00C3791355026B00DEC154 /* GTMOAuth2Authentication.m */; };
@@ -2517,6 +2519,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0AF62621157C417300B9F71C /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		0AF62624157C417E00B9F71C /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		4F00C3781355026B00DEC154 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2Authentication.h; path = OAuth2/GTMOAuth2Authentication.h; sourceTree = "<group>"; };
 		4F00C3791355026B00DEC154 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMOAuth2Authentication.m; path = OAuth2/GTMOAuth2Authentication.m; sourceTree = "<group>"; };
@@ -3265,6 +3269,8 @@
 		089C166AFE841209C02AAC07 /* GoogleBundle */ = {
 			isa = PBXGroup;
 			children = (
+				0AF62621157C417300B9F71C /* GDataXMLNode.h */,
+				0AF62624157C417E00B9F71C /* GDataXMLNode.m */,
 				32C88E010371C26100C91783 /* GData Sources */,
 				4FA9C7410B72AB1600DA5920 /* Test Tool */,
 				4F14A9E30B1277010072EBB8 /* Unit Tests */,
@@ -4679,6 +4685,7 @@
 				4F6607EB152BAFE700D8776E /* SBJsonBase.h in Headers */,
 				4F6607F1152BAFE700D8776E /* SBJsonParser.h in Headers */,
 				4F6607F7152BAFE700D8776E /* SBJsonWriter.h in Headers */,
+				0AF62622157C417300B9F71C /* GDataXMLNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6098,6 +6105,7 @@
 				4F6607EC152BAFE700D8776E /* SBJsonBase.m in Sources */,
 				4F6607F2152BAFE700D8776E /* SBJsonParser.m in Sources */,
 				4F6607F8152BAFE700D8776E /* SBJsonWriter.m in Sources */,
+				0AF62625157C417E00B9F71C /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

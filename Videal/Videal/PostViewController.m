@@ -278,12 +278,12 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
 {
     
     bannerVisible = NO;
-     if ([self.view.subviews containsObject:postedDealsView]) {
+     /*if ([self.view.subviews containsObject:postedDealsView]) {
          [postedDealsView removeFromSuperview];
          postedDealsView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height - 90) style:UITableViewStylePlain];
          [self.view addSubview:postedDealsView];
          [postedDealsView reloadData]; 
-     }
+     }*/
 }
 
 

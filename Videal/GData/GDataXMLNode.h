@@ -160,7 +160,7 @@ typedef NSUInteger GDataXMLNodeKind;
 // access to the underlying libxml node; be sure to release the cached values
 // if you change the underlying tree at all
 - (xmlNodePtr)XMLNode;
-
+- (void)releaseCachedValues;
 
 @end
 

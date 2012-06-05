@@ -243,17 +243,8 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@", self.navigationController);
-    UILabel *label = [[UILabel alloc]init];
-    label.text = @"Pick options";
-    label.frame = CGRectMake(0, 0, 200, 200);
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = UITextAlignmentCenter;
-	label.adjustsFontSizeToFitWidth = YES;
-    label.textColor = [UIColor whiteColor];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    self.navigationItem.titleView = label;
-    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"orange.png"]];
+    self.title = @"Posting Details";
+    //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"orange.png"]];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -334,6 +325,7 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
             [cell setBackgroundColor:[UIColor redColor]];
             cell.textLabel.text = @"Validate";
             cell.textLabel.textAlignment = UITextAlignmentCenter;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
