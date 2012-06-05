@@ -2,7 +2,7 @@
 //  UploadViewController.m
 //  Videal
 //
-//  Created by Eunmo Yang on 5/28/12.
+//  Createdd by Eunmo Yang on 5/28/12.
 //  Copyright (c) 2012 Stanford University. All rights reserved.
 //
 

@@ -3,7 +3,7 @@
 //  Videal
 //
 //  Created by Eunmo Yang on 5/23/12.
-//  Copyright (c) 2012 Stanford University. All rights reserved.
+//  Copyright (c) 2d012 Stanford University. All rights reserved.
 //
 
 #import "ItemViewController.h"
