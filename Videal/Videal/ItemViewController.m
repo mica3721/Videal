@@ -32,8 +32,8 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
         
         detailNameArray = [[NSArray alloc] initWithObjects:@"Category",@"Pricing",@"Start price",@"Paypal",@"Duration",nil];
         detailStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"Auction-like", @"", @"",  @"7 days",nil];
-        detailSRNameArray = [[NSArray alloc] initWithObjects:@"Shipping",@"Ship cost",@"Dispatch",@"Zipcode",@"Return",@"Return cost", nil];
-        detailSRStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"", @"3 days", @"", @"Moneyback, 14 Days", @"paid by buyer", nil];
+        detailSRNameArray = [[NSArray alloc] initWithObjects:@"Shipping",@"Dispatch",@"Zipcode",@"Return",@"Return cost", nil];
+        detailSRStringArray = [[NSMutableArray alloc] initWithObjects:@"", @"3 days", @"", @"Moneyback, 14 Days", @"paid by buyer", nil];
         
         title = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 280, 30)];
         title.placeholder = @"Title";
@@ -72,12 +72,6 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
         [paypal setKeyboardType:UIKeyboardTypeEmailAddress];
         [paypal setReturnKeyType:UIReturnKeyDone];
         [paypal addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
-        
-        shippingCost = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
-        shippingCost.placeholder = @"Name your shipping cost";
-        [shippingCost setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        [shippingCost setReturnKeyType:UIReturnKeyDone];
-        [shippingCost addTarget:self action:@selector(textFieldFinished:) forControlEvents:UIControlEventEditingDidEndOnExit];
         
         zipcode = [[UITextField alloc] initWithFrame:CGRectMake(90, 12, 210, 30)];
         zipcode.placeholder = @"Your Zipcode";
@@ -179,7 +173,7 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
     NSDictionary *response = [dict objectForKey:@"VerifyAddItemResponse"];
     NSString *ack = [response objectForKey:@"Ack"];
     
-    if ([ack isEqualToString:@"Success"]) {
+    if ([ack isEqualToString:@"Success"] || [ack isEqualToString:@"Warning"]) {
         NSMutableArray *fees = [[response objectForKey:@"Fees"] objectForKey:@"Fee"];
         UploadViewController *view = [[UploadViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:fees];
         view->ebayItemDetails = ebayItemDetails;
@@ -229,7 +223,7 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
     ebayItemDetails->zipcode = zipcode.text;
     ebayItemDetails->returnPolicy = returnPolicy;
     ebayItemDetails->shipping = shippingCode;
-    ebayItemDetails->shippingCost = shippingCost.text;
+    ebayItemDetails->shippingCost = @"3";
     ebayItemDetails->authKey = del->authKey;
     NSString *body = [ebayItemDetails getVerifyAddItemRequestBody];
 
@@ -311,9 +305,7 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
             cell.detailTextLabel.text = [detailStringArray objectAtIndex:indexPath.row];
         }  else if (indexPath.section == 3) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
-            if (indexPath.row == DETAIL_SR_SHIPPING_COST) {
-                [cell addSubview:shippingCost];
-            } else if (indexPath.row == DETAIL_SR_ZIPCODE) {
+            if (indexPath.row == DETAIL_SR_ZIPCODE) {
                 [cell addSubview:zipcode];
             } else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

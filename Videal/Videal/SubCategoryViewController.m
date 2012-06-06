@@ -147,16 +147,19 @@ static NSString* const ebay_url = @"https://api.sandbox.ebay.com/ws/api.dll";
     NSLog(@"%@", [dict description]);
     NSMutableArray *nextCategoryArray = [[[dict objectForKey:@"GetCategoriesResponse"] objectForKey:@"CategoryArray"] objectForKey:@"Category"];
     
+    
     for (int i = 0; i < [nextCategoryArray count]; i++) {
         NSDictionary *category = [nextCategoryArray objectAtIndex:i];
-        NSString *id = [category objectForKey:@"CategoryID"];
-        NSString *parentId = [category objectForKey:@"CategoryParentID"];
+        NSString *level = [category objectForKey:@"CategoryLevel"];
+        //NSString *parentId = [category objectForKey:@"CategoryParentID"];
         //NSLog(@"%@\t%@", id, parentId);
-        if ([id isEqualToString:parentId]) {
+        if ([level isEqualToString:[NSString stringWithFormat:@"%d", depth]]) {
             [nextCategoryArray removeObjectAtIndex:i];
         }
     }
     
+    
+    //[nextCategoryArray removeObjectAtIndex:0];
     SubCategoryViewController *view = [[SubCategoryViewController alloc] initWithStyle:UITableViewStyleGrouped andArray:nextCategoryArray];
     [view registerParentViewController:itemViewController withSelector:@selector(setCategory:)];
     [view setDepth:(depth + 1)];

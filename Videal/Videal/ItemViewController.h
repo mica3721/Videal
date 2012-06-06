@@ -16,11 +16,10 @@
 #define DETAIL_PAYPAL 3
 #define DETAIL_DURATION 4
 #define DETAIL_SR_SHIPPING 0
-#define DETAIL_SR_SHIPPING_COST 1
-#define DETAIL_SR_DISPATCH 2
-#define DETAIL_SR_ZIPCODE 3
-#define DETAIL_SR_RETURN 4
-#define DETAIL_SR_RETURN_SHIPPING 5
+#define DETAIL_SR_DISPATCH 1
+#define DETAIL_SR_ZIPCODE 2
+#define DETAIL_SR_RETURN 3
+#define DETAIL_SR_RETURN_SHIPPING 4
 
 @interface ItemViewController : UITableViewController<UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
@@ -53,7 +52,6 @@
     NSString *returnShippingCode;
     UITextField *paypal;
     UITextField *price;
-    UITextField *shippingCost;
     UITextField *zipcode;
     NSString *authKey;
     NSThread *uploadThread;

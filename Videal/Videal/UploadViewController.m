@@ -80,14 +80,14 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
     NSString *filename = [path lastPathComponent];
     
     // gather all the metadata needed for the mediaGroup
-    NSString *titleStr = @"TEST_TITLE_EUNMO";
+    NSString *titleStr = [NSString stringWithFormat:@"%@ (Video uploaded using Videal)", ebayItemDetails->title];
     GDataMediaTitle *title = [GDataMediaTitle textConstructWithString:titleStr];
     
     NSString *categoryStr = @"People";
     GDataMediaCategory *category = [GDataMediaCategory mediaCategoryWithString:categoryStr];
     [category setScheme:kGDataSchemeYouTubeCategory];
     
-    NSString *descStr = @"TEST_DESC";
+    NSString *descStr = ebayItemDetails->desc;
     GDataMediaDescription *desc = [GDataMediaDescription textConstructWithString:descStr];
     
     NSString *keywordsStr = @"";
@@ -295,7 +295,7 @@ didDismissWithButtonIndex:(NSInteger)buttonIndex
     NSDictionary *response = [dict objectForKey:@"AddItemResponse"];
     NSString *ack = [response objectForKey:@"Ack"];
     
-    if ([ack isEqualToString:@"Success"]) {
+    if ([ack isEqualToString:@"Success"] || [ack isEqualToString:@"Warning"]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Done" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     } else if ([ack isEqualToString:@"Failure"]) {
